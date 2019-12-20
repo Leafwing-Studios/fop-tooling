@@ -1,11 +1,29 @@
 const express = require('express');
 const path = require('path');
 const generatePassword = require('password-generator');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const logger = require('logger');
+const cors = require('cors');
 
 const app = express();
+const port = process.env.PORT || 5000;
+const dbRoute = process.env.MONGODB_URI || '';
+
+require('dotenv').config();
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+// db setup
+mongoose.connect(
+  dbRoute,
+  { useNewUrlParser: true }
+);
+
+let db = mongoose.connection;
+db.once('open', () => console.log("Connected to the database"));
+db.on('error', console.error.bind(console, "MongoDB connection error: "));
 
 // Put all API endpoints under '/api'
 app.get('/api/passwords', (req, res) => {
@@ -28,7 +46,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-const port = process.env.PORT || 5000;
 app.listen(port);
 
 console.log(`Password generator listening on ${port}`);
