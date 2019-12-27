@@ -46,4 +46,4 @@ app.get('*', (req, res) => {
 
 app.listen(port);
 
-console.log(`Password generator listening on ${port}`);
+console.log(`Server listening on ${port}`);
