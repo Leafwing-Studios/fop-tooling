@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-// const passport = require('passport');
 const router = require('express').Router();
+// const passport = require('passport');
 // const auth = require('../auth');
 const Rule = mongoose.model('Rule');
 
@@ -38,3 +38,5 @@ router.get('/', (req, res, next) => {
     res.send(rules);
   })
 });
+
+module.exports = router;

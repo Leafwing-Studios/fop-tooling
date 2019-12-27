@@ -6,16 +6,19 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
 
+require('dotenv').config();
+
 const app = express();
 const port = process.env.PORT || 5000;
-const dbRoute = process.env.MONGODB_URI || '';
-
-require('dotenv').config();
+const dbRoute = process.env.MONGODB_URI || 'NO DB ROUTE PROVIDED';
 
 // db setup
 mongoose.connect(
   dbRoute,
-  { useNewUrlParser: true }
+  { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
 );
 
 let db = mongoose.connection;
