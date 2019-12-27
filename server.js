@@ -34,22 +34,8 @@ app.use(express.static(path.join(__dirname, "client", "build"))); // for serving
 
 // models and routes
 require('./models/rule');
+require('./models/affix');
 app.use(require('./routes'));
-
-// Put all API endpoints under '/api'
-// app.get('/api/passwords', (req, res) => {
-//   const count = 5;
-// 
-//   // Generate some passwords
-//   const passwords = Array.from(Array(count).keys()).map(i =>
-//     generatePassword(12, false)
-//   )
-// 
-//   // Return them as json
-//   res.json(passwords);
-// 
-//   console.log(`Sent ${count} passwords`);
-// });
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
