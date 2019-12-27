@@ -35,6 +35,8 @@ app.use(express.static(path.join(__dirname, "client", "build"))); // for serving
 // models and routes
 require('./models/rule');
 require('./models/affix');
+require('./models/user');
+require('./config/passport');
 app.use(require('./routes'));
 
 // The "catchall" handler: for any request that doesn't

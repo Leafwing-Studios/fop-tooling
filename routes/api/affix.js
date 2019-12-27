@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
 // const passport = require('passport');
-// const auth = require('../auth');
+const auth = require('../auth');
 const Affix = mongoose.model('Affix');
 
 // POST new affix
-router.post('/', (req, res, next) => {
+router.post('/', auth.required, (req, res, next) => {
   const { body: { affix }} = req;
   
   const finalAffix = new Affix(affix);
@@ -15,7 +15,7 @@ router.post('/', (req, res, next) => {
 });
 
 // get all affixes
-router.get('/', (req, res, next) => {
+router.get('/', auth.optional, (req, res, next) => {
   Affix.find((err, affixes) => {
     if (err) console.error(err);
     res.send(affixes);

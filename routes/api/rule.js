@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
-// const passport = require('passport');
-// const auth = require('../auth');
+const auth = require('../auth');
 const Rule = mongoose.model('Rule');
 
 // POST new rule
-router.post('/', (req, res, next) => {
+router.post('/', auth.required, (req, res, next) => {
   const { body: { rule }} = req;
   
   const finalRule = new Rule(rule);
@@ -15,7 +14,7 @@ router.post('/', (req, res, next) => {
 });
 
 // get all rules
-router.get('/', (req, res, next) => {
+router.get('/', auth.optional, (req, res, next) => {
   Rule.find((err, rules) => {
     if (err) console.error(err);
     res.send(rules);
