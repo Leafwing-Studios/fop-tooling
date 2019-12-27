@@ -1,7 +1,7 @@
-#fop-server
+# fop-server
 The frontend and api for the fonts of power website.
 
-#Setup
+## Setup
 1. Download or clone the repo
 2. Install node.js
 3. Run `npm install`
