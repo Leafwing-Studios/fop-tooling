@@ -24,3 +24,8 @@ const auth = {
 };
 
 module.exports = auth;
+
+// module.exports = {type, requireAdmin};
+// const auth = require('../auth');
+// auth.type.required
+// auth.requireAdmin(param1, param2)

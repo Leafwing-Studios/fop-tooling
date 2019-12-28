@@ -8,14 +8,6 @@ const User = mongoose.model('User');
 router.post('/', auth.optional, (req, res, next) => {
   const { body: { user } } = req;
 
-  if(!user.email) {
-    return res.status(422).json({
-      errors: {
-        email: 'is required',
-      },
-    });
-  }
-
   if(!user.password) {
     return res.status(422).json({
       errors: {
@@ -29,6 +21,7 @@ router.post('/', auth.optional, (req, res, next) => {
   finalUser.setPassword(user.password);
 
   return finalUser.save()
+    .catch((err) => res.json(err))
     .then(() => res.json({ user: finalUser.toAuthJSON() }));
 });
 
