@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
-// const passport = require('passport');
 const auth = require('../auth');
 const Affix = mongoose.model('Affix');
 
