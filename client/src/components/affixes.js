@@ -7,21 +7,18 @@ import {
   useParams
 } from "react-router-dom";
 
-export default function About(){
+export default function Affixes(){
   let match = useRouteMatch();
 
   return (
     <div>
-      <h2>Topics</h2>
-
+      <h2>This is the affix page! It also has random links!</h2>
       <ul>
         <li>
-          <Link to={`${match.url}/components`}>Components</Link>
+          <Link to={`${match.url}/affix1`}>Affix 1</Link>
         </li>
         <li>
-          <Link to={`${match.url}/props-v-state`}>
-            Props v. State
-          </Link>
+          <Link to={`${match.url}/affix2`}>Affix 2</Link>
         </li>
       </ul>
 
@@ -34,7 +31,7 @@ export default function About(){
           <Topic />
         </Route>
         <Route path={match.path}>
-          <h3>Please select a topic.</h3>
+          <h3>Please select an affix.</h3>
         </Route>
       </Switch>
     </div>
@@ -43,5 +40,5 @@ export default function About(){
 
 function Topic() {
   let { topicId } = useParams();
-  return <h3>Requested topic ID: {topicId}</h3>;
+  return <h3>Requested affix ID: {topicId}</h3>;
 }

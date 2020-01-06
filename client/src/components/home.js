@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 
+import {
+  Typography,
+} from '@material-ui/core';
+
 export default function Home() {
-  return <h2>Home</h2>;
+  return (
+    <Typography paragraph>
+      Look ma! A website!
+    </Typography>
+  );
 }

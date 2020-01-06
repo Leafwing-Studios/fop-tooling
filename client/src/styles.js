@@ -50,6 +50,13 @@ const useStyles = makeStyles(theme => ({
       width: theme.spacing(9) + 1,
     },
   },
+  drawerIcon: {
+    paddingLeft: theme.spacing(1),
+  },
+  drawerLink: {
+    color: 'inherit',
+    textDecoration: 'inherit',
+  },
   toolbar: {
     display: 'flex',
     alignItems: 'center',
