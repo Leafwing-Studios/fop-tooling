@@ -43,7 +43,8 @@ export default function Frame() {
     <div className={classes.root}>
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, {
+        className={clsx({
+          [classes.appBar]: !open,
           [classes.appBarShift]: open
         })}
       >
