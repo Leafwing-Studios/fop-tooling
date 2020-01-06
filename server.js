@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const generatePassword = require('password-generator');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
@@ -15,7 +14,7 @@ const dbRoute = process.env.MONGODB_URI || 'NO DB ROUTE PROVIDED';
 // db setup
 mongoose.connect(
   dbRoute,
-  { 
+  {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
