@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import Home from '../components/home';
-import About from '../components/About';
+import About from '../components/about';
 import Users from '../components/users';
 
 export default function Base() {
