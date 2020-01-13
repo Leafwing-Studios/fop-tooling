@@ -1,11 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
+const infoPanelWidth = 480;
 
 const useStyles = () => {
   return makeStyles(theme => ({
     root: {
       display: 'flex',
+    },
+    gridRoot: {
+      flexGrow: 1,
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,

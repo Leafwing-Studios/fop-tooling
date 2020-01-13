@@ -4,9 +4,9 @@ import {
   Route,
 } from "react-router-dom";
 
-import Home from '../components/home';
-import Affixes from '../components/affixes';
-import Rules from '../components/rules';
+import Home from './home';
+import Affixes from './affixes';
+import Rules from './rules';
 
 export default function Base() {
   return (
