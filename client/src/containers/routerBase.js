@@ -7,8 +7,10 @@ import {
 import Home from './home';
 import Affixes from './affixes';
 import Rules from './rules';
+import Login from './login';
+import Settings from './settings';
 
-export default function Base() {
+export default function RouterBase() {
   return (
     <div>
       {/* A <Switch> looks through its children <Route>s and
@@ -19,6 +21,12 @@ export default function Base() {
         </Route>
         <Route path="/rules">
           <Rules />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/settings">
+          <Settings />
         </Route>
         <Route path="/">
           <Home />

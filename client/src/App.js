@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/styles';
 import DocumentTitle from 'react-document-title';
 
-import Frame from './containers/frame';
+import NavigationFrame from './containers/navigationFrame';
 
 export default class App extends Component {
   constructor() {
@@ -21,7 +21,7 @@ export default class App extends Component {
         <ThemeProvider theme={this.theme}>
           <CssBaseline/>
           <Router>
-            <Frame/>
+            <NavigationFrame/>
           </Router>
         </ThemeProvider>
       </DocumentTitle>

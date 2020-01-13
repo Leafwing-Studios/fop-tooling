@@ -23,10 +23,10 @@ import {
   Settings as SettingsIcon,
 } from '@material-ui/icons';
 
-import Base from './base';
+import RouterBase from './routerBase';
 import DrawerLink from '../components/drawerLink'
 
-export default function Frame() {
+export default function NavigationFrame() {
   const classes = useStyles()(); // what the fuck javascript
   const [open, setOpen] = React.useState(false);
 
@@ -110,7 +110,7 @@ export default function Frame() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Base />
+        <RouterBase />
       </main>
     </div>
   );

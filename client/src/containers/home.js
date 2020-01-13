@@ -7,7 +7,7 @@ import {
 export default function Home() {
   return (
     <Typography paragraph>
-      Look ma! A website!
+      Welcome to the official website for the Fonts of Power roleplaying system. Feel free to click around or whatever I'm not your dad. 
     </Typography>
   );
 }
