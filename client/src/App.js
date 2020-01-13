@@ -7,12 +7,10 @@ import {
   ThemeProvider,
 } from '@material-ui/core/styles';
 
-// import './App.css';
 import Frame from './containers/frame';
-import useStyles from './styles';
 
 export default function App () {
-  const theme = createMuiTheme(useStyles);
+  const theme = createMuiTheme({});
 
   return (
     <ThemeProvider theme={theme}>

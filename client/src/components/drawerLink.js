@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 export default function DrawerLink(props) {
-  const classes = useStyles();
+  const classes = useStyles()(); // what the fuck javascript 2 electric boogaloo 
 
   return (
     <Link to={props.routePath} className={classes.drawerLink}>

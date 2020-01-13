@@ -27,8 +27,7 @@ import Base from './base';
 import DrawerLink from '../components/drawerLink'
 
 export default function Frame() {
-  const classes = useStyles();
-  const theme = useTheme();
+  const classes = useStyles()(); // what the fuck javascript
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -80,7 +79,7 @@ export default function Frame() {
       >
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
+            {classes.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
               <ChevronLeftIcon />
