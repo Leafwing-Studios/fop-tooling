@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import TwoColumns from './twoColumns';
 import Lipsum from '../components/lipsum';
-import InfoPanel from './infoPanel';
 import RuleInfo from '../components/ruleInfo';
-import {Typography} from '@material-ui/core';
+import {
+  Typography,
+  IconButton,
+  Toolbar,
+} from '@material-ui/core';
+import {
+  Visibility as VisibilityIcon
+} from '@material-ui/icons'
 import {
   Link,
   withRouter,
@@ -13,13 +19,17 @@ import {
 class Rules extends Component {
   constructor() {
     super();
-    this.state = { rules: [] };
+    this.state = { rules: [], currentRule: null };
   }
 
   componentDidMount() {
     fetch('/api/rule/')
       .then(res => res.json())
       .then(rules => this.setState({rules}));
+  }
+
+  selectRule(rule) {
+    this.setState({currentRule: rule});
   }
 
   render() {
@@ -29,9 +39,12 @@ class Rules extends Component {
           <div>
             {this.state.rules.map(rule => (
               <div>
-                <Link to={`${this.props.match.url}/${rule._id}`}>
+                <Toolbar>
+                  <IconButton aria-label="view" onClick={() => (this.selectRule(rule))}>
+                    <VisibilityIcon />
+                  </IconButton>
                   <h2>{rule.title || "No Title Found"}</h2>
-                </Link>
+                </Toolbar>
                 <Typography>
                   {rule._id}
                 </Typography>
@@ -41,9 +54,7 @@ class Rules extends Component {
               </div>
             ))}
           </div>
-          <InfoPanel type='rule'>
-            <RuleInfo />
-          </InfoPanel>
+          <RuleInfo rule={this.state.currentRule} />
         </TwoColumns>
       </DocumentTitle>
     );

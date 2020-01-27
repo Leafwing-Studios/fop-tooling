@@ -10,26 +10,14 @@ import {
 class RuleInfo extends Component {
   constructor(props) {
       super(props);
-      // this.id = this.props.match.params.id;
-      this.state = {
-        id: this.props.match.params.id,
-      };
-  }
-
-  componentDidMount() {
-    this.getRule();
-  }
-
-  getRule = () => {
-    fetch(`/api/rule/${this.state.id}`)
-      .then(res => res.json())
-      .then(rule => this.setState({ rule }));
   }
 
   render() {
     return (
       <Typography paragraph>
-        {JSON.stringify(this.state.rule)}
+        {
+          this.props.rule ? JSON.stringify(this.props.rule) : "Select a rule to see more information about it"
+        }
       </Typography>
     );
   }
