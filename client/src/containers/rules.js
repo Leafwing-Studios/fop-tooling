@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
 import TwoColumns from './twoColumns';
 import Lipsum from '../components/lipsum';
+import RuleGrid from '../components/ruleGrid';
 import RuleInfo from '../components/ruleInfo';
 import InfoPanel from '../components/infoPanel';
 import {
@@ -38,22 +39,7 @@ class Rules extends Component {
       <DocumentTitle title='Rules'>
         <TwoColumns>
           <div>
-            {this.state.rules.map(rule => (
-              <div>
-                <Toolbar>
-                  <IconButton aria-label="view" onClick={() => (this.selectRule(rule))}>
-                    <VisibilityIcon />
-                  </IconButton>
-                  <h2>{rule.title || "No Title Found"}</h2>
-                </Toolbar>
-                <Typography>
-                  {rule._id}
-                </Typography>
-                <Typography>
-                  {rule.descShort}
-                </Typography>
-              </div>
-            ))}
+            <RuleGrid rules={this.state.rules} viewOnClick={(rule) => (() => (this.selectRule(rule)))}/>
           </div>
           <InfoPanel variant={this.state.currentRule} variantName="rule">
             <RuleInfo rule={this.state.currentRule} />
