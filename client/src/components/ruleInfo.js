@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import DocumentTitle from 'react-document-title';
-import {
-  withRouter,
-} from "react-router-dom";
 import {
   Typography,
 } from '@material-ui/core';
 
-class RuleInfo extends Component {
+export default class RuleInfo extends Component {
   constructor(props) {
       super(props);
   }
@@ -16,11 +12,9 @@ class RuleInfo extends Component {
     return (
       <Typography paragraph>
         {
-          this.props.rule ? JSON.stringify(this.props.rule) : "Select a rule to see more information about it"
+          JSON.stringify(this.props.rule)
         }
       </Typography>
     );
   }
 }
-
-export default withRouter(RuleInfo);

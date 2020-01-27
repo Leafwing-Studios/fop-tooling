@@ -3,6 +3,7 @@ import DocumentTitle from 'react-document-title';
 import TwoColumns from './twoColumns';
 import Lipsum from '../components/lipsum';
 import RuleInfo from '../components/ruleInfo';
+import InfoPanel from '../components/infoPanel';
 import {
   Typography,
   IconButton,
@@ -54,7 +55,9 @@ class Rules extends Component {
               </div>
             ))}
           </div>
-          <RuleInfo rule={this.state.currentRule} />
+          <InfoPanel variant={this.state.currentRule} variantName="rule">
+            <RuleInfo rule={this.state.currentRule} />
+          </InfoPanel>
         </TwoColumns>
       </DocumentTitle>
     );
