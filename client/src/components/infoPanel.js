@@ -18,7 +18,7 @@ export default class InfoPanel extends Component {
     } else {
       return (
         <Container>
-          <h3><i>Click the eyeball icon next to a {this.props.variantName} to see details about it.</i></h3>
+          <h3><i>Click {this.props.variantName} to see details about it.</i></h3>
         </Container>
       );
     }

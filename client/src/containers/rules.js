@@ -7,18 +7,9 @@ import RuleInfo from '../components/ruleInfo';
 import InfoPanel from '../components/infoPanel';
 import {
   Typography,
-  IconButton,
-  Toolbar,
 } from '@material-ui/core';
-import {
-  Visibility as VisibilityIcon
-} from '@material-ui/icons'
-import {
-  Link,
-  withRouter,
-} from "react-router-dom";
 
-class Rules extends Component {
+export default class Rules extends Component {
   constructor() {
     super();
     this.state = { rules: [], currentRule: null };
@@ -39,9 +30,9 @@ class Rules extends Component {
       <DocumentTitle title='Rules'>
         <TwoColumns>
           <div>
-            <RuleGrid rules={this.state.rules} viewOnClick={(rule) => (() => (this.selectRule(rule)))}/>
+            <RuleGrid rules={this.state.rules} viewOnClick={(ev, rule) => (this.selectRule(rule))}/>
           </div>
-          <InfoPanel variant={this.state.currentRule} variantName="rule">
+          <InfoPanel variant={this.state.currentRule} variantName="a rule">
             <RuleInfo rule={this.state.currentRule} />
           </InfoPanel>
         </TwoColumns>
@@ -49,5 +40,3 @@ class Rules extends Component {
     );
   }
 }
-
-export default withRouter(Rules);

@@ -1,47 +1,42 @@
 import React, { Component } from 'react';
-import {
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
 import DocumentTitle from 'react-document-title';
+import TwoColumns from './twoColumns';
+import Lipsum from '../components/lipsum';
+import AffixGrid from '../components/affixGrid';
+import RuleInfo from '../components/ruleInfo';
+import InfoPanel from '../components/infoPanel';
+import {
+  Typography,
+} from '@material-ui/core';
 
-export default function Affixes(){
-  let match = useRouteMatch();
+export default class Rules extends Component {
+  constructor() {
+    super();
+    this.state = { affixes: [], currentAffix: null };
+  }
 
-  return (
-    <DocumentTitle title='Affixes'>
-      <div>
-        <h2>This is the affix page! It also has random links!</h2>
-        <ul>
-          <li>
-            <Link to={`${match.url}/affix1`}>Affix 1</Link>
-          </li>
-          <li>
-            <Link to={`${match.url}/affix2`}>Affix 2</Link>
-          </li>
-        </ul>
+  componentDidMount() {
+    fetch('/api/affix/')
+      .then(res => res.json())
+      .then(affixes => this.setState({affixes}));
+  }
 
-        {/* The Topics page has its own <Switch> with more routes
-            that build on the /topics URL path. You can think of the
-            2nd <Route> here as an "index" page for all topics, or
-            the page that is shown when no topic is selected */}
-        <Switch>
-          <Route path={`${match.path}/:topicId`}>
-            <Topic />
-          </Route>
-          <Route path={match.path}>
-            <h3>Please select an affix.</h3>
-          </Route>
-        </Switch>
-      </div>
-    </DocumentTitle>
-  );
-}
+  selectAffix(affix) {
+    this.setState({currentAffix: affix});
+  }
 
-function Topic() {
-  let { topicId } = useParams();
-  return <h3>Requested affix ID: {topicId}</h3>;
+  render() {
+    return (
+      <DocumentTitle title='Affixes'>
+        <TwoColumns>
+          <div>
+            <AffixGrid rules={this.state.affixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))}/>
+          </div>
+          <InfoPanel variant={this.state.currentAffix} variantName="an affix">
+            <RuleInfo rule={this.state.currentAffix} />
+          </InfoPanel>
+        </TwoColumns>
+      </DocumentTitle>
+    );
+  }
 }
