@@ -28,7 +28,7 @@ router.post('/:id', auth.required, (req, res) => {
   });
 });
 
-// delete single rule
+// delete single affix
 router.delete('/:id', auth.required, (req, res) => {
   Affix.findByIdAndDelete(req.params.id, {useFindAndModify: false}, (err, deletedObject) => {
     if (err) return res.status(500).send(err);
