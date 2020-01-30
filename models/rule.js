@@ -10,6 +10,17 @@ let RuleSchema = Schema({
     enum: ['core:phb', 'core:animism', 'core:ws'],
     required: true,
   },
+  categories: {
+    type: [String],
+    enum: [
+      'Condition',
+      'Resource',
+      'Skill Talent',
+      'Combat Talent',
+      'Skill',
+      'Other',
+    ],
+  }
 });
 
 module.exports = mongoose.model('Rule', RuleSchema);
