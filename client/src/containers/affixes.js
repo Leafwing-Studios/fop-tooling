@@ -3,7 +3,7 @@ import DocumentTitle from 'react-document-title';
 import TwoColumns from './twoColumns';
 import Lipsum from '../components/lipsum';
 import AffixGrid from '../components/affixGrid';
-import RuleInfo from '../components/ruleInfo';
+import AffixInfo from '../components/affixInfo';
 import InfoPanel from '../components/infoPanel';
 import {
   Typography,
@@ -33,7 +33,7 @@ export default class Rules extends Component {
             <AffixGrid rules={this.state.affixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))}/>
           </div>
           <InfoPanel variant={this.state.currentAffix} variantName="an affix">
-            <RuleInfo rule={this.state.currentAffix} />
+            <AffixInfo affix={this.state.currentAffix} />
           </InfoPanel>
         </TwoColumns>
       </DocumentTitle>
