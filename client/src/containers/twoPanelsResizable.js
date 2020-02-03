@@ -21,7 +21,7 @@ const drawerWidth = 300;
 const minWidth = 200;
 const maxWidth = 1500;
 
-class ResponsiveDrawer extends Component {
+class TwoPanelsResizable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,11 +71,14 @@ class ResponsiveDrawer extends Component {
           userSelect: this.state.isResizing ? 'none' : 'default', // prevents weird text highlighting stuff while resizing 
         }}
       >
-        <div> {/* needed so the root flex is overridden and we can lay out our pages like normal */}
-          {this.props.children}
-        </div>
+      
+        {
+          // left panel stuff: "main content"
+          this.props.children[0]
+        }
+        
         <Drawer
-          variant="persistent"
+          variant="permanent"
           open
           style={{
             // important to set the width on both the drawer and the paper here so the rest of the page knows how to resize itself
@@ -89,7 +92,9 @@ class ResponsiveDrawer extends Component {
             padding: 25,
           }}}
         >
-          <div style={{padding: "32px"}} />
+          {/* this is to make sure that this doesn't overlap with the nav bar. We will make a better way to do this eventually (see toolbar class on navigationFrame) */}
+          <div style={{padding: "32px"}} /> 
+          
           <div 
             id="dragger"
             onMouseDown={event => {
@@ -109,11 +114,11 @@ class ResponsiveDrawer extends Component {
           >
           </div>
           {/* <TextField id="changeDrawerWidthEasy" label="Drawer Width" onChange={(event) => this.updateCurrentWidth(event)} /> */}
-          <Lipsum />
+          {this.props.children[1]}
         </Drawer>
       </div>
     );
   }
 }
 
-export default ResponsiveDrawer;
+export default TwoPanelsResizable;
