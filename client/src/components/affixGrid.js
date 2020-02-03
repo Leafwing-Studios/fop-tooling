@@ -16,10 +16,10 @@ import {
   Visibility as VisibilityIcon
 } from '@material-ui/icons'
 import MaterialTable from 'material-table';
-import {MTableCell} from 'material-table';
+import { MTableCell } from 'material-table';
 import SlotIcon from './slotIcon';
 
-function customCell(props) {
+function CustomCell(props) {
   if (props.columnDef.type === 'slotIcon')
     // for some reason, the bottom divider is always 1 pixel too high. i have no idea why
     return (
@@ -63,7 +63,7 @@ export default function RuleGrid(props) {
       isLoading={props.affixes.length === 0}
       onRowClick={props.viewOnClick}
       components={{
-        // Cell: customCell
+        // Cell: CustomCell
       }}
       options={{
         sorting: true,
