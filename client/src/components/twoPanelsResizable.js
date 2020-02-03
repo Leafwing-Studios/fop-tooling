@@ -113,7 +113,7 @@ class TwoPanelsResizable extends Component {
             }}
           >
           </div>
-          {/* <TextField id="changeDrawerWidthEasy" label="Drawer Width" onChange={(event) => this.updateCurrentWidth(event)} /> */}
+          {/*<TextField id="changeDrawerWidthEasy" label="Drawer Width" onChange={(event) => this.updateCurrentWidth(event)} />*/}
           {this.props.children[1]}
         </Drawer>
       </div>

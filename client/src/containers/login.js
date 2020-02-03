@@ -3,7 +3,7 @@ import {
   Typography,
   Drawer,
 } from '@material-ui/core';
-import TwoPanelsResizable from './twoPanelsResizable';
+import TwoPanelsResizable from '../components/twoPanelsResizable';
 import Lipsum from '../components/lipsum';
 
 export default function Login() {
