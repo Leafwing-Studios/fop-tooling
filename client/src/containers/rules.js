@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
-import TwoColumns from './twoColumns';
+import TwoPanelsResizable from '../components/twoPanelsResizable';
 import Lipsum from '../components/lipsum';
 import RuleGrid from '../components/ruleGrid';
 import RuleInfo from '../components/ruleInfo';
@@ -28,14 +28,14 @@ export default class Rules extends Component {
   render() {
     return (
       <DocumentTitle title='Rules'>
-        <TwoColumns>
+        <TwoPanelsResizable>
           <div>
             <RuleGrid rules={this.state.rules} viewOnClick={(ev, rule) => (this.selectRule(rule))}/>
           </div>
           <InfoPanel variant={this.state.currentRule} variantName="a rule">
             <RuleInfo rule={this.state.currentRule} />
           </InfoPanel>
-        </TwoColumns>
+        </TwoPanelsResizable>
       </DocumentTitle>
     );
   }

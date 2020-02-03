@@ -26,7 +26,7 @@ export default class RuleInfo extends Component {
             {`Source: ${this.props.rule.source}`}
           </Typography>
           <Typography gutterBottom>
-            {`Categories: ${this.buildCategories(this.props.rule.categories)}`}
+            {`Categories: ${this.buildList(this.props.rule.categories)}`}
           </Typography >
           <Typography paragraph>
             {this.props.rule.descLong}

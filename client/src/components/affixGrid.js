@@ -22,13 +22,16 @@ export default function RuleGrid(props) {
       title="Rules"
       columns={[
         { title: 'Name', field: 'name' },
-        { title: 'Source', field: 'source' },
+        { title: 'Slot', field: 'slot' },
         { title: 'Cost', field: 'cost', type: 'numerical' },
-        { title: 'Max Replicates', field: 'maxReplicates', type: 'numerical' },
         { title: 'Type', field: 'affixType' },
+        { title: 'Elements', field: 'elements' },
+        { title: 'Categories', field: 'categories' },
+        { title: 'Prerequisites', field: 'prerequisites' },
         { title: 'Short Description', field: 'descShort' },
       ]}
-      data={props.rules}
+      data={props.affixes}
+      isLoading={props.affixes.length === 0}
       onRowClick={props.viewOnClick}
       options={{
         sorting: true,

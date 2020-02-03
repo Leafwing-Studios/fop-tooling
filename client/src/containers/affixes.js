@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
-import TwoColumns from './twoColumns';
+import TwoPanelsResizable from '../components/twoPanelsResizable';
 import Lipsum from '../components/lipsum';
 import AffixGrid from '../components/affixGrid';
 import AffixInfo from '../components/affixInfo';
@@ -28,14 +28,14 @@ export default class Rules extends Component {
   render() {
     return (
       <DocumentTitle title='Affixes'>
-        <TwoColumns>
+        <TwoPanelsResizable>
           <div>
-            <AffixGrid rules={this.state.affixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))}/>
+            <AffixGrid affixes={this.state.affixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))}/>
           </div>
           <InfoPanel variant={this.state.currentAffix} variantName="an affix">
             <AffixInfo affix={this.state.currentAffix} />
           </InfoPanel>
-        </TwoColumns>
+        </TwoPanelsResizable>
       </DocumentTitle>
     );
   }

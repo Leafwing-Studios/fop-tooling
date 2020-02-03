@@ -22,11 +22,11 @@ export default function RuleGrid(props) {
       title="Rules"
       columns={[
         { title: 'Name', field: 'name' },
-        { title: 'Source', field: 'source' },
         { title: 'Short Description', field: 'descShort' },
       ]}
       data={props.rules}
       onRowClick={props.viewOnClick}
+      isLoading={props.rules.length === 0}
       options={{
         sorting: true,
         padding: 'dense',
