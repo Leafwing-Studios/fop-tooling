@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Typography,
   Drawer,
+  TextField,
   IconButton,
 } from '@material-ui/core';
 import {
@@ -17,36 +18,97 @@ import {
 import Lipsum from '../components/lipsum';
 
 const drawerWidth = 300;
+const minWidth = 200;
+const maxWidth = 1500;
 
 class ResponsiveDrawer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isResizing: false,
-      lastDownX: 0,
-      currentWidth: 600,
+      currentWidth: 650,
     }
+    
+    this.handleMousedown = e => {
+      this.setState({ isResizing: true });
+    };
+  
+    this.handleMousemove = e => {
+      // we don't want to do anything if we aren't resizing.
+      if (!this.state.isResizing) {
+        return;
+      }
+  
+      const newWidth = document.body.offsetWidth - e.clientX;
+      if (newWidth > minWidth && newWidth < maxWidth) {
+        this.setState({ currentWidth: newWidth });
+      }
+    };
+  
+    this.handleMouseup = e => {
+      this.setState({ isResizing: false });
+    };
+  }
+  
+  componentDidMount() {
+    document.addEventListener('mousemove', e => this.handleMousemove(e));
+    document.addEventListener('mouseup', e => this.handleMouseup(e));
+  }
+  
+  updateCurrentWidth(event) {
+    // for the debug text box. don't use this for anything else
+    this.setState({
+      currentWidth: event.target.value
+    });
   }
   
   render() {
     return (
-      <div>
+      <div
+        style={{
+          // get drawer and other page stuff side by side
+          display: 'flex',
+          userSelect: this.state.isResizing ? 'none' : 'default', // prevents weird text highlighting stuff while resizing 
+        }}
+      >
+        <div> {/* needed so the root flex is overridden and we can lay out our pages like normal */}
+          {this.props.children}
+        </div>
         <Drawer
-          variant="permanent"
+          variant="persistent"
           open
-          anchor={'right'}
+          style={{
+            // important to set the width on both the drawer and the paper here so the rest of the page knows how to resize itself
+            flexShrink: 0,
+            width: `${this.state.currentWidth}px`,
+          }}
+          anchor='right'
           PaperProps={{ style: {
-            width: this.state.currentWidth,
+            width: `${this.state.currentWidth}px`,
             zIndex: 20,
-            flexGrow: 1,
-            padding: 10,
+            padding: 25,
           }}}
         >
-          <div style={{padding: "10px"}}>
-            <IconButton>
-              <ChevronRightIcon />
-            </IconButton>
+          <div style={{padding: "32px"}} />
+          <div 
+            id="dragger"
+            onMouseDown={event => {
+              this.handleMousedown(event);
+            }}
+            style={{
+              width: '5px',
+              cursor: 'ew-resize',
+              zIndex: '100',
+              border: '1px solid #ddd',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              backgroundColor: '#eeeeee',
+            }}
+          >
           </div>
+          {/* <TextField id="changeDrawerWidthEasy" label="Drawer Width" onChange={(event) => this.updateCurrentWidth(event)} /> */}
           <Lipsum />
         </Drawer>
       </div>

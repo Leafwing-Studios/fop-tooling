@@ -10,10 +10,12 @@ import Lipsum from '../components/lipsum';
 export default function Login() {
   return (
     <div>
-      <ResponsiveDrawer />
-      <Typography paragraph>
-        <i>Hacker voice</i> I'm in.
-      </Typography>
+      <ResponsiveDrawer>
+        <Typography paragraph>
+          <i>Hacker voice</i> I'm in.
+        </Typography>
+        <Lipsum />
+      </ResponsiveDrawer>
     </div>
   );
 }
