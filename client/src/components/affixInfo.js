@@ -6,10 +6,7 @@ import {
   Tooltip,
   SvgIcon,
 } from '@material-ui/core';
-import ArmsIcon from './icons/armsIcon';
-import ArmorIcon from './icons/armorIcon';
-import TrinketIcon from './icons/trinketIcon';
-import ConsumableIcon from './icons/consumableIcon';
+import SlotIcon from './slotIcon';
   
 export default class AffixInfo extends Component {
   constructor(props) {
@@ -28,22 +25,6 @@ export default class AffixInfo extends Component {
       </Typography>
     );
   }
-  
-  getSlotIcon() {
-    if (this.props.affix.slot === 'Arms') 
-    return (
-      <ArmsIcon titleText="Arms" />
-    );
-    if (this.props.affix.slot === 'Armor') return (
-      <ArmorIcon titleText="Armor" />
-    );
-    if (this.props.affix.slot === 'Trinket') return (
-      <TrinketIcon titleText="Trinket" />
-    );
-    if (this.props.affix.slot === 'Consumable') return (
-      <ConsumableIcon titleText="Consumable" />
-    );
-  }
 
   render() {
     return (
@@ -55,9 +36,7 @@ export default class AffixInfo extends Component {
             </Typography>
           </Grid>
           <Grid item justify="flex-end">
-            {
-              this.getSlotIcon()
-            }
+            <SlotIcon slot={this.props.affix.slot}/>
           </Grid>
         </Grid>
         <Divider />
