@@ -9,6 +9,7 @@ import {
   TableRow,
   Paper,
   IconButton,
+  Typography, 
 } from '@material-ui/core';
 import {
   Visibility as VisibilityIcon
@@ -22,6 +23,7 @@ export default function RuleGrid(props) {
       title="Rules"
       columns={[
         { title: 'Name', field: 'name' },
+        { title: 'Type', field: 'formattedCategories', type: 'categories' },
         { title: 'Short Description', field: 'descShort' },
       ]}
       data={props.rules}
