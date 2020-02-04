@@ -28,7 +28,7 @@ export default function RuleGrid(props) {
       ]}
       data={props.rules}
       onRowClick={props.viewOnClick}
-      isLoading={props.rules.length === 0}
+      isLoading={props.isLoading}
       options={{
         sorting: true,
         padding: 'dense',
