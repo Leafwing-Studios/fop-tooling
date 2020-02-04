@@ -56,11 +56,12 @@ export default class Rules extends Component {
       (filters.categories.length === 0 ? true : rule.categories.some(category => filters.categories.includes(category)))
     ))
     
-    // update uniqueCategories to reflect the changed data
+    const uniqueCategories = filteredRules.map(rule => rule.categories).flat().filter(onlyUnique).sort();
     
     this.setState({
-      filters: filters,
-      filteredRules: filteredRules,
+      filters,
+      filteredRules,
+      uniqueCategories
     });
   }
 
