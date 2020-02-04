@@ -11,7 +11,10 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core';
-import onlyUnique from '../utils/onlyUnique';
+import {
+  onlyUnique,
+  stringContains,
+} from '../utils';
 
 export default class Rules extends Component {
   constructor() {
@@ -48,8 +51,8 @@ export default class Rules extends Component {
     const filters = {...oldFilters, ...newFilters}; // yknow, i'm starting to like this es7 mixing stuff
     
     const filteredRules = this.state.allRules.filter((rule) => (
-      rule.name.toLowerCase().includes(filters.name.toLowerCase()) && 
-      rule.descShort.toLowerCase().includes(filters.description.toLowerCase()) &&
+      stringContains(rule.name, filters.name) &&
+      stringContains(rule.descShort, filters.description) &&
       (filters.categories.length === 0 ? true : rule.categories.some(category => filters.categories.includes(category)))
     ))
     
@@ -69,18 +72,18 @@ export default class Rules extends Component {
     return (
       <DocumentTitle title='Rules'>
         <TwoPanelsResizable>
-          <div>
-            <RuleFilters onChange={(filters) => this.updateFilters(filters)} uniqueCategories={this.state.uniqueCategories} />
-            <Spacer height={25}/> 
-            {/* debug
-            <Typography>
-              {JSON.stringify(this.state.filters)}
-            </Typography>
-            <Typography>
-              {JSON.stringify(this.state.filteredRules)}
-            </Typography>
-            */}
-            <RuleGrid rules={this.state.filteredRules} viewOnClick={(ev, rule) => (this.selectRule(rule))} isLoading={this.state.allRules.length === 0}/>
+          <div style={{flexGrow: 1}}>
+              <RuleFilters onChange={(filters) => this.updateFilters(filters)} uniqueCategories={this.state.uniqueCategories} />
+              <Spacer height={25}/> 
+              {/* debug
+              <Typography>
+                {JSON.stringify(this.state.filters)}
+              </Typography>
+              <Typography>
+                {JSON.stringify(this.state.filteredRules)}
+              </Typography>
+              */}
+              <RuleGrid rules={this.state.filteredRules} viewOnClick={(ev, rule) => (this.selectRule(rule))} isLoading={this.state.allRules.length === 0}/>
           </div>
           <InfoPanel variant={this.state.selectedRule} variantName="a rule">
             <RuleInfo rule={this.state.selectedRule} />
