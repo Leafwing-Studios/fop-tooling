@@ -54,9 +54,9 @@ export default function RuleGrid(props) {
         },
         { title: 'Cost', field: 'cost', type: 'numerical' },
         { title: 'Type', field: 'affixType' },
-        { title: 'Elements', field: 'elements' },
-        { title: 'Categories', field: 'categories' },
-        { title: 'Prerequisites', field: 'prerequisites' },
+        { title: 'Elements', field: 'formattedElements' },
+        { title: 'Categories', field: 'formattedCategories' },
+        // { title: 'Prerequisites', field: 'prerequisites' }, // i don't think we really need this
         { title: 'Short Description', field: 'descShort' },
       ]}
       data={props.affixes}

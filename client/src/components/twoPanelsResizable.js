@@ -17,7 +17,6 @@ import {
 } from '@material-ui/icons';
 import Lipsum from '../components/lipsum';
 
-const drawerWidth = 300;
 const minWidth = 200;
 const maxWidth = 1500;
 
@@ -26,7 +25,7 @@ class TwoPanelsResizable extends Component {
     super(props);
     this.state = {
       isResizing: false,
-      currentWidth: 650,
+      currentWidth: props.startingWidth || 650,
     }
     
     this.handleMousedown = e => {

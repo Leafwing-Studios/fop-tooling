@@ -56,12 +56,9 @@ export default class Rules extends Component {
       (filters.categories.length === 0 ? true : rule.categories.some(category => filters.categories.includes(category)))
     ))
     
-    const uniqueCategories = filteredRules.map(rule => rule.categories).flat().filter(onlyUnique).sort();
-    
     this.setState({
       filters,
       filteredRules,
-      uniqueCategories
     });
   }
 
