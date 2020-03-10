@@ -3,11 +3,11 @@ const sources = [
 ];
 
 const affixTags = [
-  'Combat Talent',
-  'Skill Talent',
+  'combat talent',
+  'skill talent',
 ];
 
 const ruleTags = [
-  'Combat',
-  'Skill'
+  'combat',
+  'skill'
 ];
