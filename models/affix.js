@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let AffixSchema = Schema({
-  name: {type: String, required: true},
+  name: {
+    type: String,
+    required: true,
+  },
   descShort: {type: String, required: true},
   descLong: {type: String, required: true},
   source: {
@@ -56,5 +59,9 @@ let AffixSchema = Schema({
     ],
   }
 });
+
+AffixSchema.index({ source: 1, name: 1 }, { unique: true });
+
+AffixSchema.on('index', (err) => console.log(err.message));
 
 module.exports = mongoose.model('Affix', AffixSchema);
