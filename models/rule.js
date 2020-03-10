@@ -1,3 +1,4 @@
+const common = require('./common');
 const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
@@ -6,20 +7,13 @@ let RuleSchema = Schema({
   descShort: {type: String, required: true},
   descLong: {type: String, required: true},
   source: {
-    type: String, 
-    enum: ['core:phb', 'core:animism', 'core:ws'],
+    type: String,
+    enum: common.sources,
     required: true,
   },
-  categories: {
+  tags: {
     type: [String],
-    enum: [
-      'Condition',
-      'Resource',
-      'Skill Talent',
-      'Combat Talent',
-      'Skill',
-      'Other',
-    ],
+    enum: common.ruleTags,
   }
 });
 
