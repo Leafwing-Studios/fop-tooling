@@ -1,0 +1,33 @@
+Name,Slot,Cost,Type,Elements,Prerequisites,Max Replicates,Double-Edged,Short,Description,Tags
+hale,armor,2,mundane,"primal, earth",,2,No,Your max life is higher.,Your maximum life is increased by half of your typical maximum life.,life
+pain immunity,armor,2,mundane,specified,,1,No,You are immune to afflictions.,You are immune to damage from afflictions.,
+physical resistance,armor,2,mundane,"earth, umbral, air",,1,No,You are resistant to physical damage.,Gain resistance to physical damage.,
+razorback,armor,2,mundane,,,1,No,You are immune to critical hits.,Critical hits do not have any special effect against you.,critical
+absorptive,armor,1,mundane,"earth, arcane",,0,No,Gain absorption passively.,"At the start of each of your turns, gain 2 absorption.",absorption
+concentration,armor,1,mundane,"arcane, radiant, umbral",,1,No,It is easier to maintain your concentration.,You have advantage on all Endurance skill checks made to maintain your concentration.,concentration
+conditional immunity,armor,1,mundane,specified,,0,No,You are immune to the specified condition.,You are immune to the specified condition.,
+cruel armor,armor,1,mundane,specified,,0,No,Apply afflictions when you are struck by a basic attack.,"Whenever you are hit by a basic attack, apply two stacks of the specified affliction to the creature that hit you.",
+cruel ward,armor,1,mundane,specified,,0,No,Apply afflictions when you are struck by a special attack.,"Whenever you are hit by a special attack, apply two stacks of the specified affliction to the creature that hit you.",
+fast,armor,1,mundane,"air, electric",,0,No,Your movement speed is increased by 10 feet.,Your movement speed is increased by 10 feet.,movement
+guarded,armor,1,mundane,,,1,No,Critical hits only deal extra damage to you.,Critical hits only deal extra damage to you.,
+imbued armor,armor,1,mundane,specified,,0,No,Apply conditions when you are struck by a basic attack.,"Whenever you are hit by a basic attack, make a special atttack against the specified special defense. If you hit, apply one stack of the specified condition to the creature that hit you. ",
+imbued ward,armor,1,mundane,specified,,0,No,Apply conditions when you are struck by a special attack.,"Whenever you are hit by a special attack, make a special atttack against the specified special defense. If you hit, apply one stack of the specified condition to the creature that hit you. ",
+immunity,armor,1,mundane,specified,,0,No,You are immune to the specified elemental damage type.,You are immune to the specified damage type. The damage type selected cannot be physical.,
+pathfinding,armor,1,mundane,primal,,1,No,Ignore the effects of difficult terrain.,Ignore the effects of difficult terrain.,
+protective,armor,1,mundane,,,1,No,Critical hits do not deal extra damage to you.,Critical hits do not deal extra damage to you.,
+slippery,armor,1,mundane,corrosion,,1,Yes,You are harder to Grapple.,Grapple and Shove attacks against you have disadvantage. You have advantage on skillchecks made to escape grapples or Resist forced movement.,
+spiked,armor,1,mundane,,,1,No,Damage those you are grappling or grappled by.,"While you are grappling or grappled by a creature, deal 1d4 physical damage to them at the end of each of the grappler's turns.",
+clandestine,armor,1,mundane,umbral,,1,No,You can Hide more easily.,You may attempt to Hide while only obscured by a single effect. You have advantage on all Stealth skill checks made to move silently.,
+camouflage,armor,0.5,mundane,"primal, umbral",,1,No,You are prepared to hide.,Gain advantage on all Stealth checks to be seen while in the specified environment.,
+heavy armor,armor,0.5,mundane,,,2,Yes,You basic defense is higher at the expense of your movement speed.,"Your basic defense is increased by 2, but your movement speed is decreased by a further 5 feet.",
+resistance,armor,0.5,mundane,specified,,0,No,You are resistant to an elemental damage type.,You are resistant to the specified damage type. The damage type selected cannot be physical.,
+sturdy,armor,0.5,mundane,earth,,1,No,You are harder to Shove or Expose.,Shove and Expose attacks against you have disadvantage.,
+thick armor,armor,0.5,mundane,,,5,No,Your basic defense is higher.,Your basic defense is increased by 1.,
+warding,armor,0.5,mundane,,,0,No,You are harder to affect with a certain type of special attack.,You are trained in the specified special defense.,
+distinctive appearance,armor,0,mundane,,,1,No,This armor has a distinctive appearance.,This armor has a distinctive appearance. Gain advantage on relevant Charisma and Guidance skill checks but disadvantage on any attempts to conceal your identity or blend into a crowd.,
+thin armor,armor,-0.5,mundane,,,2,No,Your basic defense is lower.,Your basic defense is decreased by 1.,
+slow,armor,-1,mundane,earth,,0,No,Your movement speed is decreased by 10 feet.,Your movement speed is decreased by 10 feet.,movement
+uncomfortable,armor,-1,mundane,,,1,No,You get exhauseted easily.,You have disadvantage on all skill checks to avoid exhaustion.,
+vulnerability,armor,-1,mundane,specified,"!resistance, !immunity",0,No,You are vulnerable to an elemental damage type.,You are vulnerable to the specified damage type. The damage type selected cannot be physical.,
+frail,armor,-2,mundane,"corrosion, decay",,2,No,Your max life is lower.,Your maximum life is reduced by half of your typical maximum life.,life
+physical vulnerability,armor,-2,mundane,,,1,No,You are vulnerable to physical damage.,You are vulnerable to physical damage.,

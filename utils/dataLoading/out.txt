@@ -1,0 +1,308 @@
+{
+	"affixes": [
+		{
+			"name": "healing",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "mundane",
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 0,
+			"descShort": "Regain life.",
+			"descLong": "Restore 10 life, modified by the result of your Focus (Medicine) skill check.",
+			"tags": [
+			]
+		},
+		{
+			"name": "prophylaxis",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "advanced",
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "Gain temporary immunity to a condition.",
+			"descLong": "Until the end of your next rest, gain immunity to a specified condition.",
+			"tags": [
+			]
+		},
+		{
+			"name": "fleeting immunity",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "advanced",
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "Gain temporary immunity to a damage type.",
+			"descLong": "Until the end of your next rest, gain immunity to the specified damage type (other than physical).",
+			"tags": [
+			]
+		},
+		{
+			"name": "fleeting conversion",
+			"slot": "consumable",
+			"cost": 1,
+			"source": "official:core",
+			"affixType": "advanced",
+			"elements": [
+				"specified"
+			],
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 1,
+			"descShort": "The damage type of your basic attacks is temporarily changed.",
+			"descLong": "Until the end of your next rest, your basic attacks deal the specified damage type instead.",
+			"tags": [
+			]
+		},
+		{
+			"name": "fleeting penetration",
+			"slot": "consumable",
+			"cost": 1,
+			"source": "official:core",
+			"affixType": "advanced",
+			"elements": [
+				"specified"
+			],
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "Temporarily ignore resistance to a damage type.",
+			"descLong": "Until the end of your next rest, ignore resistance to the specified element.",
+			"tags": [
+			]
+		},
+		{
+			"name": "fleeting obliteration",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "advanced",
+			"elements": [
+				"specified"
+			],
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "Temporarily ignore resistance and immunity to a damage type.",
+			"descLong": "Until the end of your next rest, ignore resistance and immunity to the specified element.",
+			"tags": [
+			]
+		},
+		{
+			"name": "applicative",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "mundane",
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 0,
+			"descShort": "Apply this consumable when you Treat creatures.",
+			"descLong": "You may now apply this consumable's effect to a willing creature when you use the Treat major action on them. This is treated as if they had used a consumable item themselves for the sake of suffering from essence overload.",
+			"tags": [
+			]
+		},
+		{
+			"name": "distant",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "mundane",
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 0,
+			"descShort": "Apply this consumable from range.",
+			"descLong": "You may now apply this consumable's effect to a willing creature within 30 feet. This is treated as if they had used a consumable item themselves for the sake of suffering from essenceoverload.",
+			"tags": [
+			]
+		},
+		{
+			"name": "explosion",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "mundane",
+			"elements": [
+				"specified"
+			],
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "Deal damage in a 10 foot radius.",
+			"descLong": "Make an Agility attack against all creatures in a 10 foot radius centered around a tile of your choice within 30 feet. If you hit, deal 3d6 damage of the specifed type, and half as much to those you miss.",
+			"tags": [
+			]
+		},
+		{
+			"name": "cruel explosion",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "mundane",
+			"elements": [
+				"specified"
+			],
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "Apply afflicitons in a 10 foot radius.",
+			"descLong": "Make an Agility attack against all creatures in a 10 foot radius centered around a tile of your choice within 30 feet. If you hit, apply 5 stacks of the specified affliction. Creatures that you miss take 3 stacks of the specified affliction.",
+			"tags": [
+			]
+		},
+		{
+			"name": "imbued explosion",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "mundane",
+			"elements": [
+				"specified"
+			],
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "Apply conditions in a 10 foot radius.",
+			"descLong": "Make an Agility attack against all creatures in a 10 foot radius centered around a tile of your choice within 30 feet. If you hit, apply 2 stacks of the specified condition to creatures that you hit. Creatures that you miss still suffer 1 stack of the condition.",
+			"tags": [
+			]
+		},
+		{
+			"name": "imbued coating",
+			"slot": "consumable",
+			"cost": 2,
+			"source": "official:core",
+			"affixType": "advanced",
+			"elements": [
+				"specified"
+			],
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "For the next while, your weapon applies a condition when you hit with it.",
+			"descLong": "Until the end of your next rest, whenever you hit a creature with a basic attack apply the specified condition.",
+			"tags": [
+			]
+		},
+		{
+			"name": "cruel coating",
+			"slot": "consumable",
+			"cost": 1,
+			"source": "official:core",
+			"affixType": "advanced",
+			"elements": [
+				"specified"
+			],
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "For the next while, your weapon applies an affliction when you hit with it.",
+			"descLong": "Until the end of your next rest, whenever you hit a creature with a basic attack apply two stacks of the specified affliction.",
+			"tags": [
+			]
+		},
+		{
+			"name": "wandering toy",
+			"slot": "consumable",
+			"cost": 0,
+			"source": "official:core",
+			"affixType": "exotic",
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 1,
+			"descShort": "This consumable wanders around before detonating.",
+			"descLong": "This item wanders around at random, traveling up to 30 feet in a random direction at the start of each of your turn, stopping for the turn if it hits a wall or other obstruction. It detonates if it enters a tile occupied by any creature. You may no longer trigger this consumable in the ordinary fashion.",
+			"tags": [
+			]
+		},
+		{
+			"name": "remote control toy",
+			"slot": "consumable",
+			"cost": 1,
+			"source": "official:core",
+			"affixType": "exotic",
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 0,
+			"descShort": "You may direct this consumable's movement as a minor action.",
+			"descLong": "As a minor action while this object is within 300 feet of you, you may cause it to move up to 30 feet along the ground. You do not gain any special awareness of this object's state or surroundings. You may trigger it as a minor action.",
+			"tags": [
+			]
+		},
+		{
+			"name": "homing toy",
+			"slot": "consumable",
+			"cost": 0,
+			"source": "official:core",
+			"affixType": "exotic",
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 1,
+			"descShort": "This consumable seeks out the nearest creature.",
+			"descLong": "At the start of each of your turns, this consumable moves u6p to 15 feet towards the nearest creature within 60 feet of you. It detonates if it enters a tile occupied by any creature. You may no longer trigger this consumable in the ordinary fashion.",
+			"tags": [
+			]
+		},
+		{
+			"name": "possessed toy",
+			"slot": "consumable",
+			"cost": 1,
+			"source": "official:core",
+			"affixType": "advanced",
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 0,
+			"descShort": "You can sense through this consumable.",
+			"descLong": "Until your next rest, you can use your senses as if you were at the location of this consumable.",
+			"tags": [
+			]
+		},
+		{
+			"name": "hairtrigger",
+			"slot": "consumable",
+			"cost": 0,
+			"source": "official:core",
+			"affixType": "advanced",
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 1,
+			"descShort": "This consumable triggers when you are hit by an attack.",
+			"descLong": "The first time before your next rest that you are hit by an attack, this consumable automatically triggers, targeting the creature who hit you if applicable.",
+			"tags": [
+			]
+		},
+		{
+			"name": "infinite absorption",
+			"slot": "consumable",
+			"cost": 1,
+			"source": "official:core",
+			"affixType": "advanced",
+			"prerequisites": "",
+			"maxReplicates": 0,
+			"doubleEdged": 0,
+			"descShort": "You are temporarily immune to damage.",
+			"descLong": "You are immune to damage until the end of your next turn.",
+			"tags": [
+			]
+		},
+		{
+			"name": "failsafe",
+			"slot": "consumable",
+			"cost": 0,
+			"source": "official:core",
+			"affixType": "advanced",
+			"prerequisites": "",
+			"maxReplicates": 1,
+			"doubleEdged": 1,
+			"descShort": "This consumable triggers when you are reduced below 0 life.",
+			"descLong": "The first time before your next rest that you are reduced to below 0 life, this consumable automatically triggers, targeting the creature who hit you if applicable.",
+			"tags": [
+			]
+		}
+	]
+}
