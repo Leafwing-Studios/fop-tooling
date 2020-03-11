@@ -47,20 +47,19 @@ export default function RuleGrid(props) {
       columns={[
         { title: 'Name', field: 'name' },
         {
-          title: 'Slot', 
+          title: 'Slot',
           field: 'slot',
           type: 'slotIcon',
           align: 'center',
         },
         { title: 'Cost', field: 'cost', type: 'numerical' },
         { title: 'Type', field: 'affixType' },
-        { title: 'Elements', field: 'formattedElements' },
         { title: 'Categories', field: 'formattedCategories' },
         // { title: 'Prerequisites', field: 'prerequisites' }, // i don't think we really need this
         { title: 'Short Description', field: 'descShort' },
       ]}
       data={props.affixes}
-      isLoading={props.affixes.length === 0}
+      isLoading={props.isLoading}
       onRowClick={props.viewOnClick}
       components={{
         // Cell: CustomCell
@@ -68,8 +67,9 @@ export default function RuleGrid(props) {
       options={{
         sorting: true,
         padding: 'dense',
-        paging: false,
         toolbar: false,
+        pageSize: 50,
+        pageSizeOptions: [10, 50, 500],
         headerStyle: {
           fontWeight: 'bold'
         }

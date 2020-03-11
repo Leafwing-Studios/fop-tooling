@@ -6,17 +6,17 @@ import TrinketIcon from './icons/trinketIcon';
 import ConsumableIcon from './icons/consumableIcon';
 
 export default function SlotIcon(props) {
-  if (props.slot === 'Arms') 
+  if (props.slot === 'arms')
   return (
     <ArmsIcon titleText="Arms" />
   );
-  if (props.slot === 'Armor') return (
+  if (props.slot === 'armor') return (
     <ArmorIcon titleText="Armor" />
   );
-  if (props.slot === 'Trinket') return (
+  if (props.slot === 'trinket') return (
     <TrinketIcon titleText="Trinket" />
   );
-  if (props.slot === 'Consumable') return (
+  if (props.slot === 'consumable') return (
     <ConsumableIcon titleText="Consumable" />
   );
 }

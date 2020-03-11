@@ -19,8 +19,8 @@ export default class Rules extends Component {
   constructor() {
     super();
     this.state = {
-      allAffixes: [], 
-      filters: {
+      allAffixes: [], // this remanins unchanged after page load
+      filters: { // filters subcomponent gets a callback to change this bit
         nameDesc: "",
         slot: "",
         cost: null,
@@ -28,22 +28,20 @@ export default class Rules extends Component {
         elements: [],
         categories: [],
       },
-      filteredAffixes: [],
-      uniqueCategories: [],
-      uniqueElements: [],
-      currentAffix: null 
+      filteredAffixes: [], // this changes based on filter state
+      uniqueCategories: [], // used to populate filter options
+      currentAffix: null // which thing is selected in the panel on the right
     };
   }
 
   componentDidMount() {
     fetch('/api/affix/')
       .then(res => res.json())
-      .then(affixes => affixes.map(affix => ( // adding an additional column here so we don't have to try to format things inside the grid/info panel 
+      .then(affixes => affixes.map(affix => ( // adding an additional column here so we don't have to try to format things inside the grid/info panel
         {
           ...affix, // see, it's things like this that make me both love and hate javascript at the same time
-          formattedCategories: affix.categories.join(', '),
-          formattedElements: affix.elements.join(', '),
-        } 
+          formattedCategories: affix.categories ? affix.categories.join(', ') : '', // other lists should be done in the same or similar ways (should we choose to add them later)
+        }
       )))
       .then(affixes => this.setState({
         allAffixes: affixes,
@@ -56,12 +54,12 @@ export default class Rules extends Component {
   updateFilters(newFilters) {
     const oldFilters = this.state.filters;
     const filters = {...oldFilters, ...newFilters}; // yknow, i'm starting to like this es7 mixing stuff
-    
+
     const filteredAffixes = this.state.allAffixes.filter((affix) => (
       (stringContains(affix.name, filters.nameDesc) || stringContains(affix.descShort, filters.nameDesc)) &&
       (filters.categories.length === 0 ? true : affix.categories.some(category => filters.categories.includes(category)))
     ))
-    
+
     this.setState({
       filters,
       filteredAffixes,
@@ -79,7 +77,7 @@ export default class Rules extends Component {
           <div>
             <AffixFilters onChange={(filters) => this.updateFilters(filters)} uniqueCategories={this.state.uniqueCategories} />
             <Spacer height={25} />
-            
+
             <AffixGrid affixes={this.state.filteredAffixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))} isLoading={this.state.allAffixes.length === 0}/>
           </div>
           <InfoPanel variant={this.state.currentAffix} variantName="an affix">

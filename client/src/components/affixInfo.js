@@ -7,17 +7,17 @@ import {
   SvgIcon,
 } from '@material-ui/core';
 import SlotIcon from './slotIcon';
-  
+
 export default class AffixInfo extends Component {
   constructor(props) {
       super(props);
   }
-  
+
   buildList(list) {
     if (list.length === 0) return "None";
     return list.join(', ')
   }
-  
+
   getElementsString() {
     if (this.props.affix.affixType === 'Elemental') return (
       <Typography>
@@ -60,7 +60,7 @@ export default class AffixInfo extends Component {
             this.getElementsString()
           }
           <Typography gutterBottom>
-            {`Categories: ${this.buildList(this.props.affix.categories)}`}
+            {`Categories: ${this.buildList(this.props.affix.categories || [])}`}
           </Typography >
           <Typography paragraph>
             {this.props.affix.descLong}
