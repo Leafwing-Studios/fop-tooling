@@ -36,8 +36,8 @@ export default function RuleFilters(props) {
       <Spacer height={10} />
       <div style={{display: 'flex'}}>
         <MultipleSelect 
-          label="Categories"
-          items={props.uniqueCategories}
+          label="Tags"
+          items={props.uniqueTags}
           onChange={props.onChange}
         />
       </div>

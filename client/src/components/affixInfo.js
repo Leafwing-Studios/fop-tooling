@@ -60,7 +60,7 @@ export default class AffixInfo extends Component {
             this.getElementsString()
           }
           <Typography gutterBottom>
-            {`Categories: ${this.buildList(this.props.affix.categories || [])}`}
+            {`Tags: ${this.buildList(this.props.affix.tags)}`}
           </Typography >
           <Typography paragraph>
             {this.props.affix.descLong}

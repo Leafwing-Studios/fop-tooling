@@ -11,33 +11,33 @@ export default function AffixFilters(props) {
     <div>
       <Grid container direction="row" alignItems="center">
         <Grid item xs={7}>
-          <TextField 
-            autoFocus 
+          <TextField
+            autoFocus
             fullWidth
             label="Search"
             type="search"
             placeholder="Search Names and Descriptions"
             onChange={(event) => (props.onChange({nameDesc: event.target.value}))}
-          /> 
+          />
         </Grid>
         <Grid item>
           <Spacer width={20} />
         </Grid>
         <Grid item xs justify="flex-end">
-          <TextField 
+          <TextField
             fullWidth
             label="Cost Thing"
             type="search"
             placeholder="Search Descriptions"
             onChange={(event) => (props.onChange({cost: event.target.value}))}
-          /> 
+          />
         </Grid>
       </Grid>
       <Spacer height={10} />
       <div style={{display: 'flex'}}>
-        <MultipleSelect 
-          label="Categories"
-          items={props.uniqueCategories}
+        <MultipleSelect
+          label="Tags"
+          items={props.uniqueTags}
           onChange={props.onChange}
         />
       </div>

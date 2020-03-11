@@ -51,7 +51,7 @@ export default function MultipleSelect(props) {
 
   const handleChange = event => {
     setVariants(event.target.value);
-    props.onChange({categories: event.target.value})
+    props.onChange({tags: event.target.value})
   };
 
   return (

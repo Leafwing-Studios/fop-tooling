@@ -26,10 +26,10 @@ export default class Rules extends Component {
         cost: null,
         type: "",
         elements: [],
-        categories: [],
+        tags: [],
       },
       filteredAffixes: [], // this changes based on filter state
-      uniqueCategories: [], // used to populate filter options
+      uniqueTags: [], // used to populate filter options
       currentAffix: null // which thing is selected in the panel on the right
     };
   }
@@ -40,14 +40,14 @@ export default class Rules extends Component {
       .then(affixes => affixes.map(affix => ( // adding an additional column here so we don't have to try to format things inside the grid/info panel
         {
           ...affix, // see, it's things like this that make me both love and hate javascript at the same time
-          formattedCategories: affix.categories ? affix.categories.join(', ') : '', // other lists should be done in the same or similar ways (should we choose to add them later)
+          formattedTags: affix.tags.join(', '), 
         }
       )))
       .then(affixes => this.setState({
         allAffixes: affixes,
         filteredAffixes: affixes,
         uniqueElements: affixes.map(affix => affix.elements).flat().filter(onlyUnique).sort(),
-        uniqueCategories: affixes.map(affix => affix.categories).flat().filter(onlyUnique).sort(),
+        uniqueTags: affixes.map(affix => affix.tags).flat().filter(onlyUnique).sort(),
       }));
   }
 
@@ -57,7 +57,7 @@ export default class Rules extends Component {
 
     const filteredAffixes = this.state.allAffixes.filter((affix) => (
       (stringContains(affix.name, filters.nameDesc) || stringContains(affix.descShort, filters.nameDesc)) &&
-      (filters.categories.length === 0 ? true : affix.categories.some(category => filters.categories.includes(category)))
+      (filters.tags.length === 0 ? true : affix.tags.some(category => filters.tags.includes(category)))
     ))
 
     this.setState({
@@ -75,7 +75,7 @@ export default class Rules extends Component {
       <DocumentTitle title='Affixes'>
         <TwoPanelsResizable startingWidth={550}>
           <div>
-            <AffixFilters onChange={(filters) => this.updateFilters(filters)} uniqueCategories={this.state.uniqueCategories} />
+            <AffixFilters onChange={(filters) => this.updateFilters(filters)} uniqueTags={this.state.uniqueTags} />
             <Spacer height={25} />
 
             <AffixGrid affixes={this.state.filteredAffixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))} isLoading={this.state.allAffixes.length === 0}/>

@@ -24,10 +24,10 @@ export default class Rules extends Component {
       filters: {
         name: "",
         description: "",
-        categories: [],
+        tags: [],
       },
       filteredRules: [],
-      uniqueCategories: [],
+      uniqueTags: [],
       selectedRule: null, // selected rule to show in the info panel on the right
     };
   }
@@ -37,12 +37,12 @@ export default class Rules extends Component {
     fetch('/api/rule/')
       .then(res => res.json())
       .then(rules => rules.map(rule => ( // adding an additional column here so we don't have to try to format things inside the grid/info panel 
-        {...rule, formattedCategories: rule.categories.join(', ')} // see, it's things like this that make me both love and hate javascript at the same time
+        {...rule, formattedTags: rule.tags.join(', ')} // see, it's things like this that make me both love and hate javascript at the same time
       )))
       .then(rules => this.setState({
         allRules: rules, 
         filteredRules: rules,
-        uniqueCategories: rules.map(rule => rule.categories).flat().filter(onlyUnique).sort(),
+        uniqueTags: rules.map(rule => rule.tags).flat().filter(onlyUnique).sort(),
       }));
   }
   
@@ -53,7 +53,7 @@ export default class Rules extends Component {
     const filteredRules = this.state.allRules.filter((rule) => (
       stringContains(rule.name, filters.name) &&
       stringContains(rule.descShort, filters.description) &&
-      (filters.categories.length === 0 ? true : rule.categories.some(category => filters.categories.includes(category)))
+      (filters.tags.length === 0 ? true : rule.tags.some(category => filters.tags.includes(category)))
     ))
     
     this.setState({
@@ -71,7 +71,7 @@ export default class Rules extends Component {
       <DocumentTitle title='Rules'>
         <TwoPanelsResizable>
           <div style={{flexGrow: 1}}>
-              <RuleFilters onChange={(filters) => this.updateFilters(filters)} uniqueCategories={this.state.uniqueCategories} />
+              <RuleFilters onChange={(filters) => this.updateFilters(filters)} uniqueTags={this.state.uniqueTags} />
               <Spacer height={25}/> 
               {/* debug
               <Typography>

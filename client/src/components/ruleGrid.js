@@ -23,7 +23,7 @@ export default function RuleGrid(props) {
       title="Rules"
       columns={[
         { title: 'Name', field: 'name' },
-        { title: 'Type', field: 'formattedCategories', type: 'categories' },
+        { title: 'Type', field: 'formattedTags', type: 'tags' },
         { title: 'Short Description', field: 'descShort' },
       ]}
       data={props.rules}
