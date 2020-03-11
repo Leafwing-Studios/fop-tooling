@@ -51,7 +51,15 @@ export default function RuleGrid(props) {
         { title: 'Slot', render: capitalTextField('slot'), customSort: mySort('slot')},
         { title: 'Cost', field: 'cost', type: 'numerical', customSort: mySort('cost') },
         { title: 'Type', render: capitalTextField('affixType'), customSort: mySort('affixType') },
-        { title: 'Tags', render: capitalTextField('formattedTags'), customSort: mySort('formattedTags') },
+        {
+          title: 'Tags',
+          customSort: mySort('tags'),
+          render: (rowData) => (
+            <Typography style={styles.typography}>
+              {rowData.tags.map(tag => titleCase(tag)).join(', ')}
+            </Typography>
+          )
+        },
         { title: 'Short Description', field: 'descShort', customSort: mySort('descShort') },
       ]}
       data={props.affixes}

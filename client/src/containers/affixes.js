@@ -37,18 +37,13 @@ export default class Rules extends Component {
   componentDidMount() {
     fetch('/api/affix/')
       .then(res => res.json())
-      .then(affixes => affixes.map(affix => ( // adding an additional column here so we don't have to try to format things inside the grid/info panel
-        {
-          ...affix, // see, it's things like this that make me both love and hate javascript at the same time
-          formattedTags: affix.tags.join(', '), 
-        }
-      )))
       .then(affixes => this.setState({
         allAffixes: affixes,
         filteredAffixes: affixes,
-        uniqueElements: affixes.map(affix => affix.elements).flat().filter(onlyUnique).sort(),
         uniqueTags: affixes.map(affix => affix.tags).flat().filter(onlyUnique).sort(),
       }));
+
+      this.updateFilters(this.state.filters); // this way if someone types something while the page is still loading, the filter still applies
   }
 
   updateFilters(newFilters) {
