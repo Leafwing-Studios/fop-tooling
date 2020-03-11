@@ -11,6 +11,7 @@ import {
   IconButton,
   Container,
   Divider,
+  Typography,
 } from '@material-ui/core';
 import {
   Visibility as VisibilityIcon
@@ -18,26 +19,21 @@ import {
 import MaterialTable from 'material-table';
 import { MTableCell } from 'material-table';
 import SlotIcon from './slotIcon';
+import { titleCase } from '../utils.js';
 
-function CustomCell(props) {
-  if (props.columnDef.type === 'slotIcon')
-    // for some reason, the bottom divider is always 1 pixel too high. i have no idea why
-    return (
-      <div>
-        <div style={{
-          paddingTop: '12px',
-          paddingLeft: '12px',
-          paddingBottom: '5px',
-        }}>
-          <SlotIcon slot={props.value} fontSize='small'/>
-        </div>
-        <Divider/>
-      </div>
-    );
-  return (
-    <MTableCell {...props}/>
-  );
-}
+const styles = {
+  typography: {
+    fontSize: 14,
+  }
+};
+
+const capitalTextField = (field) => ((rowData) => (
+  <Typography style={styles.typography}>
+    {titleCase(rowData[field])}
+  </Typography>
+))
+
+const mySort = (field) => ((row1, row2) => row1[field] < row2[field] ? -1 : 1) // i have no idea why this isn't the default sort for numbers (for text it's confused because it doesn't have a field to work with, just a react element)
 
 export default function RuleGrid(props) {
 
@@ -45,18 +41,18 @@ export default function RuleGrid(props) {
     <MaterialTable
       title="Rules"
       columns={[
-        { title: 'Name', field: 'name' },
         {
-          title: 'Slot',
-          field: 'slot',
-          type: 'slotIcon',
-          align: 'center',
+          title: 'Name',
+          defaultSort: 'asc',
+          render: capitalTextField('name'),
+          customSort: mySort('name'),
+          // field: 'name',
         },
-        { title: 'Cost', field: 'cost', type: 'numerical' },
-        { title: 'Type', field: 'affixType' },
-        { title: 'Tags', field: 'formattedTags' },
-        // { title: 'Prerequisites', field: 'prerequisites' }, // i don't think we really need this
-        { title: 'Short Description', field: 'descShort' },
+        { title: 'Slot', render: capitalTextField('slot'), customSort: mySort('slot')},
+        { title: 'Cost', field: 'cost', type: 'numerical', customSort: mySort('cost') },
+        { title: 'Type', render: capitalTextField('affixType'), customSort: mySort('affixType') },
+        { title: 'Tags', render: capitalTextField('formattedTags'), customSort: mySort('formattedTags') },
+        { title: 'Short Description', field: 'descShort', customSort: mySort('descShort') },
       ]}
       data={props.affixes}
       isLoading={props.isLoading}
@@ -68,11 +64,14 @@ export default function RuleGrid(props) {
         sorting: true,
         padding: 'dense',
         toolbar: false,
-        pageSize: 50,
-        pageSizeOptions: [10, 50, 500],
         headerStyle: {
           fontWeight: 'bold'
-        }
+        },
+        // paging stuff
+        pageSize: 50,
+        emptyRowsWhenPaging: false,
+        pageSizeOptions: [50, 100, 1000],
+        // end paging stuff
       }}
     />
   );

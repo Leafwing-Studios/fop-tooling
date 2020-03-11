@@ -7,6 +7,10 @@ import {
   SvgIcon,
 } from '@material-ui/core';
 import SlotIcon from './slotIcon';
+import Spacer from './spacer';
+import {
+  titleCase
+} from '../utils';
 
 export default class AffixInfo extends Component {
   constructor(props) {
@@ -15,13 +19,23 @@ export default class AffixInfo extends Component {
 
   buildList(list) {
     if (list.length === 0) return "None";
-    return list.join(', ')
+    return list.map(e => titleCase(e)).join(', ')
   }
 
   getElementsString() {
-    if (this.props.affix.affixType === 'Elemental') return (
+    if (this.props.affix.elements.length !== 0) return (
       <Typography>
-        {`Elements: ${this.buildList(this.props.affix.elements)}`}
+        <b>Elements: </b>
+        {this.buildList(this.props.affix.elements)}
+      </Typography>
+    );
+  }
+
+  getPrerequisites() {
+    if (this.props.affix.prerequisites) return (
+      <Typography>
+        <b>Prerequisites: </b>
+        {this.props.affix.prerequisites}
       </Typography>
     );
   }
@@ -29,10 +43,10 @@ export default class AffixInfo extends Component {
   render() {
     return (
       <div>
-        <Grid container direction="row" alignItems="center">
+        <Grid container direction="row">
           <Grid item xs>
             <Typography variant="h4">
-              {this.props.affix.name}
+              {titleCase(this.props.affix.name)}
             </Typography>
           </Grid>
           <Grid item justify="flex-end">
@@ -40,27 +54,33 @@ export default class AffixInfo extends Component {
           </Grid>
         </Grid>
         <Divider />
-        <div style={{paddingTop: "10px"}}>
+        <Spacer height={10} />
+        <div>
           <Typography>
-            {`Source: ${this.props.affix.source}`}
+            <b>Source: </b>
+            {this.props.affix.source}
           </Typography>
           <Typography>
-            {`${this.props.affix.affixType === 'Mundane' ? 'Equipment' : 'Enchantment'} Point Cost: ${this.props.affix.cost}`}
+            <b>{`${this.props.affix.affixType === 'mundane' ? 'Gear' : 'Enchantment'} Point Cost: `}</b>
+            {this.props.affix.cost}
           </Typography>
           <Typography>
-            {`Max Replicates: ${this.props.affix.maxReplicates}`}
+            <b>Max Replicates: </b>
+            {this.props.affix.maxReplicates === 0 ? 'Infinite' : this.props.affix.maxReplicates}
           </Typography>
           <Typography>
-            {`Affix Type: ${this.props.affix.affixType}`}
+            <b>Affix Type: </b>
+            {titleCase(this.props.affix.affixType)}
           </Typography>
-          <Typography>
-            {`Prerequisites: ${this.props.affix.prerequisites}`}
-          </Typography>
+          {
+            this.getPrerequisites()
+          }
           {
             this.getElementsString()
           }
           <Typography gutterBottom>
-            {`Tags: ${this.buildList(this.props.affix.tags)}`}
+            <b>Tags: </b>
+            {this.buildList(this.props.affix.tags)}
           </Typography >
           <Typography paragraph>
             {this.props.affix.descLong}
