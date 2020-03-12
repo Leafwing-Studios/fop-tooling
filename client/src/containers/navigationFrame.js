@@ -94,9 +94,11 @@ export default function NavigationFrame() {
           <DrawerLink buttonKey='affixes' buttonText='Affixes' routePath='/affixes'>
             <TagIcon />
           </DrawerLink>
+          {/* the rules page will return....
           <DrawerLink buttonKey='rules' buttonText='Rules' routePath='/rules'>
             <RuleIcon />
           </DrawerLink>
+          */}
         </List>
         <Divider />
         <List>
