@@ -25,7 +25,6 @@ export default class Rules extends Component {
         slot: "",
         cost: null,
         type: "",
-        elements: [],
         tags: [],
       },
       filteredAffixes: [], // this changes based on filter state
@@ -52,7 +51,10 @@ export default class Rules extends Component {
 
     const filteredAffixes = this.state.allAffixes.filter((affix) => (
       (stringContains(affix.name, filters.nameDesc) || stringContains(affix.descShort, filters.nameDesc)) &&
-      (filters.tags.length === 0 ? true : affix.tags.some(category => filters.tags.includes(category)))
+      (filters.tags.length === 0 ? true : affix.tags.some(category => filters.tags.includes(category))) &&
+      (filters.cost ? affix.cost === filters.cost : true) &&
+      (filters.slot ? affix.slot === filters.slot : true) &&
+      (filters.type.length === 0 ? true : filters.type.includes(affix.affixType))
     ))
 
     this.setState({
