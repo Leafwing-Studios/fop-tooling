@@ -9,12 +9,19 @@ import {
   TableRow,
   Paper,
   IconButton,
-  Typography, 
+  Typography,
 } from '@material-ui/core';
 import {
   Visibility as VisibilityIcon
 } from '@material-ui/icons'
 import MaterialTable from 'material-table';
+import { titleCase } from '../utils';
+
+const styles = {
+  typography: {
+    fontSize: 14,
+  }
+};
 
 export default function RuleGrid(props) {
 
@@ -23,7 +30,14 @@ export default function RuleGrid(props) {
       title="Rules"
       columns={[
         { title: 'Name', field: 'name' },
-        { title: 'Type', field: 'formattedTags', type: 'tags' },
+        {
+          title: 'Tags',
+          render: (rowData) => (
+            <Typography style={styles.typography}>
+              {rowData.categories.map(tag => titleCase(tag)).join(', ')}
+            </Typography>
+          )
+        },
         { title: 'Short Description', field: 'descShort' },
       ]}
       data={props.rules}
@@ -32,8 +46,8 @@ export default function RuleGrid(props) {
       options={{
         sorting: true,
         padding: 'dense',
-        paging: false,
         toolbar: false,
+        draggable: false,
         headerStyle: {
           fontWeight: 'bold'
         }

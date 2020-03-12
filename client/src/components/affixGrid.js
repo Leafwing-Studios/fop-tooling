@@ -35,7 +35,7 @@ const capitalTextField = (field) => ((rowData) => (
 
 const mySort = (field) => ((row1, row2) => row1[field] < row2[field] ? -1 : 1) // i have no idea why this isn't the default sort for numbers (for text it's confused because it doesn't have a field to work with, just a react element)
 
-export default function RuleGrid(props) {
+export default function AffixGrid(props) {
 
   return (
     <MaterialTable
@@ -65,20 +65,18 @@ export default function RuleGrid(props) {
       data={props.affixes}
       isLoading={props.isLoading}
       onRowClick={props.viewOnClick}
-      components={{
-        // Cell: CustomCell
-      }}
       options={{
         sorting: true,
         padding: 'dense',
         toolbar: false,
+        draggable: false,
         headerStyle: {
           fontWeight: 'bold'
         },
         // paging stuff
-        pageSize: 50,
+        pageSize: 20,
         emptyRowsWhenPaging: false,
-        pageSizeOptions: [50, 100, 1000],
+        pageSizeOptions: [20, 100, 1000],
         // end paging stuff
       }}
     />

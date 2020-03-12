@@ -36,26 +36,23 @@ export default class Rules extends Component {
     // get rules from API
     fetch('/api/rule/')
       .then(res => res.json())
-      .then(rules => rules.map(rule => ( // adding an additional column here so we don't have to try to format things inside the grid/info panel 
-        {...rule, formattedTags: rule.tags.join(', ')} // see, it's things like this that make me both love and hate javascript at the same time
-      )))
       .then(rules => this.setState({
-        allRules: rules, 
+        allRules: rules,
         filteredRules: rules,
         uniqueTags: rules.map(rule => rule.tags).flat().filter(onlyUnique).sort(),
       }));
   }
-  
+
   updateFilters(newFilters) {
     const oldFilters = this.state.filters;
     const filters = {...oldFilters, ...newFilters}; // yknow, i'm starting to like this es7 mixing stuff
-    
+
     const filteredRules = this.state.allRules.filter((rule) => (
       stringContains(rule.name, filters.name) &&
       stringContains(rule.descShort, filters.description) &&
       (filters.tags.length === 0 ? true : rule.tags.some(category => filters.tags.includes(category)))
     ))
-    
+
     this.setState({
       filters,
       filteredRules,
@@ -72,7 +69,7 @@ export default class Rules extends Component {
         <TwoPanelsResizable>
           <div style={{flexGrow: 1}}>
               <RuleFilters onChange={(filters) => this.updateFilters(filters)} uniqueTags={this.state.uniqueTags} />
-              <Spacer height={25}/> 
+              <Spacer height={25}/>
               {/* debug
               <Typography>
                 {JSON.stringify(this.state.filters)}
