@@ -34,7 +34,7 @@ export default function RuleGrid(props) {
           title: 'Tags',
           render: (rowData) => (
             <Typography style={styles.typography}>
-              {rowData.categories.map(tag => titleCase(tag)).join(', ')}
+              {rowData.categories.join(', ')}
             </Typography>
           )
         },

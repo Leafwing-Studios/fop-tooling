@@ -56,7 +56,7 @@ export default function AffixGrid(props) {
           customSort: mySort('tags'),
           render: (rowData) => (
             <Typography style={styles.typography}>
-              {rowData.tags.map(tag => titleCase(tag)).join(', ')}
+              {rowData.tags.join(', ')}
             </Typography>
           )
         },
