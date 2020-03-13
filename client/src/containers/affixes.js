@@ -85,7 +85,7 @@ export default class Rules extends Component {
   render() {
     return (
       <DocumentTitle title='Affixes'>
-        <TwoPanelsResizable startingWidth={550}>
+        <TwoPanelsResizable startingWidth={400}>
           <div>
             <AffixFilters
               onChange={(filters) => this.updateFilters(filters)}
