@@ -1,4 +1,5 @@
 import React from 'react';
+import ComingSoon from '../components/comingSoon';
 
 import {
   Typography,
@@ -6,8 +7,6 @@ import {
 
 export default function Settings() {
   return (
-    <Typography paragraph>
-      This is where I'd put my twiddley knobs. IF I HAD THEM.
-    </Typography>
+    <ComingSoon />
   );
 }
