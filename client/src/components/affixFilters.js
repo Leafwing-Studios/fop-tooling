@@ -6,7 +6,12 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Tooltip,
+  IconButton,
 } from '@material-ui/core';
+import {
+  RotateLeft as ResetIcon,
+} from '@material-ui/icons';
 import Spacer from './spacer';
 import MultipleSelect from './multipleSelect';
 
@@ -21,6 +26,7 @@ export default function AffixFilters(props) {
             fullWidth
             label="Search"
             type="search"
+            value={props.filters.nameDesc}
             placeholder="Search Names and Descriptions"
             onChange={(event) => (props.onChange({nameDesc: event.target.value}))}
           />
@@ -28,6 +34,7 @@ export default function AffixFilters(props) {
         <Grid item xs={1}>
           <TextField
             fullWidth
+            value={props.filters.cost ? props.filters.cost : ''}
             label="Cost"
             type="search"
             onChange={(event) => (props.onChange({cost: parseInt(event.target.value)}))}
@@ -40,6 +47,7 @@ export default function AffixFilters(props) {
               <Select
                 onChange={(event) => props.onChange({slot: event.target.value})}
                 fullWidth
+                value={props.filters.slot}
                 labelId="slot-select-label"
                 id='slot-select'
               >
@@ -56,6 +64,7 @@ export default function AffixFilters(props) {
           <div style={{display: 'flex'}}>
             <MultipleSelect
               label="Type"
+              value={props.filters.type}
               items={[
                 'Mundane',
                 'Advanced',
@@ -68,13 +77,28 @@ export default function AffixFilters(props) {
         </Grid>
       </Grid>
       <Spacer height={10} />
-      <div style={{display: 'flex'}}>
-        <MultipleSelect
-          label="Tags"
-          items={props.uniqueTags}
-          onChange={(val) => props.onChange({tags: val})}
-        />
-      </div>
+      <Grid container direction="row" alignItems="flex-end" spacing={2}>
+        <Grid item lg>
+          <div style={{display: 'flex'}}>
+            <MultipleSelect
+              label="Tags"
+              value={props.filters.tags}
+              items={props.uniqueTags}
+              onChange={(val) => props.onChange({tags: val})}
+            />
+          </div>
+        </Grid>
+        <Grid item>
+          <Tooltip title='Reset Filters'>
+            <IconButton
+              size='small'
+              onClick={(ev) => props.resetFilters()}
+            >
+              <ResetIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+      </Grid>
     </div>
   );
 }

@@ -24,12 +24,13 @@ export default class Rules extends Component {
         nameDesc: "",
         slot: "",
         cost: null,
-        type: "",
+        type: [],
         tags: [],
       },
       filteredAffixes: [], // this changes based on filter state
       uniqueTags: [], // used to populate filter options
-      currentAffix: null // which thing is selected in the panel on the right
+      currentAffix: null, // which thing is selected in the panel on the right
+      filterRefreshFlag: true, // flip this to cause the filter child to refresh- useful for the reset filters button
     };
   }
 
@@ -63,6 +64,20 @@ export default class Rules extends Component {
     });
   }
 
+  resetFilters() {
+    this.updateFilters({ // reset to defaults
+      nameDesc: '',
+      slot: '',
+      cost: null,
+      type: [],
+      tags: []
+    });
+
+    this.setState({ // force the child to rerender
+      filterRefreshFlag: !this.state.filterRefreshFlag
+    });
+  }
+
   selectAffix(affix) {
     this.setState({currentAffix: affix});
   }
@@ -72,7 +87,12 @@ export default class Rules extends Component {
       <DocumentTitle title='Affixes'>
         <TwoPanelsResizable startingWidth={550}>
           <div>
-            <AffixFilters onChange={(filters) => this.updateFilters(filters)} uniqueTags={this.state.uniqueTags} />
+            <AffixFilters
+              onChange={(filters) => this.updateFilters(filters)}
+              resetFilters={() => this.resetFilters()}
+              uniqueTags={this.state.uniqueTags}
+              filters={this.state.filters}
+            />
             <Spacer height={25} />
 
             <AffixGrid affixes={this.state.filteredAffixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))} isLoading={this.state.allAffixes.length === 0}/>

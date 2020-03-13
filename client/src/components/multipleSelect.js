@@ -49,6 +49,12 @@ export default function MultipleSelect(props) {
   const theme = useTheme();
   const [variants, setVariants] = React.useState([]);
 
+  React.useEffect(() => {
+    if(variants.length !== props.value.length) { // this length check is required since values are compared as lowercase, but displayed as uppercase. this event is only here so the parent can blank out the picker (filters reset button needs this)
+      setVariants(props.value);
+    }
+  }, [props.value]);
+
   const handleChange = event => {
     setVariants(event.target.value);
     props.onChange(event.target.value);
