@@ -2,7 +2,7 @@
 The frontend and api for the Fonts of Power game. This primarily includes tooling for players and worldspeakers to use when playing the game. 
 
 ## Links
-* [FoP Discord Server](https://discord.gg/8kARYKJ)\
+* [FoP Discord Server](https://discord.gg/8kARYKJ)
 * [FoP Google Drive (contains rulebooks and such)](https://drive.google.com/drive/u/0/folders/11ergxyGXK1vIjq3nMQCqItZs1h1-W7EF)
 
 ## Setup
