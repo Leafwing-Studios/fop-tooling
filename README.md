@@ -1,4 +1,4 @@
-# fop-server: The Official Website for the Fonts of Power Game
+# fop-server: The Official Website for Fonts of Power
 The frontend and api for the Fonts of Power game. This primarily includes tooling for players and worldspeakers to use when playing the game. 
 
 ## Links
