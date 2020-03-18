@@ -21,6 +21,7 @@ import {
   Gavel as RuleIcon,
   AccountCircle as UserIcon,
   Settings as SettingsIcon,
+  AlarmOn as InitIcon,
 } from '@material-ui/icons';
 
 import RouterBase from './routerBase';
@@ -93,6 +94,9 @@ export default function NavigationFrame() {
           </DrawerLink>
           <DrawerLink buttonKey='affixes' buttonText='Affixes' routePath='/affixes'>
             <TagIcon />
+          </DrawerLink>
+          <DrawerLink buttonKey='affixes' buttonText='Initiative Tracker' routePath='/init'>
+            <InitIcon />
           </DrawerLink>
           {/* the rules page will return....
           <DrawerLink buttonKey='rules' buttonText='Rules' routePath='/rules'>

@@ -9,6 +9,7 @@ import Affixes from './affixes';
 import Rules from './rules';
 import Login from './login';
 import Settings from './settings';
+import InitTracker from './initTracker';
 
 export default function RouterBase() {
   return (
@@ -21,6 +22,9 @@ export default function RouterBase() {
         </Route>
         <Route path="/rules">
           <Rules />
+        </Route>
+        <Route path="/init">
+          <InitTracker />
         </Route>
         <Route path="/login">
           <Login />
