@@ -18,19 +18,41 @@ import {
 import Spacer from '../components/spacer';
 import InitEntity from './initEntity';
 import Center from './center';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  underline: {
+    "&&&:before": {
+      borderBottom: "none"
+    },
+    "&&:after": {
+      borderBottom: "none"
+    }
+  },
+  sideName: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  }
+});
 
 export default function InitSide(props) {
+  const classes = useStyles();
 
   return (
     <Paper style={{padding: 12}}>
       <Grid container direction='row' alignItems='center' wrap='nowrap' spacing={1}>
         <Grid item lg>
           <TextField
-            variant='outlined'
             placeholder='Side Name'
-            size='small'
             fullWidth
             autoFocus
+            defaultValue={props.side.defaultName}
+            InputProps={{
+              classes: {
+                underline: classes.underline,
+                input: classes.sideName,
+              }
+            }}
           />
         </Grid>
         <Grid item>
@@ -48,9 +70,8 @@ export default function InitSide(props) {
           </Tooltip>
         </Grid>
       </Grid>
-      <Spacer height={10} />
       <Divider />
-      <Spacer height={10} />
+      <Spacer height={13} />
       { /* make entity ui elements for all the entities of this side */
         props.side.entities.map((entity, index) => (
           <InitEntity

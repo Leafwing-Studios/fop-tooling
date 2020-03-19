@@ -27,9 +27,10 @@ class Entity { // helper class for managing entities (players, monsters, etc.)
 }
 
 class Side { // helper class for managing sides
-  constructor(id) {
+  constructor(id, name) {
     this.entities = [];
     this.id = id;
+    this.defaultName = name;
   }
 
   getNext() {
@@ -46,12 +47,18 @@ export default class InitTracker extends Component {
       resolveActive: false,
       sides: [],
     }
+
+    this.addSide('playerId', 'Players'); // we need to set the ids here because our normal hack of using the timestamp doesn't work if they happen at the same time
+    this.addSide('side2Id');
   }
 
-  addSide() {
+  addSide(id, name) {
     const sides = this.state.sides;
     sides.push( // set the ID. these are used as keys for the side components, so they must be unique
-      new Side(new Date().getTime()) // we don't really care what the id is as long as it's unique, so the current timestamp will do
+      new Side(
+        id || new Date().getTime(), // we don't really care what the id is as long as it's unique, so the current timestamp will do
+        name || ''
+      )
     );
 
     this.setState({
