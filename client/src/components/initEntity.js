@@ -49,7 +49,7 @@ export default function InitEntity(props) {
             />
           </Grid>
           <Grid item xs={1}>
-            <IconButton size='small'>
+            <IconButton size='small' onClick={() => props.removeEntity()}>
               <RemoveIcon fontSize='small' />
             </IconButton>
           </Grid>

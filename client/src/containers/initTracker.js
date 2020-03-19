@@ -74,6 +74,14 @@ export default class InitTracker extends Component {
     this.setState({sides});
   }
 
+  removeEntity(sideIndex, entityIndex) { // remove an entity
+    let sides = this.state.sides;
+    const newEntities = removeElement(sides[sideIndex].entities, entityIndex);
+    sides[sideIndex].entities = newEntities; // ew, variable reassignment!
+
+    this.setState({sides});
+  }
+
   renderControlButtons() { // conditionally renders the control buttons along the top
     // we do this in a function here mostly because it is cleaner- you can use if/else in an intuitive way
     if (!this.state.combatStarted) return ( // this button starts combat
@@ -124,6 +132,7 @@ export default class InitTracker extends Component {
                   isInCombat={this.state.combatStarted}
                   removeSide={() => this.removeSide(index)}
                   addEntity={() => this.addEntity(index)}
+                  removeEntity={(entityIndex) => this.removeEntity(index, entityIndex)}
                 />
               </Grid>
             ))

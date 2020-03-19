@@ -47,10 +47,10 @@ export default function InitSide(props) {
       <Divider />
       <Spacer height={10} />
       { /* make entity ui elements for all the entities of this side */
-        props.side.entities.map(entity => (
+        props.side.entities.map((entity, index) => (
           <InitEntity
             key={entity.id}
-            {...props}
+            removeEntity={() => props.removeEntity(index)}
           />
         ))
       }
