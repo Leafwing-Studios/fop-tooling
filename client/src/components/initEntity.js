@@ -25,9 +25,6 @@ const useStyles = makeStyles({
       borderBottom: "none"
     }
   },
-  resize: {
-    fontSize: 18
-  },
   paper: {
     paddingRight: 20,
     paddingLeft: 10,
@@ -47,12 +44,8 @@ export default function InitEntity(props) {
             <TextField
               fullWidth
               autoFocus
-              InputProps={{
-                classes: {
-                  underline: classes.underline,
-                  input: classes.resize,
-                }
-              }}
+              placeholder='Combatant Name'
+              InputProps={{ classes }}
             />
           </Grid>
           <Grid item xs={1}>

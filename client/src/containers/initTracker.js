@@ -26,9 +26,9 @@ class Entity { // helper class for managing entities (players, monsters, etc.)
 }
 
 class Side { // helper class for managing sides
-  constructor(name) {
+  constructor(id) {
     this.entities = [];
-    this.defaultName = name; // this is basically just the startin name for this side. the actual name is stored in a TextField a few layers down
+    this.id = id;
   }
 
   getNext() {
@@ -50,11 +50,12 @@ export default class InitTracker extends Component {
 
   addSide() {
     const sides = this.state.sides;
-    sides.push(new Side(`Side ${this.state.totalSides}`)); // set the starting name. these are also used as keys for the side components, so they must be unique (hence the global side count)
+    sides.push( // set the ID. these are used as keys for the side components, so they must be unique (hence the global side count)
+      new Side(new Date().getTime()) // we don't really care what the id is as long as it's unique, so the current timestamp will do
+    );
 
     this.setState({
       sides,
-      totalSides: this.state.totalSides + 1
     });
   }
 
@@ -116,7 +117,7 @@ export default class InitTracker extends Component {
               <Grid
                 item
                 xl={2}
-                key={side.defaultName /* the key here makes sure that react can keep track of which list item is which. this is important when deleting elements */}
+                key={side.id /* the key here makes sure that react can keep track of which list item is which. this is important when deleting elements */}
               >
                 <InitSide
                   side={side}

@@ -26,7 +26,7 @@ export default function InitSide(props) {
         <Grid item lg>
           <TextField
             variant='outlined'
-            defaultValue={props.side.defaultName}
+            placeholder='Side Name'
             size='small'
             fullWidth
             autoFocus
