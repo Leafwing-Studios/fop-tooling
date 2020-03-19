@@ -7,6 +7,7 @@ import {
   Fab,
   IconButton,
   Divider,
+  Tooltip,
 } from '@material-ui/core';
 import {
   Add as AddIcon
@@ -138,9 +139,11 @@ export default class InitTracker extends Component {
             ))
           }
           <Grid item xs>
-            <IconButton aria-label='Add Side' onClick={() => this.addSide()}>
-              <AddIcon />
-            </IconButton>
+            <Tooltip title="Add side" aria-label='add-side'>
+              <IconButton onClick={() => this.addSide()}>
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
           </Grid>
         </Grid>
       </>

@@ -8,6 +8,7 @@ import {
   Paper,
   Container,
   IconButton,
+  Tooltip,
 } from '@material-ui/core';
 import {
   Add as AddIcon,
@@ -33,14 +34,18 @@ export default function InitSide(props) {
           />
         </Grid>
         <Grid item>
-          <IconButton size='small'>
-            <ResetIcon />
-          </IconButton>
+          <Tooltip title='Reset side (remove all combatants)' aria-label='reset-side'>
+            <IconButton size='small'>
+              <ResetIcon />
+            </IconButton>
+          </Tooltip>
         </Grid>
         <Grid item>
-          <IconButton onClick={() => props.removeSide()} size='small'>
-            <RemoveIcon />
-          </IconButton>
+          <Tooltip title='Remove side' aria-label='remove-side'>
+            <IconButton onClick={() => props.removeSide()} size='small'>
+              <RemoveIcon />
+            </IconButton>
+          </Tooltip>
         </Grid>
       </Grid>
       <Spacer height={10} />
@@ -55,11 +60,11 @@ export default function InitSide(props) {
         ))
       }
       <Center direction='horizontal'>
-        <IconButton
-          onClick={() => props.addEntity()}
-        >
-          <AddIcon />
-        </IconButton>
+        <Tooltip title='Add combatant' aria-label='add-combatant'>
+          <IconButton onClick={() => props.addEntity()}>
+            <AddIcon />
+          </IconButton>
+        </Tooltip>
       </Center>
     </Paper>
   );

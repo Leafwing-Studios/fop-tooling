@@ -3,6 +3,7 @@ import {
   Grid,
   Typography,
   Button,
+  Tooltip,
   TextField,
   Divider,
   Paper,
@@ -49,9 +50,11 @@ export default function InitEntity(props) {
             />
           </Grid>
           <Grid item xs={1}>
-            <IconButton size='small' onClick={() => props.removeEntity()}>
-              <RemoveIcon fontSize='small' />
-            </IconButton>
+            <Tooltip title='Remove combatant' aria-label='remove-combatant'>
+              <IconButton size='small' onClick={() => props.removeEntity()}>
+                <RemoveIcon fontSize='small' />
+              </IconButton>
+            </Tooltip>
           </Grid>
         </Grid>
       </Paper>
