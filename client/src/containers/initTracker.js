@@ -50,7 +50,7 @@ export default class InitTracker extends Component {
 
   addSide() {
     const sides = this.state.sides;
-    sides.push( // set the ID. these are used as keys for the side components, so they must be unique (hence the global side count)
+    sides.push( // set the ID. these are used as keys for the side components, so they must be unique
       new Side(new Date().getTime()) // we don't really care what the id is as long as it's unique, so the current timestamp will do
     );
 

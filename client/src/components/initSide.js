@@ -22,7 +22,7 @@ export default function InitSide(props) {
 
   return (
     <Paper style={{padding: 12}}>
-      <Grid container direction='row' alignItems='center' wrap='nowrap'>
+      <Grid container direction='row' alignItems='center' wrap='nowrap' spacing={1}>
         <Grid item lg>
           <TextField
             variant='outlined'
@@ -32,17 +32,13 @@ export default function InitSide(props) {
             autoFocus
           />
         </Grid>
-        <Spacer width={3} />
         <Grid item>
-          <IconButton>
+          <IconButton size='small'>
             <ResetIcon />
           </IconButton>
         </Grid>
-        <Spacer width={3} />
         <Grid item>
-          <IconButton
-            onClick={() => props.removeSide()}
-          >
+          <IconButton onClick={() => props.removeSide()} size='small'>
             <RemoveIcon />
           </IconButton>
         </Grid>
