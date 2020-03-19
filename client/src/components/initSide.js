@@ -47,10 +47,14 @@ export default function InitSide(props) {
           </IconButton>
         </Grid>
       </Grid>
+      <Spacer height={10} />
+      <Divider />
+      <Spacer height={10} />
       { /* make entity ui elements for all the entities of this side */
         props.side.entities.map(entity => (
           <InitEntity
             key={entity.id}
+            {...props}
           />
         ))
       }

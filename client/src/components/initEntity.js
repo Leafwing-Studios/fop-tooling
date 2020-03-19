@@ -14,10 +14,55 @@ import {
   RotateLeft as ResetIcon,
 } from '@material-ui/icons';
 import Spacer from '../components/spacer';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  underline: {
+    "&&&:before": {
+      borderBottom: "none"
+    },
+    "&&:after": {
+      borderBottom: "none"
+    }
+  },
+  resize: {
+    fontSize: 18
+  },
+  paper: {
+    paddingRight: 20,
+    paddingLeft: 10,
+    paddingTop: 10,
+    paddingBottom: 7,
+  }
+});
 
 export default function InitEntity(props) {
+  const classes = useStyles();
 
   return (
-    <p>entity!</p>
+    <>
+      <Paper className={classes.paper}>
+        <Grid container direction='row' alignItems='flex-start' wrap='nowrap' spacing={1}>
+          <Grid item md>
+            <TextField
+              fullWidth
+              autoFocus
+              InputProps={{
+                classes: {
+                  underline: classes.underline,
+                  input: classes.resize,
+                }
+              }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <IconButton size='small'>
+              <RemoveIcon fontSize='small' />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Paper>
+      <Spacer height={10} />
+    </>
   );
 }
