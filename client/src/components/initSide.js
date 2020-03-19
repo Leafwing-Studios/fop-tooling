@@ -56,6 +56,7 @@ export default function InitSide(props) {
           <InitEntity
             key={entity.id}
             removeEntity={() => props.removeEntity(index)}
+            hasTakenTurn={entity.hasTakenTurn}
           />
         ))
       }

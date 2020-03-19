@@ -44,7 +44,6 @@ export default class InitTracker extends Component {
     this.state = {
       combatStarted: false,
       resolveActive: false,
-      totalSides: 1, // total number of sides created. initialized at 1 because users will see this sometimes
       sides: [],
     }
   }
