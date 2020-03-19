@@ -35,7 +35,7 @@ export default function InitSide(props) {
         </Grid>
         <Grid item>
           <Tooltip title='Reset side (remove all combatants)' aria-label='reset-side'>
-            <IconButton size='small'>
+            <IconButton size='small' onClick={() => props.removeAllEntities()}>
               <ResetIcon />
             </IconButton>
           </Tooltip>
