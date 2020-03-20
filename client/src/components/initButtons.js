@@ -16,6 +16,8 @@ import Spacer from '../components/spacer';
 
 export default function InitButtons(props) {
   const spacerWidth = 150; // we add spacers so that the width of the column is consisitent. it's messy, but this element is really thin so I'm not worried about how responsive it it/isn't
+  const cannotPlay = props.sides.some(side => (side.entities.length === 0)) || /* all sides have at least 1 entity */
+    props.sides.lentgh === 0; /* there are no sides */
 
   if (!props.combatStarted) return ( // this button starts combat
     <>
@@ -27,10 +29,7 @@ export default function InitButtons(props) {
           variant='contained'
           color='primary'
           onClick={() => props.startCombat()}
-          disabled={
-            props.sides.some(side => (side.entities.length === 0)) || /* all sides have at least 1 entity */
-            props.sides.lentgh === 0 /* there are no sides */
-          }
+          disabled={cannotPlay}
         >
           Start Combat
         </Button>
@@ -47,7 +46,7 @@ export default function InitButtons(props) {
           variant='outlined'
           color='primary'
           onClick={() => props.nextTurn()}
-          disabled={props.sides.length===0}
+          disabled={cannotPlay}
         >
           Next Turn
         </Button>
@@ -56,7 +55,7 @@ export default function InitButtons(props) {
         <Button
           variant='outlined'
           color='primary'
-          disabled={props.sides.length===0}
+          disabled={cannotPlay}
         >
           Use Resolve
         </Button>
