@@ -104,7 +104,7 @@ export default class InitTracker extends Component {
       mostRecentTurn: null, // the index of the side that most recently had a turn.
     }
 
-    this.addSide('playerId', 'Players'); // we need to set the ids here because our normal hack of using the timestamp doesn't work if they happen at the same time
+    this.addSide('playerId', 'Players'); // we need to manually set the ids here because our normal hack of using the timestamp doesn't work if they happen at the same time
     this.addSide('side2Id');
   }
 
@@ -235,7 +235,10 @@ export default class InitTracker extends Component {
             variant='contained'
             color='primary'
             onClick={() => this.startCombat()}
-            disabled={this.state.sides.some(side => (side.entities.length === 0)) /* all sides have at least 1 entity */}
+            disabled={
+              this.state.sides.some(side => (side.entities.length === 0)) || /* all sides have at least 1 entity */
+              this.state.sides.lentgh === 0 /* there are no sides */
+            }
           >
             Start Combat
           </Button>
