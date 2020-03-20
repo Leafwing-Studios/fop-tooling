@@ -98,12 +98,19 @@ export default class InitTracker extends Component {
 
   renderControlButtons() { // conditionally renders the control buttons along the top
     // we do this in a function here mostly because it is cleaner- you can use if/else in an intuitive way
+    const spacerWidth = 150; // we add spacers so that the width of the column is consisitent. it's messy, but this element is really thin so I'm not worried about how responsive it it/isn't
+
     if (!this.state.combatStarted) return ( // this button starts combat
-      <Grid item xs={2}>
-        <Button variant='contained' color='primary' onClick={() => this.setState({combatStarted: true})}>
-          Start Combat
-        </Button>
-      </Grid>
+      <>
+        <Grid item xs='auto'>
+          <Button variant='contained' color='primary' onClick={() => this.setState({combatStarted: true})}>
+            Start Combat
+          </Button>
+        </Grid>
+        <Grid item xs='auto'>
+          <Spacer width={spacerWidth} />
+        </Grid>
+      </>
     );
     else return (
       <>
@@ -122,6 +129,9 @@ export default class InitTracker extends Component {
             Finish Combat
           </Button>
         </Grid>
+        <Grid item xs='auto'>
+          <Spacer width={spacerWidth} />
+        </Grid>
       </>
     );
   }
@@ -129,11 +139,20 @@ export default class InitTracker extends Component {
   render() {
     return (
       <>
-        <Grid container direction='row' alignItems='flex-end' spacing={2}>
-          { this.renderControlButtons() }
-        </Grid>
+        <Typography variant='h4'>
+          Initiative Tracker
+        </Typography>
+        <Divider />
         <Spacer height={20} />
         <Grid container direction='row' alignContents='center' spacing={2}>
+          <Grid item md='auto'>
+            <Grid container direction='column' alignItems='flex-end' spacing={2}>
+              { this.renderControlButtons() }
+            </Grid>
+          </Grid>
+          <Grid item xs='auto'>
+            <Divider orientation='vertical' fullWidth/>
+          </Grid>
           {
             this.state.sides.map((side, index) => (
               <Grid
