@@ -14,7 +14,7 @@ import {
 } from '@material-ui/icons';
 import Spacer from '../components/spacer';
 import InitSide from '../components/initSide';
-import Center from '../components/center';
+import InitButtons from '../components/initButtons';
 import {
   removeElement,
   randRange,
@@ -224,54 +224,6 @@ export default class InitTracker extends Component {
     }
   }
 
-  renderControlButtons() { // conditionally renders the control buttons along the top
-    // we do this in a function here mostly because it is cleaner- you can use if/else in an intuitive way
-    const spacerWidth = 150; // we add spacers so that the width of the column is consisitent. it's messy, but this element is really thin so I'm not worried about how responsive it it/isn't
-
-    if (!this.state.combatStarted) return ( // this button starts combat
-      <>
-        <Grid item xs='auto'>
-          <Spacer width={spacerWidth} />
-        </Grid>
-        <Grid item xs='auto'>
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={() => this.startCombat()}
-            disabled={
-              this.state.sides.some(side => (side.entities.length === 0)) || /* all sides have at least 1 entity */
-              this.state.sides.lentgh === 0 /* there are no sides */
-            }
-          >
-            Start Combat
-          </Button>
-        </Grid>
-      </>
-    );
-    else return (
-      <>
-        <Grid item xs='auto'>
-          <Spacer width={spacerWidth} />
-        </Grid>
-        <Grid item xs='auto'>
-          <Button variant='outlined' color='primary' onClick={() => this.nextTurn()}>
-            Next Turn
-          </Button>
-        </Grid>
-        <Grid item xs='auto'>
-          <Button variant='outlined' color='primary'>
-            Use Resolve
-          </Button>
-        </Grid>
-        <Grid item xs='auto'>
-          <Button variant='contained' color='primary' onClick={() => this.endCombat()}>
-            Finish Combat
-          </Button>
-        </Grid>
-      </>
-    );
-  }
-
   render() {
     return (
       <>
@@ -283,7 +235,13 @@ export default class InitTracker extends Component {
         <Grid container direction='row' alignContents='center' spacing={2}>
           <Grid item md='auto'>
             <Grid container direction='column' alignItems='flex-end' spacing={2}>
-              { this.renderControlButtons() }
+              <InitButtons
+                sides={this.state.sides}
+                combatStarted={this.state.combatStarted}
+                startCombat={() => this.startCombat()}
+                endCombat={() => this.endCombat()}
+                nextTurn={() => this.nextTurn()}
+              />
             </Grid>
           </Grid>
           <Grid item xs='auto'>
