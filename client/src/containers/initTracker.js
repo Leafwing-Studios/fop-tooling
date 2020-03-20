@@ -231,6 +231,9 @@ export default class InitTracker extends Component {
     if (!this.state.combatStarted) return ( // this button starts combat
       <>
         <Grid item xs='auto'>
+          <Spacer width={spacerWidth} />
+        </Grid>
+        <Grid item xs='auto'>
           <Button
             variant='contained'
             color='primary'
@@ -243,13 +246,13 @@ export default class InitTracker extends Component {
             Start Combat
           </Button>
         </Grid>
-        <Grid item xs='auto'>
-          <Spacer width={spacerWidth} />
-        </Grid>
       </>
     );
     else return (
       <>
+        <Grid item xs='auto'>
+          <Spacer width={spacerWidth} />
+        </Grid>
         <Grid item xs='auto'>
           <Button variant='outlined' color='primary' onClick={() => this.nextTurn()}>
             Next Turn
@@ -264,9 +267,6 @@ export default class InitTracker extends Component {
           <Button variant='contained' color='primary' onClick={() => this.endCombat()}>
             Finish Combat
           </Button>
-        </Grid>
-        <Grid item xs='auto'>
-          <Spacer width={spacerWidth} />
         </Grid>
       </>
     );
