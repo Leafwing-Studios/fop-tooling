@@ -57,7 +57,11 @@ export default function InitSide(props) {
         </Grid>
         <Grid item>
           <Tooltip title='Reset side (remove all combatants)' aria-label='reset-side'>
-            <IconButton size='small' onClick={() => props.removeAllEntities()}>
+            <IconButton
+              size='small'
+              onClick={() => props.removeAllEntities()}
+              disabled={props.isInCombat}
+            >
               <ResetIcon />
             </IconButton>
           </Tooltip>

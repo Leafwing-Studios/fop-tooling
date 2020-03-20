@@ -164,11 +164,23 @@ export default class InitTracker extends Component {
     });
   }
 
+  endCombat() { // resets everything, except which sides are active and what's in them
+    const sides = this.state.sides;
+    sides.forEach((side) => side.reset());
+
+    this.setState({
+      sides,
+      combatStarted: false,
+      resolveActive: false,
+      mostRecentTurn: null,
+    });
+  }
+
   nextTurn() {
     // there's a lot of array scanning in this function, but there's expected to be very few sides, so it should be fine
 
     const sides = this.state.sides;
-    // if nothing has any turns left, completely reset everything
+    // if nothing has any turns left, completely reset sides
     if (this.state.sides.every(side => !side.hasTurnsLeft())) {
       sides.forEach((side) => side.reset());
     }
@@ -219,7 +231,12 @@ export default class InitTracker extends Component {
     if (!this.state.combatStarted) return ( // this button starts combat
       <>
         <Grid item xs='auto'>
-          <Button variant='contained' color='primary' onClick={() => this.startCombat()}>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => this.startCombat()}
+            disabled={this.state.sides.some(side => (side.entities.length === 0)) /* all sides have at least 1 entity */}
+          >
             Start Combat
           </Button>
         </Grid>
@@ -241,7 +258,7 @@ export default class InitTracker extends Component {
           </Button>
         </Grid>
         <Grid item xs='auto'>
-          <Button variant='contained' color='primary' onClick={() => this.setState({combatStarted: false})}>
+          <Button variant='contained' color='primary' onClick={() => this.endCombat()}>
             Finish Combat
           </Button>
         </Grid>
