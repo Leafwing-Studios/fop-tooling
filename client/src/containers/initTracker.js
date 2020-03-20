@@ -10,6 +10,9 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import {
+  Alert
+} from '@material-ui/lab';
+import {
   Add as AddIcon
 } from '@material-ui/icons';
 import Spacer from '../components/spacer';
@@ -102,6 +105,7 @@ export default class InitTracker extends Component {
       resolveActive: false,
       sides: [],
       mostRecentTurn: null, // the index of the side that most recently had a turn.
+      statusText: 'Combat has yet to begin!', // text that shows in the alert at the top
     }
 
     this.addSide('playerId', 'Players'); // we need to manually set the ids here because our normal hack of using the timestamp doesn't work if they happen at the same time
@@ -161,6 +165,7 @@ export default class InitTracker extends Component {
       mostRecentTurn: sideIndex,
       combatStarted: true,
       sides,
+      statusText: 'Combat has started! A random side has been rolled to start first.',
     });
   }
 
@@ -173,6 +178,7 @@ export default class InitTracker extends Component {
       combatStarted: false,
       resolveActive: false,
       mostRecentTurn: null,
+      statusText: 'Combat has yet to begin!'
     });
   }
 
@@ -192,9 +198,15 @@ export default class InitTracker extends Component {
       d4 === 0 && // we got lucky on the roll and...
       sides[this.state.mostRecentTurn].hasTurnsLeft() // ...we actually can keep playing this side
     ) { // same side!
+
+      const isOnlySideLeft = sides.filter(side => side.hasTurnsLeft()).length <= 1;
       sides[this.state.mostRecentTurn].startNextTurn();
 
-      this.setState({sides});
+      this.setState({
+        sides,
+        statusText: isOnlySideLeft ? 'Only one side left! They get all their remaining turns before the round resets.' : 'Rolling to see which side goes next... 4! The same side gets another turn!'
+      });
+
     } else { // pick a different side!
 
       const sidesWithTurns = sides.filter(side => side.hasTurnsLeft());
@@ -204,10 +216,10 @@ export default class InitTracker extends Component {
 
       let filteredSideIndex; // index of the chosen side in the filtered array
 
-      if (badIndex) { // if the most recent side still has turns left
+      if (badIndex !== undefined) { // if the most recent side still has turns left
         // pick a random index (in the filtered array) that doesn't correspond to the most recent turn
         filteredSideIndex = randRange(sidesWithTurns.length-1); // get a random index in this array, intentionally omitting the last index
-        if (filteredSideIndex === badIndex) filteredSideIndex = sides.length-1 // if we get the index that we should avoid, then set to the last index
+        if (filteredSideIndex === badIndex) filteredSideIndex = sidesWithTurns.length-1; // if we get the index that we should avoid, then set to the last index.
       } else { // the most recent side is out of turns, just pick a side at random
         filteredSideIndex = randRange(sidesWithTurns.length);
       }
@@ -217,9 +229,18 @@ export default class InitTracker extends Component {
       sides[this.state.mostRecentTurn].endCurrentTurn();
       sides[originalIndex].startNextTurn();
 
+      // figure out the status text
+      let statusText;
+      if (sidesWithTurns.length === 1) {
+        statusText = 'Only one side left! They get all their remaining turns before the round resets.'
+      } else {
+        statusText = `Rolling to see which side goes next... ${d4}! ${sides.length === 2 ? 'Switching current turn to the opposite side.' : 'A random new side has been rolled.'}`;
+      }
+
       this.setState({
         mostRecentTurn: originalIndex,
         sides,
+        statusText,
       });
     }
   }
@@ -231,7 +252,11 @@ export default class InitTracker extends Component {
           Initiative Tracker
         </Typography>
         <Divider />
-        <Spacer height={20} />
+        <Spacer height={10} />
+        <Alert severity='info' style={{maxWidth: 620}}>
+          {this.state.statusText}
+        </Alert>
+        <Spacer height={10} />
         <Grid container direction='row' alignContents='center' spacing={2}>
           <Grid item md='auto'>
             <Grid container direction='column' alignItems='flex-end' spacing={2}>
