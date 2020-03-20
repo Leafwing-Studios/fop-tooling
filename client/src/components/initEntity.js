@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import clsx from 'clsx';
 import {
   Grid,
   Typography,
@@ -31,6 +32,12 @@ const useStyles = makeStyles({
     paddingLeft: 10,
     paddingTop: 10,
     paddingBottom: 7,
+  },
+  darkBackground: {
+    backgroundColor: '#dddddd',
+  },
+  yellowBackground: {
+    backgroundColor: '#fff4b5',
   }
 });
 
@@ -39,14 +46,24 @@ export default function InitEntity(props) {
 
   return (
     <>
-      <Paper className={classes.paper}>
+      <Paper className={clsx(
+        classes.paper,
+        {
+          [classes.darkBackground]: props.entity.hasFinishedTurn,
+          [classes.yellowBackground]: props.entity.isCurrentTurn,
+        }
+      )}>
         <Grid container direction='row' alignItems='flex-start' wrap='nowrap' spacing={1}>
           <Grid item md>
             <TextField
               fullWidth
               autoFocus
               placeholder='Combatant Name'
-              InputProps={{ classes }}
+              InputProps={{
+                classes: {
+                  underline: classes.underline,
+                }
+              }}
             />
           </Grid>
           <Grid item xs={1}>

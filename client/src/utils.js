@@ -6,9 +6,12 @@ const titleCase = (str) => str.split(' ').map(s => s.charAt(0).toUpperCase() + s
 
 const removeElement = (arr, index) => arr.slice(0, index).concat(arr.slice(index+1));
 
+const randRange = (max) => Math.floor(Math.random() * Math.floor(max)); // random number between 0 and max-1 (inclusive)
+
 export {
   onlyUnique,
   stringContains,
   titleCase,
   removeElement,
+  randRange,
 }

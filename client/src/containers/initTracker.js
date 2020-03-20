@@ -16,13 +16,25 @@ import Spacer from '../components/spacer';
 import InitSide from '../components/initSide';
 import Center from '../components/center';
 import {
-  removeElement
+  removeElement,
+  randRange,
 } from '../utils';
 
 class Entity { // helper class for managing entities (players, monsters, etc.)
   constructor(id) {
     this.id = id;
-    this.hasTakenTurn = false;
+    this.hasFinishedTurn = false;
+    this.isCurrentTurn = false; // whether it is currently this entity's turn. yeah, the double boolean is messy, i know
+  }
+
+  startTurn() {
+    this.hasFinishedTurn = false;
+    this.isCurrentTurn = true;
+  }
+
+  endTurn() {
+    this.isCurrentTurn = false;
+    this.hasFinishedTurn = true;
   }
 }
 
@@ -33,8 +45,31 @@ class Side { // helper class for managing sides
     this.defaultName = name;
   }
 
-  getNext() {
-    return this.entities.findIndex(a => !a.hasTakenTurn); // finds the first index where hasTakenTurn is false
+  getCurrent() {
+    return this.entities.findIndex(a => !a.hasFinishedTurn); // finds the entity which has not finished its turn (is current turn)
+  }
+
+  startNextTurn() {
+    const entityIndex = this.getCurrent();
+
+    if (entityIndex === 0) { // no turns have been taken for this side
+      this.entities[0].startTurn();
+
+    } else if (this.entities[entityIndex].isCurrentTurn) { // we rolled to stay on the same side. end current and get next
+      this.entities[entityIndex].endTurn();
+      this.entities[entityIndex + 1].startTurn();
+
+    } else { // we're coming in after switching sides. start current
+      this.entities[entityIndex].startTurn();
+    }
+
+    // yes, i recognize i can save a branch statement if i compress this block, but i think this is more clear
+  }
+
+  endCurrentTurn() {
+    const entityIndex = this.getCurrent();
+
+    this.entities[entityIndex].endTurn();
   }
 }
 
@@ -46,6 +81,7 @@ export default class InitTracker extends Component {
       combatStarted: false,
       resolveActive: false,
       sides: [],
+      mostRecentTurn: null, // the index of the side that most recently had a turn.
     }
 
     this.addSide('playerId', 'Players'); // we need to set the ids here because our normal hack of using the timestamp doesn't work if they happen at the same time
@@ -96,6 +132,43 @@ export default class InitTracker extends Component {
     this.setState({sides});
   }
 
+  startCombat() {
+    const sideIndex = randRange(this.state.sides.length); // get a random index in this array
+    const sides = this.state.sides;
+    sides[sideIndex].entities[0].startTurn();
+
+    this.setState({
+      mostRecentTurn: sideIndex,
+      combatStarted: true,
+      sides: sides,
+    });
+  }
+
+  nextTurn() { // roll a d4 to determine if we change sides or stay on the same side
+    const d4 = randRange(4); // random number between 0 and 3
+
+    if (d4 === 0) { // same side!
+      const sides = this.state.sides;
+      sides[this.state.mostRecentTurn].startNextTurn();
+
+      this.setState({sides});
+    } else { // pick a different side!
+      // pick a random index other than mostRecentTurn
+      let sideIndex = randRange(this.state.sides.length-1); // get a random index in this array, intentionally omitting the last index
+      if (sideIndex === this.state.mostRecentTurn) sideIndex = this.state.sides.length-1 // if we get the index that we should avoid, then set to the last index
+
+      const sides = this.state.sides;
+
+      sides[this.state.mostRecentTurn].endCurrentTurn();
+      sides[sideIndex].startNextTurn();
+
+      this.setState({
+        mostRecentTurn: sideIndex,
+        sides,
+      });
+    }
+  }
+
   renderControlButtons() { // conditionally renders the control buttons along the top
     // we do this in a function here mostly because it is cleaner- you can use if/else in an intuitive way
     const spacerWidth = 150; // we add spacers so that the width of the column is consisitent. it's messy, but this element is really thin so I'm not worried about how responsive it it/isn't
@@ -103,7 +176,7 @@ export default class InitTracker extends Component {
     if (!this.state.combatStarted) return ( // this button starts combat
       <>
         <Grid item xs='auto'>
-          <Button variant='contained' color='primary' onClick={() => this.setState({combatStarted: true})}>
+          <Button variant='contained' color='primary' onClick={() => this.startCombat()}>
             Start Combat
           </Button>
         </Grid>
@@ -115,7 +188,7 @@ export default class InitTracker extends Component {
     else return (
       <>
         <Grid item xs='auto'>
-          <Button variant='outlined' color='primary'>
+          <Button variant='outlined' color='primary' onClick={() => this.nextTurn()}>
             Next Turn
           </Button>
         </Grid>
