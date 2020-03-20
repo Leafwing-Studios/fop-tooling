@@ -36,6 +36,11 @@ class Entity { // helper class for managing entities (players, monsters, etc.)
     this.isCurrentTurn = false;
     this.hasFinishedTurn = true;
   }
+
+  reset() {
+    this.hasFinishedTurn = false;
+    this.isCurrentTurn = false;
+  }
 }
 
 class Side { // helper class for managing sides
@@ -49,15 +54,24 @@ class Side { // helper class for managing sides
     return this.entities.findIndex(a => !a.hasFinishedTurn); // finds the entity which has not finished its turn (is current turn)
   }
 
+  hasTurnsLeft() {
+    const currentTurnIndex = this.getCurrent();
+
+    return (
+      (currentTurnIndex !== -1) && // taking advantage of the fact that findIndex returns -1 if nothing is found
+      !(this.entities[currentTurnIndex].isCurrentTurn && currentTurnIndex === this.entities.length -1) // if the final turn is the current turn, we also want to return false
+    )
+  }
+
   startNextTurn() {
     const entityIndex = this.getCurrent();
 
-    if (entityIndex === 0) { // no turns have been taken for this side
-      this.entities[0].startTurn();
-
-    } else if (this.entities[entityIndex].isCurrentTurn) { // we rolled to stay on the same side. end current and get next
+    if (this.entities[entityIndex].isCurrentTurn) { // we rolled to stay on the same side. end current and get next
       this.entities[entityIndex].endTurn();
       this.entities[entityIndex + 1].startTurn();
+
+    } else if (entityIndex === 0) { // no turns have been taken for this side
+      this.entities[0].startTurn();
 
     } else { // we're coming in after switching sides. start current
       this.entities[entityIndex].startTurn();
@@ -69,7 +83,13 @@ class Side { // helper class for managing sides
   endCurrentTurn() {
     const entityIndex = this.getCurrent();
 
-    this.entities[entityIndex].endTurn();
+    if (this.entities[entityIndex].isCurrentTurn) { // we should only end things that are actually taking their turns (the bad case can happen when the round resets)
+      this.entities[entityIndex].endTurn();
+    }
+  }
+
+  reset() { // resets to initial state - no combatants have taken turns yet
+    this.entities.forEach(entity => entity.reset());
   }
 }
 
@@ -140,30 +160,53 @@ export default class InitTracker extends Component {
     this.setState({
       mostRecentTurn: sideIndex,
       combatStarted: true,
-      sides: sides,
+      sides,
     });
   }
 
-  nextTurn() { // roll a d4 to determine if we change sides or stay on the same side
+  nextTurn() {
+    // there's a lot of array scanning in this function, but there's expected to be very few sides, so it should be fine
+
+    const sides = this.state.sides;
+    // if nothing has any turns left, completely reset everything
+    if (this.state.sides.every(side => !side.hasTurnsLeft())) {
+      sides.forEach((side) => side.reset());
+    }
+
+    // roll a d4 to determine if we change sides or stay on the same side
     const d4 = randRange(4); // random number between 0 and 3
 
-    if (d4 === 0) { // same side!
-      const sides = this.state.sides;
+    if (
+      d4 === 0 && // we got lucky on the roll and...
+      sides[this.state.mostRecentTurn].hasTurnsLeft() // ...we actually can keep playing this side
+    ) { // same side!
       sides[this.state.mostRecentTurn].startNextTurn();
 
       this.setState({sides});
     } else { // pick a different side!
-      // pick a random index other than mostRecentTurn
-      let sideIndex = randRange(this.state.sides.length-1); // get a random index in this array, intentionally omitting the last index
-      if (sideIndex === this.state.mostRecentTurn) sideIndex = this.state.sides.length-1 // if we get the index that we should avoid, then set to the last index
 
-      const sides = this.state.sides;
+      const sidesWithTurns = sides.filter(side => side.hasTurnsLeft());
+      // since we're filtering out some sides, we need to use our unique keys instead of indicies
+      const idOfMostRecentTurn = sides[this.state.mostRecentTurn].id;
+      const badIndex = sidesWithTurns.findIndex(side => side.id === idOfMostRecentTurn); // this will return undefined if the most recent turn is now out of turns
+
+      let filteredSideIndex; // index of the chosen side in the filtered array
+
+      if (badIndex) { // if the most recent side still has turns left
+        // pick a random index (in the filtered array) that doesn't correspond to the most recent turn
+        filteredSideIndex = randRange(sidesWithTurns.length-1); // get a random index in this array, intentionally omitting the last index
+        if (filteredSideIndex === badIndex) filteredSideIndex = sides.length-1 // if we get the index that we should avoid, then set to the last index
+      } else { // the most recent side is out of turns, just pick a side at random
+        filteredSideIndex = randRange(sidesWithTurns.length);
+      }
+
+      const originalIndex = sides.findIndex(side => side.id === sidesWithTurns[filteredSideIndex].id)// the index in the original sides array of the side we just picked
 
       sides[this.state.mostRecentTurn].endCurrentTurn();
-      sides[sideIndex].startNextTurn();
+      sides[originalIndex].startNextTurn();
 
       this.setState({
-        mostRecentTurn: sideIndex,
+        mostRecentTurn: originalIndex,
         sides,
       });
     }
