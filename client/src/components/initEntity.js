@@ -59,10 +59,13 @@ export default function InitEntity(props) {
               fullWidth
               autoFocus
               placeholder='Combatant Name'
+              onKeyPress={(ev) => {
+                if (ev.key === 'Enter') props.addEntity();
+              }}
               InputProps={{
                 classes: {
                   underline: classes.underline,
-                }
+                },
               }}
             />
           </Grid>

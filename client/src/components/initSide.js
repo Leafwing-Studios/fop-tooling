@@ -81,6 +81,7 @@ export default function InitSide(props) {
           <InitEntity
             key={entity.id}
             removeEntity={() => props.removeEntity(index)}
+            addEntity={() => props.addEntity()}
             entity={entity}
           />
         ))
