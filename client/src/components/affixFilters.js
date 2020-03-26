@@ -37,7 +37,7 @@ export default function AffixFilters(props) {
             value={props.filters.cost ? props.filters.cost : ''}
             label="Cost"
             type="search"
-            onChange={(event) => (props.onChange({cost: parseInt(event.target.value)}))}
+            onChange={(event) => (props.onChange({cost: event.target.value}))}
           />
         </Grid>
         <Grid item xs={2}>

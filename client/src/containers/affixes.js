@@ -23,7 +23,7 @@ export default class Rules extends Component {
       filters: { // filters subcomponent gets a callback to change this bit
         nameDesc: "",
         slot: "",
-        cost: null,
+        cost: "", // this is stored a string because you start with a '-' when typing in negative numbers
         type: [],
         tags: [],
       },
@@ -53,7 +53,7 @@ export default class Rules extends Component {
     const filteredAffixes = this.state.allAffixes.filter((affix) => (
       (stringContains(affix.name, filters.nameDesc) || stringContains(affix.descShort, filters.nameDesc)) &&
       (filters.tags.length === 0 ? true : affix.tags.some(category => filters.tags.includes(category))) &&
-      (filters.cost ? affix.cost === filters.cost : true) &&
+      (parseInt(filters.cost) ? affix.cost === parseInt(filters.cost) : true) &&  // parseInt here because we store as a string
       (filters.slot ? affix.slot === filters.slot : true) &&
       (filters.type.length === 0 ? true : filters.type.includes(affix.affixType))
     ))
