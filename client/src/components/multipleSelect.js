@@ -6,6 +6,9 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
+import {
+  FormHelperText
+} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -93,6 +96,10 @@ export default function MultipleSelect(props) {
           </MenuItem>
         ))}
       </Select>
+      {
+        props.helperText &&
+        <FormHelperText>{props.helperText}</FormHelperText>
+      }
     </FormControl>
   );
 }

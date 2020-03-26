@@ -77,7 +77,7 @@ export default function AffixFilters(props) {
         </Grid>
       </Grid>
       <Spacer height={10} />
-      <Grid container direction="row" alignItems="flex-end" spacing={2}>
+      <Grid container direction="row" alignItems="center" spacing={2}>
         <Grid item lg>
           <div style={{display: 'flex'}}>
             <MultipleSelect
@@ -85,6 +85,7 @@ export default function AffixFilters(props) {
               value={props.filters.tags}
               items={props.uniqueTags}
               onChange={(val) => props.onChange({tags: val})}
+              helperText='Matches all affixes with at least one of the selected tags'
             />
           </div>
         </Grid>
