@@ -22,15 +22,6 @@ export default class AffixInfo extends Component {
     return list.map(e => titleCase(e)).join(', ')
   }
 
-  getElementsString() {
-    if (this.props.affix.elements.length !== 0) return (
-      <Typography>
-        <b>Elements: </b>
-        {this.buildList(this.props.affix.elements)}
-      </Typography>
-    );
-  }
-
   getPrerequisites() {
     if (this.props.affix.prerequisites) return (
       <Typography>
@@ -74,9 +65,6 @@ export default class AffixInfo extends Component {
           </Typography>
           {
             this.getPrerequisites()
-          }
-          {
-            this.getElementsString()
           }
           <Typography gutterBottom>
             <b>Tags: </b>
