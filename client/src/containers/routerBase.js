@@ -10,6 +10,7 @@ import Rules from './rules';
 import Login from './login';
 import Settings from './settings';
 import InitTracker from './initTracker';
+import MonsterBuilder from './monsterBuilder';
 
 export default function RouterBase() {
   return (
@@ -31,6 +32,9 @@ export default function RouterBase() {
         </Route>
         <Route path="/settings">
           <Settings />
+        </Route>
+        <Route path="/monsterBuilder">
+          <MonsterBuilder />
         </Route>
         <Route path="/">
           <Home />
