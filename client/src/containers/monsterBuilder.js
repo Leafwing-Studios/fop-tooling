@@ -1,8 +1,8 @@
 import React from 'react';
-import ComingSoon from '../components/comingSoon';
+import ControlledStepper from '../components/controlledStepper';
 
 export default function MonsterBuilder() {
   return (
-    <ComingSoon />
+    <ControlledStepper />
   );
 }
