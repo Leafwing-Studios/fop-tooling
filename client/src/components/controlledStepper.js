@@ -1,14 +1,31 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepButton from '@material-ui/core/StepButton';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+  Divider,
+  Stepper,
+  Step,
+  StepButton,
+  Button,
+  Typography,
+} from '@material-ui/core';
+import Spacer from './spacer';
 
 const useStyles = makeStyles((theme) => ({
   stepperRoot: {
     width: '100%',
+  },
+  stepperContent: {
+    marginLeft: theme.spacing(6),
+    marginRight: theme.spacing(6),
+  },
+  stepperButtons: {
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
+      marginLeft: theme.spacing(4),
+      marginRight: theme.spacing(3),
   },
   button: {
     marginRight: theme.spacing(1),
@@ -22,43 +39,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
-}
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return 'Step 1: Select campaign settings...';
-    case 1:
-      return 'Step 2: What is an ad group anyways?';
-    case 2:
-      return 'Step 3: This is the bit I really care about!';
-    default:
-      return 'Unknown step';
-  }
-}
-
-export default function ControlledStepper() {
+export default function ControlledStepper(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
-  const steps = getSteps();
-
-  const totalSteps = () => {
-    return steps.length;
-  };
 
   const completedSteps = () => {
     return Object.keys(completed).length;
   };
 
   const isLastStep = () => {
-    return activeStep === totalSteps() - 1;
+    return activeStep === props.steps.length - 1;
   };
 
   const allStepsCompleted = () => {
-    return completedSteps() === totalSteps();
+    return completedSteps() === props.steps.length;
   };
 
   const handleNext = () => {
@@ -66,7 +61,7 @@ export default function ControlledStepper() {
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
           // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+          props.steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -93,8 +88,8 @@ export default function ControlledStepper() {
 
   return (
     <div className={classes.stepperRoot}>
-      <Stepper nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => (
+      <Stepper nonLinear activeStep={activeStep} style={{background: 'inherit'}}>
+        {props.steps.map((label, index) => (
           <Step key={label}>
             <StepButton onClick={handleStep(index)} completed={completed[index]}>
               {label}
@@ -104,37 +99,41 @@ export default function ControlledStepper() {
       </Stepper>
       <div>
         {allStepsCompleted() ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
+          <div className={classes.stepperContent}>
+            {props.children[props.children.length - 1]}
             <Button onClick={handleReset}>Reset</Button>
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-            <div>
+            <div className={classes.stepperContent}>
+              {props.children[activeStep]}
+            </div>
+            <Spacer height={15} />
+            <Divider className={classes.divider}/>
+            <div className={classes.stepperButtons}>
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                 Back
               </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}
-              >
-                Next
-              </Button>
-              {activeStep !== steps.length &&
-                (completed[activeStep] ? (
-                  <Typography variant="caption" className={classes.completed}>
-                    Step {activeStep + 1} already completed
-                  </Typography>
-                ) : (
-                  <Button variant="contained" color="primary" onClick={handleComplete}>
-                    {completedSteps() === totalSteps() - 1 ? 'Finish' : 'Complete Step'}
-                  </Button>
-                ))}
+              <div style={{float: 'right'}}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                  className={classes.button}
+                >
+                  Next
+                </Button>
+                {activeStep !== props.steps.length &&
+                  (completed[activeStep] ? (
+                    <Typography variant="caption" className={classes.completed}>
+                      Step {activeStep + 1} already completed
+                    </Typography>
+                  ) : (
+                    <Button variant="contained" color="primary" onClick={handleComplete}>
+                      {completedSteps() === props.steps.length - 1 ? 'Finish' : 'Complete Step'}
+                    </Button>
+                  ))}
+                </div>
             </div>
           </div>
         )}
