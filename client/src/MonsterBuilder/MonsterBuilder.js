@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ControlledStepper from '../components/controlledStepper';
+import ControlledStepper from '../Common/ControlledStepper';
 import {
   Typography
 } from '@material-ui/core';

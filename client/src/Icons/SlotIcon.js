@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import ArmsIcon from './icons/armsIcon';
-import ArmorIcon from './icons/armorIcon';
-import TrinketIcon from './icons/trinketIcon';
-import ConsumableIcon from './icons/consumableIcon';
+import ArmsIcon from './ArmsIcon';
+import ArmorIcon from './ArmorIcon';
+import TrinketIcon from './TrinketIcon';
+import ConsumableIcon from './ConsumableIcon';
 
 export default function SlotIcon(props) {
   if (props.slot === 'arms')

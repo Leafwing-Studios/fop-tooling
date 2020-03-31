@@ -18,7 +18,7 @@ import {
 } from '@material-ui/icons'
 import MaterialTable from 'material-table';
 import { MTableCell } from 'material-table';
-import SlotIcon from './slotIcon';
+import SlotIcon from '../Icons/SlotIcon';
 import { titleCase } from '../utils.js';
 
 const styles = {

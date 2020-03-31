@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/styles';
 import DocumentTitle from 'react-document-title';
 
-import NavigationFrame from './containers/navigationFrame';
+import NavigationFrame from './NavigationTopLevel/NavigationFrame';
 
 export default class App extends Component {
   constructor() {

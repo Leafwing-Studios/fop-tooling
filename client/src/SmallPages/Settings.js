@@ -1,5 +1,5 @@
 import React from 'react';
-import ComingSoon from '../components/comingSoon';
+import ComingSoon from '../Common/ComingSoon';
 
 import {
   Typography,

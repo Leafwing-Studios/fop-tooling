@@ -15,9 +15,9 @@ import {
 import {
   Add as AddIcon
 } from '@material-ui/icons';
-import Spacer from '../components/spacer';
-import InitSide from '../components/initSide';
-import InitButtons from '../components/initButtons';
+import Spacer from '../Common/Spacer';
+import InitSide from './InitSide';
+import InitButtons from './InitButtons';
 import {
   removeElement,
   randRange,

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
-import TwoPanelsResizable from '../components/twoPanelsResizable';
-import Lipsum from '../components/lipsum';
-import Spacer from '../components/spacer';
-import AffixFilters from '../components/affixFilters';
-import AffixGrid from '../components/affixGrid';
-import AffixInfo from '../components/affixInfo';
-import InfoPanel from '../components/infoPanel';
+import {
+  TwoPanelsResizable,
+  Lipsum,
+  Spacer,
+  InfoPanel,
+} from '../Common';
+import AffixFilters from './AffixFilters';
+import AffixGrid from './AffixGrid';
+import AffixInfo from './AffixInfo';
 import {
   Typography,
 } from '@material-ui/core';

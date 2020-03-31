@@ -8,7 +8,7 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
-import Spacer from './spacer';
+import Spacer from './Spacer';
 
 const useStyles = makeStyles((theme) => ({
   stepperRoot: {

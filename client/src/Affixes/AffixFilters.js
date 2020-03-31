@@ -12,8 +12,10 @@ import {
 import {
   RotateLeft as ResetIcon,
 } from '@material-ui/icons';
-import Spacer from './spacer';
-import MultipleSelect from './multipleSelect';
+import {
+  Spacer,
+  MultipleSelect,
+} from '../Common';
 
 export default function AffixFilters(props) {
   return (

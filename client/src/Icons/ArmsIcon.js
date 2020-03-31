@@ -3,7 +3,7 @@ import {
   SvgIcon,
   Tooltip,
 } from '@material-ui/core';
-import IconBase from './iconBase';
+import IconBase from './IconBase';
 
 export default function ArmsIcon(props) {
   return (

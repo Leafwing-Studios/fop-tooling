@@ -25,8 +25,8 @@ import {
   Pets as MonsterBuilderIcon,
 } from '@material-ui/icons';
 
-import RouterBase from './routerBase';
-import DrawerLink from '../components/drawerLink'
+import RouterBase from './RouterBase';
+import DrawerLink from './DrawerLink';
 
 export default function NavigationFrame() {
   const classes = useStyles()(); // what the fuck javascript

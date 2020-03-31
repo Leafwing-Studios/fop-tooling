@@ -4,7 +4,6 @@ import {
   Grid,
   Divider,
 } from '@material-ui/core';
-import Lipsum from '../components/lipsum';
 
 export default function TwoColumns (props) {
   const classes = useStyles()();

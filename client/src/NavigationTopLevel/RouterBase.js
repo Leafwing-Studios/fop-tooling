@@ -4,13 +4,13 @@ import {
   Route,
 } from "react-router-dom";
 
-import Home from './home';
-import Affixes from './affixes';
-import Rules from './rules';
-import Login from './login';
-import Settings from './settings';
-import InitTracker from './initTracker';
-import MonsterBuilder from './monsterBuilder';
+import Home from '../SmallPages/Home';
+import Affixes from '../Affixes/Affixes';
+import Rules from '../Rules/Rules';
+import Login from '../SmallPages/Login';
+import Settings from '../SmallPages/Settings';
+import InitTracker from '../InitTracker/InitTracker';
+import MonsterBuilder from '../MonsterBuilder/MonsterBuilder';
 
 export default function RouterBase() {
   return (
