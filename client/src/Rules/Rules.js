@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
-import TwoPanelsResizable from '../Common/TwoPanelsResizable';
-import Lipsum from '../Common/Lipsum';
-import Spacer from '../Common/Spacer';
 import RuleGrid from './RuleGrid';
 import RuleFilters from './RuleFilters';
 import RuleInfo from './RuleInfo';
-import InfoPanel from '../Common/InfoPanel';
+import {
+  Spacer,
+  InfoPanel,
+  Lipsum,
+  TwoPanelsResizable,
+} from '../Common';
 import {
   Typography,
   Divider,

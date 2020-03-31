@@ -15,7 +15,9 @@ import {
   Close as RemoveIcon,
   RotateLeft as ResetIcon,
 } from '@material-ui/icons';
-import Spacer from '../Common/Spacer';
+import {
+  Spacer
+} from '../Common';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({

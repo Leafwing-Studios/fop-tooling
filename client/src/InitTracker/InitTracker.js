@@ -15,7 +15,9 @@ import {
 import {
   Add as AddIcon
 } from '@material-ui/icons';
-import Spacer from '../Common/Spacer';
+import {
+  Spacer
+} from '../Common';
 import InitSide from './InitSide';
 import InitButtons from './InitButtons';
 import {

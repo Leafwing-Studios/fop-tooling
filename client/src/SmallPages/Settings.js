@@ -1,5 +1,7 @@
 import React from 'react';
-import ComingSoon from '../Common/ComingSoon';
+import {
+  ComingSoon
+} from '../Common';
 
 import {
   Typography,

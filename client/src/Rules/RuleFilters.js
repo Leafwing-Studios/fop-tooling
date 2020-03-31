@@ -3,8 +3,10 @@ import {
   TextField,
   Grid,
 } from '@material-ui/core';
-import Spacer from '../Common/Spacer';
-import MultipleSelect from '../Common/MultipleSelect';
+import {
+  Spacer,
+  MultipleSelect
+} from '../Common';
 
 export default function RuleFilters(props) {
   return (

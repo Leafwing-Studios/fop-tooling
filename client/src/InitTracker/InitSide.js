@@ -15,9 +15,11 @@ import {
   Close as RemoveIcon,
   RotateLeft as ResetIcon,
 } from '@material-ui/icons';
-import Spacer from '../Common/Spacer';
+import {
+  Spacer,
+  Center
+} from '../Common';
 import InitEntity from './InitEntity';
-import Center from '../Common/Center';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
