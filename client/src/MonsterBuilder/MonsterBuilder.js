@@ -8,6 +8,7 @@ import {
   Title,
 } from '../Common';
 import NameAndDescriptionEntry from './NameAndDescriptionEntry';
+import MonsterStatistics from './MonsterStatistics';
 
 export default class MonsterBuilder extends Component {
   constructor(props) {
@@ -17,6 +18,15 @@ export default class MonsterBuilder extends Component {
       monster: {
         name: '',
         description: '',
+        tier: '',
+        turns: '',
+        attributes: {
+          prowess: '',
+          agility: '',
+          expertise: '',
+          focus: '',
+          presence: '',
+        }
       }
     }
   }
@@ -43,8 +53,8 @@ export default class MonsterBuilder extends Component {
             'Powers'
           ]}
         >
-          <NameAndDescriptionEntry updateMonster={(monster) => this.updateMonster(monster)} name={this.state.monster.name} description={this.state.monster.description}/>
-          <Typography>This is the section for the Statistics</Typography>
+          <NameAndDescriptionEntry updateMonster={(monster) => this.updateMonster(monster)} monster={this.state.monster}/>
+          <MonsterStatistics updateMonster={(monster) => this.updateMonster(monster)} monster={this.state.monster}/>
           <Typography>This is the section for the Arms</Typography>
           <Typography>This is the section for the Armor</Typography>
           <Typography>This is the section for the Trinkets</Typography>

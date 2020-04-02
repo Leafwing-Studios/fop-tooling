@@ -23,7 +23,7 @@ export default function NameAndDescriptionEntry(props) {
       <TextField
         label='Name'
         fullwidth
-        defaultValue={props.name}
+        defaultValue={props.monster.name}
         autoFocus
         onChange={(ev) => props.updateMonster({name: ev.target.value})}
         className={classes.TextField}
@@ -32,7 +32,7 @@ export default function NameAndDescriptionEntry(props) {
       <TextField
         label='Description'
         fullwidth
-        defaultValue={props.description}
+        defaultValue={props.monster.description}
         onChange={(ev) => props.updateMonster({description: ev.target.value})}
         className={classes.TextField}
         multiline
