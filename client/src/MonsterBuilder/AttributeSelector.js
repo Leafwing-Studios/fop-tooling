@@ -40,8 +40,8 @@ export default function AttributeSelector(props) {
           <TextField
             label='Prowess'
             error={error}
-            defaultValue={props.monster.attributes.prowess}
-            onChange={(ev) => props.updateAttributes({ prowess: ev.target.value })}
+            defaultValue={isNaN(props.monster.attributes.prowess) ? '' : props.monster.attributes.prowess}
+            onChange={(ev) => props.updateAttributes({ prowess: parseInt(ev.target.value) })}
             className={classes.TextField}
           />
         </Grid>
@@ -52,8 +52,8 @@ export default function AttributeSelector(props) {
           <TextField
             label='Agility'
             error={error}
-            defaultValue={props.monster.attributes.agility}
-            onChange={(ev) => props.updateAttributes({ agility: ev.target.value })}
+            defaultValue={isNaN(props.monster.attributes.agility) ? '' : props.monster.attributes.agility}
+            onChange={(ev) => props.updateAttributes({ agility: parseInt(ev.target.value) })}
             className={classes.TextField}
           />
         </Grid>
@@ -64,8 +64,8 @@ export default function AttributeSelector(props) {
           <TextField
             label='Expertise'
             error={error}
-            defaultValue={props.monster.attributes.expertise}
-            onChange={(ev) => props.updateAttributes({ expertise: ev.target.value })}
+            defaultValue={isNaN(props.monster.attributes.expertise) ? '' : props.monster.attributes.expertise}
+            onChange={(ev) => props.updateAttributes({ expertise: parseInt(ev.target.value) })}
             className={classes.TextField}
           />
         </Grid>
@@ -76,8 +76,8 @@ export default function AttributeSelector(props) {
           <TextField
             label='Focus'
             error={error}
-            defaultValue={props.monster.attributes.focus}
-            onChange={(ev) => props.updateAttributes({ focus: ev.target.value })}
+            defaultValue={isNaN(props.monster.attributes.focus) ? '' : props.monster.attributes.focus}
+            onChange={(ev) => props.updateAttributes({ focus: parseInt(ev.target.value) })}
             className={classes.TextField}
           />
         </Grid>
@@ -88,8 +88,8 @@ export default function AttributeSelector(props) {
           <TextField
             label='Presence'
             error={error}
-            defaultValue={props.monster.attributes.presence}
-            onChange={(ev) => props.updateAttributes({ presence: ev.target.value })}
+            defaultValue={isNaN(props.monster.attributes.presence) ? '' : props.monster.attributes.presence}
+            onChange={(ev) => props.updateAttributes({ presence: parseInt(ev.target.value) })}
             className={classes.TextField}
           />
         </Grid>
