@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import ControlledStepper from '../Common/ControlledStepper';
 import {
   Typography
 } from '@material-ui/core';
+
+import {
+  ControlledStepper,
+  Title,
+} from '../Common';
+import NameAndDescriptionEntry from './NameAndDescriptionEntry';
 
 export default class MonsterBuilder extends Component {
   constructor(props) {
@@ -16,25 +21,36 @@ export default class MonsterBuilder extends Component {
     }
   }
 
+  updateMonster(newMonster) {
+    const oldMonster = this.state.monster;
+    const monster = {...oldMonster, ...newMonster}
+
+    this.setState({monster});
+  }
+
   render() {
     return (
-      <ControlledStepper
-        steps={[
-          'Name and Description',
-          'Statistics',
-          'Arms',
-          'Armor',
-          'Trinkets',
-          'Powers'
-        ]}
-      >
-        <Typography>This is the section for the Name and Description</Typography>
-        <Typography>This is the section for the Statistics</Typography>
-        <Typography>This is the section for the Arms</Typography>
-        <Typography>This is the section for the Armor</Typography>
-        <Typography>This is the section for the Trinkets</Typography>
-        <Typography>This is the section for the Powers</Typography>
-      </ControlledStepper>
+      <>
+        <Title text='Monster Builder' marginBelow={7}/>
+        {JSON.stringify(this.state.monster)}
+        <ControlledStepper
+          steps={[
+            'Name and Description',
+            'Statistics',
+            'Arms',
+            'Armor',
+            'Trinkets',
+            'Powers'
+          ]}
+        >
+          <NameAndDescriptionEntry updateMonster={(monster) => this.updateMonster(monster)} name={this.state.monster.name} description={this.state.monster.description}/>
+          <Typography>This is the section for the Statistics</Typography>
+          <Typography>This is the section for the Arms</Typography>
+          <Typography>This is the section for the Armor</Typography>
+          <Typography>This is the section for the Trinkets</Typography>
+          <Typography>This is the section for the Powers</Typography>
+        </ControlledStepper>
+      </>
     );
   }
 }

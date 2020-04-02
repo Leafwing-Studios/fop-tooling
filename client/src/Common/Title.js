@@ -4,6 +4,8 @@ import {
   Divider,
 } from '@material-ui/core';
 
+import Spacer from './Spacer';
+
 export default function Title(props) {
   return (
     <>
@@ -11,6 +13,7 @@ export default function Title(props) {
         {props.text}
       </Typography>
       <Divider />
+      <Spacer height={props.marginBelow || 0} />
     </>
   )
 }
