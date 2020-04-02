@@ -8,9 +8,11 @@ import Spacer from './Spacer';
 import TwoColumns from './TwoColumns';
 import TwoPanelsResizable from './TwoPanelsResizable';
 import Title from './Title';
+import MultipleSelectBoxes from './MultipleSelectBoxes';
 
 export {
   Center,
+  MultipleSelectBoxes,
   Title,
   ComingSoon,
   ControlledStepper,

@@ -9,6 +9,7 @@ import {
 import {
   Spacer,
   Lipsum,
+  MultipleSelectBoxes,
 } from '../Common';
 import AttributeSelector from './AttributeSelector';
 
@@ -56,6 +57,37 @@ export default function MonsterStatistics(props) {
         <AttributeSelector
           {...props}
           updateAttributes={(newAttributes) => props.updateMonster({attributes: {...props.monster.attributes, ...newAttributes}}) /* evil mid level callback mixing so the attributes save properly */}
+        />
+        <Spacer height={spacerHeight} />
+        <MultipleSelectBoxes
+          {...props}
+          title='Pick 2 Trained Defenses'
+          numSelections={2}
+          labels={['Prowess', 'Agility', 'Expertise', 'Focus', 'Presence']}
+        />
+        <Spacer height={spacerHeight} />
+        <MultipleSelectBoxes
+          {...props}
+          title='Pick 3 Trained Skills'
+          numSelections={3}
+          labels={[
+            'Animism',
+            'Arcana',
+            'Artifice',
+            'Athletics',
+            'Charisma',
+            'Craftmanship',
+            'Endurance',
+            'Geomatics',
+            'Guidance',
+            'Humanities',
+            'Insight',
+            'Medicine',
+            'Perception',
+            'Stealth',
+            'Tinkering',
+            'Trickery',
+          ]}
         />
       </Grid>
       <Grid item>
