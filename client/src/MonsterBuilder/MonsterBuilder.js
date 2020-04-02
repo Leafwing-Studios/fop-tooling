@@ -18,14 +18,14 @@ export default class MonsterBuilder extends Component {
       monster: {
         name: '',
         description: '',
-        tier: '',
-        turns: '',
+        tier: null,
+        turns: 1,
         attributes: {
-          prowess: '',
-          agility: '',
-          expertise: '',
-          focus: '',
-          presence: '',
+          prowess: null,
+          agility: null,
+          expertise: null,
+          focus: null,
+          presence: null,
         }
       }
     }

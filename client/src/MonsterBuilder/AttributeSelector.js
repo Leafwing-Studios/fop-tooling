@@ -23,7 +23,7 @@ export default function AttributeSelector(props) {
   const classes = useStyles();
 
   // assert tier + 4 === sum of attributes
-  const attributesTarget = (parseInt(props.monster.tier) || 0) + 4;
+  const attributesTarget = (props.monster.tier || 0) + 4;
   const attributeSumOnlyInts = Object.values(props.monster.attributes) // sums up all the values if and only if all the values are numbers
     .map(str => parseInt(str)) // note: we are not replacing with zero here, so string values will result in NaN, and cause the sum to equal NaN
     .reduce((a, b) => a+b, 0);
@@ -100,7 +100,7 @@ export default function AttributeSelector(props) {
       <FormHelperText
         error={error}
       >
-        {`The sum of all five attributes must be equal to the monster's tier plus four, in this case that is ${attributesTarget}`}
+        {`The sum of all five attributes must be equal to the monster's tier plus four. In this case, that is ${attributesTarget}.`}
       </FormHelperText>
     </FormControl>
   );
