@@ -7,9 +7,11 @@ import MultipleSelect from './MultipleSelect';
 import Spacer from './Spacer';
 import TwoColumns from './TwoColumns';
 import TwoPanelsResizable from './TwoPanelsResizable';
+import Title from './Title';
 
 export {
   Center,
+  Title,
   ComingSoon,
   ControlledStepper,
   InfoPanel,
