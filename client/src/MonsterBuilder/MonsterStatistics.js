@@ -12,6 +12,9 @@ import {
   MultipleSelectBoxes,
 } from '../Common';
 import AttributeSelector from './AttributeSelector';
+import {
+  getAllIndicies
+} from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   TextField: {
@@ -20,6 +23,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const spacerHeight = 20;
+const skills = [
+  'Animism',
+  'Arcana',
+  'Artifice',
+  'Athletics',
+  'Charisma',
+  'Craftmanship',
+  'Endurance',
+  'Geomatics',
+  'Guidance',
+  'Humanities',
+  'Insight',
+  'Medicine',
+  'Perception',
+  'Stealth',
+  'Tinkering',
+  'Trickery',
+];
 
 export default function MonsterStatistics(props) {
   const classes = useStyles();
@@ -61,6 +82,15 @@ export default function MonsterStatistics(props) {
         <Spacer height={spacerHeight} />
         <MultipleSelectBoxes
           {...props}
+          updateParent={(trained) => props.updateMonster({
+            trainedDefenses: {
+              prowess: trained[0],
+              agility: trained[1],
+              expertise: trained[2],
+              focus: trained[3],
+              presence: trained[4],
+            }
+          })}
           title='Pick 2 Trained Defenses'
           numSelections={2}
           labels={['Prowess', 'Agility', 'Expertise', 'Focus', 'Presence']}
@@ -70,24 +100,13 @@ export default function MonsterStatistics(props) {
           {...props}
           title='Pick 3 Trained Skills'
           numSelections={3}
-          labels={[
-            'Animism',
-            'Arcana',
-            'Artifice',
-            'Athletics',
-            'Charisma',
-            'Craftmanship',
-            'Endurance',
-            'Geomatics',
-            'Guidance',
-            'Humanities',
-            'Insight',
-            'Medicine',
-            'Perception',
-            'Stealth',
-            'Tinkering',
-            'Trickery',
-          ]}
+          updateParent={(trained) => {
+            const inds = getAllIndicies(trained, n=>n); // use the identity here since the array is already full of bools
+            props.updateMonster({
+              trainedSkills: inds.map(i => skills[i])
+            });
+          }}
+          labels={skills}
         />
       </Grid>
       <Grid item>

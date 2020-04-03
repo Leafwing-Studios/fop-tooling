@@ -8,10 +8,21 @@ const removeElement = (arr, index) => arr.slice(0, index).concat(arr.slice(index
 
 const randRange = (max) => Math.floor(Math.random() * Math.floor(max)); // random number between 0 and max-1 (inclusive)
 
+const getAllIndicies = (arr, fn) => {
+  const filtered = arr.map(fn);
+
+  var indexes = [], i = -1;
+  while ((i = filtered.indexOf(true, i+1)) != -1){
+      indexes.push(i);
+  }
+  return indexes;
+};
+
 export {
   onlyUnique,
   stringContains,
   titleCase,
   removeElement,
   randRange,
+  getAllIndicies,
 }

@@ -23,6 +23,7 @@ export default function CheckboxesGroup(props) {
   const updateCheckbox = (index, value) => {
     const tmp = state.checked;
     tmp[index] = value;
+    props.updateParent(tmp);
     setState({...state, checked: tmp});
   };
 

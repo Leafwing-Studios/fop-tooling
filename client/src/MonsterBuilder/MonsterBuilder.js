@@ -26,7 +26,15 @@ export default class MonsterBuilder extends Component {
           expertise: null,
           focus: null,
           presence: null,
-        }
+        },
+        trainedDefenses: {
+          prowess: false,
+          agility: false,
+          expertise: false,
+          focus: false,
+          presence: false,
+        },
+        trainedSkills: [],
       }
     }
   }
