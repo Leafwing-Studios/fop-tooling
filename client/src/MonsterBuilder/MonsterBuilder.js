@@ -50,7 +50,7 @@ export default class MonsterBuilder extends Component {
     return (
       <>
         <Title text='Monster Builder' marginBelow={7}/>
-        {JSON.stringify(this.state.monster)}
+        {false && JSON.stringify(this.state.monster)}
         <ControlledStepper
           steps={[
             'Name and Description',

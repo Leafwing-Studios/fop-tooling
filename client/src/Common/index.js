@@ -9,6 +9,7 @@ import TwoColumns from './TwoColumns';
 import TwoPanelsResizable from './TwoPanelsResizable';
 import Title from './Title';
 import MultipleSelectBoxes from './MultipleSelectBoxes';
+import NameValuePair from './NameValuePair';
 
 export {
   Center,
@@ -19,6 +20,7 @@ export {
   InfoPanel,
   Lipsum,
   MultipleSelect,
+  NameValuePair,
   Spacer,
   TwoColumns,
   TwoPanelsResizable,
