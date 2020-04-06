@@ -3,6 +3,7 @@ import {
   Typography
 } from '@material-ui/core';
 
+import Affixes from './Affixes';
 import {
   ControlledStepper,
   Title,
@@ -20,7 +21,7 @@ export default class GearBuilder extends Component {
   render() {
     return (
       <>
-        <p>This is where I'd put my gear builder... IF I HAD ONE</p>
+        <Affixes {...this.props}/>
       </>
     );
   }

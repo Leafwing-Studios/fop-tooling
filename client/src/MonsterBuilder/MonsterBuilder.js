@@ -64,7 +64,11 @@ export default class MonsterBuilder extends Component {
         >
           <NameAndDescriptionEntry updateMonster={(monster) => this.updateMonster(monster)} monster={this.state.monster}/>
           <MonsterStatistics updateMonster={(monster) => this.updateMonster(monster)} monster={this.state.monster}/>
-          <GearBuilder />
+          <GearBuilder
+            defaultFilter={{
+              slot: 'arms',
+            }}
+          />
           <Typography>This is the section for the Armor</Typography>
           <Typography>This is the section for the Trinkets</Typography>
           <Typography>This is the section for the Powers</Typography>
