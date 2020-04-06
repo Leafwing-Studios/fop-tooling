@@ -10,7 +10,7 @@ export default function TwoColumns (props) {
 
   return (
     <Grid container className={classes.gridRoot} direction='row' wrap='wrap-reverse' spacing={2}>
-      <Grid key='search' item xl={9}>
+      <Grid key='search' item xl={props.leftPanelSize || 9}>
         {props.children[0]}
       </Grid>
       <Grid key='dividerVertical' item>
