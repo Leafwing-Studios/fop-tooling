@@ -34,6 +34,21 @@ router.post('/', auth.required, function (req, res) {
       // look ma! no return statements!
 });
 
+// get affixes matching a filter provided
+// this is a post route in name only
+router.post('/allWhere', auth.optional, (req, res) => {
+  const { query } = req.body;
+  const formattedQuery = { // this is the type of thing that feels like it shouldn't work
+    ...(query.slot && {slot: query.slot}),
+    ...(query.affixTypes && {affixType: { $in: query.affixTypes}}), 
+  };
+
+  Affix.find(formattedQuery, (err, affixes) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).send(affixes);
+  });
+});
+
 // update affix
 router.post('/:id', auth.required, (req, res) => {
   const affix = req.body;
@@ -65,19 +80,7 @@ router.get('/', auth.optional, (req, res, next) => {
   })
 });
 
-// TODO: get all rules matching query
-router.get('/allWhere', auth.optional, (req, res) => {
-  const query = req.body;
-
-  // some amount of processing will be required, probably.
-
-  Affix.find(query, (err, affixes) => {
-    if (err) return res.status(500).send(err);
-    return res.status(200).send(affixes);
-  });
-});
-
-// get a rule by id
+// get a affix by id
 router.get('/:id', auth.optional, (req, res) => {
   Affix.findById(req.params.id, (err, affix) => {
     if (err) return res.status(500).send(err);
