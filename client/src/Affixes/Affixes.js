@@ -18,8 +18,8 @@ import {
 } from '../utils';
 
 export default class Rules extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       allAffixes: [], // this remanins unchanged after page load
       filters: { // filters subcomponent gets a callback to change this bit
@@ -37,7 +37,13 @@ export default class Rules extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/affix/')
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, // this is required so the server knows what type of body you're sending it
+      body: JSON.stringify({query: this.props.defaultFilter || {}}), // give an empty object by default so the api doesn't freak out about the query field not existing
+    };
+
+    fetch('/api/affix/allWhere', requestOptions)
       .then(res => res.json())
       .then(affixes => this.setState({
         allAffixes: affixes,

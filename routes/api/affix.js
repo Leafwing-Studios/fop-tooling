@@ -40,7 +40,7 @@ router.post('/allWhere', auth.optional, (req, res) => {
   const { query } = req.body;
   const formattedQuery = { // this is the type of thing that feels like it shouldn't work
     ...(query.slot && {slot: query.slot}),
-    ...(query.affixTypes && {affixType: { $in: query.affixTypes}}), 
+    ...(query.affixTypes && {affixType: { $in: query.affixTypes}}),
   };
 
   Affix.find(formattedQuery, (err, affixes) => {

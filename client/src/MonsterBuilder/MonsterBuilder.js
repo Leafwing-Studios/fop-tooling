@@ -9,6 +9,7 @@ import {
 } from '../Common';
 import NameAndDescriptionEntry from './NameAndDescriptionEntry';
 import MonsterStatistics from './MonsterStatistics';
+import GearBuilder from '../Affixes/GearBuilder';
 
 export default class MonsterBuilder extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ export default class MonsterBuilder extends Component {
         >
           <NameAndDescriptionEntry updateMonster={(monster) => this.updateMonster(monster)} monster={this.state.monster}/>
           <MonsterStatistics updateMonster={(monster) => this.updateMonster(monster)} monster={this.state.monster}/>
-          <Typography>This is the section for the Arms</Typography>
+          <GearBuilder />
           <Typography>This is the section for the Armor</Typography>
           <Typography>This is the section for the Trinkets</Typography>
           <Typography>This is the section for the Powers</Typography>
