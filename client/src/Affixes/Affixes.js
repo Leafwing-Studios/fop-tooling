@@ -5,6 +5,7 @@ import {
   Lipsum,
   Spacer,
   InfoPanel,
+  TwoColumns,
 } from '../Common';
 import AffixFilters from './AffixFilters';
 import AffixGrid from './AffixGrid';
@@ -93,7 +94,7 @@ export default class Rules extends Component {
   render() {
     return (
       <DocumentTitle title='Affixes'>
-        <TwoPanelsResizable startingWidth={400}>
+        <TwoColumns>
           <div>
             <AffixFilters
               onChange={(filters) => this.updateFilters(filters)}
@@ -108,7 +109,7 @@ export default class Rules extends Component {
           <InfoPanel variant={this.state.currentAffix} variantName="an affix">
             <AffixInfo affix={this.state.currentAffix} />
           </InfoPanel>
-        </TwoPanelsResizable>
+        </TwoColumns>
       </DocumentTitle>
     );
   }
