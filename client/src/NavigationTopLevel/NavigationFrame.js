@@ -99,9 +99,11 @@ export default function NavigationFrame() {
           <DrawerLink buttonKey='affixes' buttonText='Initiative Tracker' routePath='/init'>
             <InitIcon />
           </DrawerLink>
+          {/* the monster builder will return...
           <DrawerLink buttonKey='monsterBuilder' buttonText='Monster Builder' routePath='/monsterBuilder'>
             <MonsterBuilderIcon />
           </DrawerLink>
+          */}
           {/* the rules page will return....
           <DrawerLink buttonKey='rules' buttonText='Rules' routePath='/rules'>
             <RuleIcon />
