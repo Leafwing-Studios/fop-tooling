@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
-import TwoPanelsResizable from '../components/twoPanelsResizable';
-import Lipsum from '../components/lipsum';
-import Spacer from '../components/spacer';
-import AffixFilters from '../components/affixFilters';
-import AffixGrid from '../components/affixGrid';
-import AffixInfo from '../components/affixInfo';
-import InfoPanel from '../components/infoPanel';
+import {
+  TwoPanelsResizable,
+  Lipsum,
+  Spacer,
+  InfoPanel,
+  TwoColumns,
+} from '../Common';
+import AffixFilters from './AffixFilters';
+import AffixGrid from './AffixGrid';
+import AffixInfo from './AffixInfo';
 import {
   Typography,
 } from '@material-ui/core';
@@ -16,8 +19,8 @@ import {
 } from '../utils';
 
 export default class Rules extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       allAffixes: [], // this remanins unchanged after page load
       filters: { // filters subcomponent gets a callback to change this bit
@@ -35,7 +38,13 @@ export default class Rules extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/affix/')
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, // this is required so the server knows what type of body you're sending it
+      body: JSON.stringify({query: this.props.defaultFilter || {}}), // give an empty object by default so the api doesn't freak out about the query field not existing
+    };
+
+    fetch('/api/affix/allWhere', requestOptions)
       .then(res => res.json())
       .then(affixes => this.setState({
         allAffixes: affixes,
@@ -85,7 +94,7 @@ export default class Rules extends Component {
   render() {
     return (
       <DocumentTitle title='Affixes'>
-        <TwoPanelsResizable startingWidth={400}>
+        <TwoColumns>
           <div>
             <AffixFilters
               onChange={(filters) => this.updateFilters(filters)}
@@ -100,7 +109,7 @@ export default class Rules extends Component {
           <InfoPanel variant={this.state.currentAffix} variantName="an affix">
             <AffixInfo affix={this.state.currentAffix} />
           </InfoPanel>
-        </TwoPanelsResizable>
+        </TwoColumns>
       </DocumentTitle>
     );
   }

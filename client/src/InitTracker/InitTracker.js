@@ -15,9 +15,12 @@ import {
 import {
   Add as AddIcon
 } from '@material-ui/icons';
-import Spacer from '../components/spacer';
-import InitSide from '../components/initSide';
-import InitButtons from '../components/initButtons';
+import {
+  Spacer,
+  Title,
+} from '../Common';
+import InitSide from './InitSide';
+import InitButtons from './InitButtons';
 import {
   removeElement,
   randRange,
@@ -248,10 +251,7 @@ export default class InitTracker extends Component {
   render() {
     return (
       <>
-        <Typography variant='h4'>
-          Initiative Tracker
-        </Typography>
-        <Divider />
+        <Title text='Initiative Tracker' />
         <Spacer height={10} />
         <Alert severity='info' style={{maxWidth: 620}}>
           {this.state.statusText}

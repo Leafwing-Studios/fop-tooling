@@ -12,7 +12,9 @@ import {
 import {
   Add as AddIcon
 } from '@material-ui/icons';
-import Spacer from '../components/spacer';
+import {
+  Spacer
+} from '../Common';
 
 export default function InitButtons(props) {
   const spacerWidth = 150; // we add spacers so that the width of the column is consisitent. it's messy, but this element is really thin so I'm not worried about how responsive it it/isn't

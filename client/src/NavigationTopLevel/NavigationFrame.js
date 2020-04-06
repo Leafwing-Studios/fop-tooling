@@ -22,10 +22,11 @@ import {
   AccountCircle as UserIcon,
   Settings as SettingsIcon,
   AlarmOn as InitIcon,
+  Pets as MonsterBuilderIcon,
 } from '@material-ui/icons';
 
-import RouterBase from './routerBase';
-import DrawerLink from '../components/drawerLink'
+import RouterBase from './RouterBase';
+import DrawerLink from './DrawerLink';
 
 export default function NavigationFrame() {
   const classes = useStyles()(); // what the fuck javascript
@@ -98,6 +99,11 @@ export default function NavigationFrame() {
           <DrawerLink buttonKey='affixes' buttonText='Initiative Tracker' routePath='/init'>
             <InitIcon />
           </DrawerLink>
+          {/* the monster builder will return...
+          <DrawerLink buttonKey='monsterBuilder' buttonText='Monster Builder' routePath='/monsterBuilder'>
+            <MonsterBuilderIcon />
+          </DrawerLink>
+          */}
           {/* the rules page will return....
           <DrawerLink buttonKey='rules' buttonText='Rules' routePath='/rules'>
             <RuleIcon />
