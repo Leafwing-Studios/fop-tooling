@@ -24,8 +24,9 @@ import { titleCase } from '../utils.js';
 const styles = {
   typography: {
     fontSize: 14,
-  }
+  },
 };
+
 
 const capitalTextField = (field) => ((rowData) => (
   <Typography style={styles.typography}>
@@ -39,7 +40,7 @@ export default function AffixGrid(props) {
 
   return (
     <MaterialTable
-      title="Rules"
+      title="Affixes"
       columns={[
         {
           title: 'Name',
@@ -49,7 +50,7 @@ export default function AffixGrid(props) {
           // field: 'name',
         },
         { title: 'Slot', render: capitalTextField('slot'), customSort: mySort('slot')},
-        { title: 'Cost', field: 'cost', type: 'numerical', customSort: mySort('cost') },
+        { title: 'Cost', field: 'cost', type: 'numerical', customSort: mySort('cost'), },
         { title: 'Type', render: capitalTextField('affixType'), customSort: mySort('affixType') },
         {
           title: 'Tags',
@@ -60,7 +61,7 @@ export default function AffixGrid(props) {
             </Typography>
           )
         },
-        { title: 'Short Description', field: 'descShort', customSort: mySort('descShort') },
+        { title: 'Short Description', customSort: mySort('descShort'), field: 'descShort'},
       ]}
       data={props.affixes}
       isLoading={props.isLoading}
