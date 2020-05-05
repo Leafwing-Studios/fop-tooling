@@ -5,6 +5,6 @@ import {
 
 export default function Login() {
   return (
-    <ComingSoon />
+    <a href='/api/user/google'>Login with Google</a>
   );
 }

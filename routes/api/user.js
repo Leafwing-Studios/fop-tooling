@@ -4,6 +4,17 @@ const router = require('express').Router();
 const auth = require('../auth');
 const User = mongoose.model('User');
 
+router.get('/google', 
+  passport.authenticate('google', { scope: ['profile', 'email']})
+);
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/affixes'}),
+  (req, res) => {
+    res.redirect('/');
+  }
+);
+
 //POST new user route (optional, everyone has access)
 router.post('/', auth.optional, (req, res, next) => {
   const { body: { user } } = req;
