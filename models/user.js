@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   googleID: String,
   hash: String,
   salt: String,
+  token: String,
 });
 
 UserSchema.methods.setPassword = function(password) {

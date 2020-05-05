@@ -5,13 +5,15 @@ const auth = require('../auth');
 const User = mongoose.model('User');
 
 router.get('/google', 
-  passport.authenticate('google', { scope: ['profile', 'email']})
+  passport.authenticate('google', {
+    scope: ['profile', 'email']
+  })
 );
 
 router.get('/google/callback', 
   passport.authenticate('google', { failureRedirect: '/affixes'}),
   (req, res) => {
-    res.redirect('/');
+    res.redirect('/?token=' + req.user.token);
   }
 );
 

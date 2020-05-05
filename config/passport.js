@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const passport = require('passport');
-require('dotenv').config();
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+require('dotenv').config();
 
 const User = mongoose.model('User');
 
@@ -19,6 +19,14 @@ const User = mongoose.model('User');
 //     }).catch(done);
 // }));
 
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
 passport.use(new GoogleStrategy({
     clientID: process.env.OAUTH_CLIENT_ID,
     clientSecret: process.env.OAUTH_CLIENT_SECRET,
@@ -29,6 +37,7 @@ passport.use(new GoogleStrategy({
     User.findOrCreate({
       googleId: profile.id, 
       email: profile.emails[0].value,
+      token: accessToken,
     }, (err, user) => {
       return done(err, user);
     });
