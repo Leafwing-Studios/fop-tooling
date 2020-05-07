@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const secure = require('express-force-https');
 
 require('dotenv').config();
 
@@ -29,8 +30,9 @@ db.on('error', console.error.bind(console, "MongoDB connection error: "));
 app.use(cors()); // i don't actually know what this is
 app.use(bodyParser.urlencoded({ extended: false })); // body parsing
 app.use(bodyParser.json());
-app.use(logger("dev")); // mogan logging i guess? i never use this T.T
+app.use(logger("dev")); // morgan logging i guess? i never use this T.T
 app.use(express.static(path.join(__dirname, "client", "build"))); // for serving up the clientside code
+app.use(secure); // ensure that the connection is using https
 
 // models and routes
 require('./models/rule');
@@ -43,6 +45,7 @@ app.use(require('./routes'));
 // match one above, send back React's index.html file.
 // THIS SHOULD BE THE LAST ROUTE IN THE SERVER'S FILES
 app.get('*', (req, res) => {
+  console.log('serve react');
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
