@@ -32,6 +32,11 @@ app.use(bodyParser.json());
 app.use(logger("dev")); // mogan logging i guess? i never use this T.T
 app.use(express.static(path.join(__dirname, "client", "build"))); // for serving up the clientside code
 
+// https redirect handler. this should always be first
+app.get('*', function(req, res) {
+  res.redirect('https://' + req.headers.host + req.url)
+});
+
 // models and routes
 require('./models/rule');
 require('./models/affix');
