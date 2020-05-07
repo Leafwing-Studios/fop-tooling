@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import HttpsRedirect from 'react-https-redirect';
 
 import {
   Typography,
@@ -7,7 +8,7 @@ import {
 
 export default function Home() {
   return (
-    <>
+    <HttpsRedirect>
       <Typography paragraph>
         Welcome to the official website for the Fonts of Power roleplaying system.
       </Typography>
@@ -26,6 +27,6 @@ export default function Home() {
           </Link>
         </li>
       </ul>
-    </>
+    </HttpsRedirect>
   );
 }
