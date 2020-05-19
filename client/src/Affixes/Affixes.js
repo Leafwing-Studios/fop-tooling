@@ -62,7 +62,7 @@ export default class Rules extends Component {
     const filteredAffixes = this.state.allAffixes.filter((affix) => (
       (stringContains(affix.name, filters.nameDesc) || stringContains(affix.descShort, filters.nameDesc)) &&
       (filters.tags.length === 0 ? true : affix.tags.some(category => filters.tags.includes(category))) &&
-      (parseInt(filters.cost) ? affix.cost === parseInt(filters.cost) : true) &&  // parseInt here because we store as a string
+      (isNaN(parseFloat(filters.cost)) ? true: affix.cost === parseFloat(filters.cost)) &&  // parseFloat here because we store as a string
       (filters.slot ? affix.slot === filters.slot : true) &&
       (filters.type.length === 0 ? true : filters.type.includes(affix.affixType))
     ))
