@@ -9,16 +9,9 @@ import {
   TableRow,
   TablePagination,
   Paper,
-  IconButton,
-  Container,
   Divider,
-  Typography,
   LinearProgress,
 } from '@material-ui/core';
-import {
-  Visibility as VisibilityIcon
-} from '@material-ui/icons'
-import SlotIcon from '../Icons/SlotIcon';
 import { titleCase } from '../utils.js';
 
 const useStyles = makeStyles((theme) => ({
