@@ -8,6 +8,7 @@ import {
   TableHead,
   TableRow,
   TablePagination,
+  TableSortLabel,
   Paper,
   Divider,
   LinearProgress,
@@ -35,8 +36,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// helper function for making the header data
+const buildHeader = (label, field, id, align, cls) => (
+  {label: label, field: field, id: id, class: cls, align: align}
+);
+
 export default function AffixGrid(props) {
   const classes = useStyles();
+  
+  // data for the column headers (label, field, id, alignment, class)
+  const headerData = [
+    buildHeader("Name", 'name', 0, 'left', classes.nameHeader),
+    buildHeader("Slot", 'slot', 1, 'left', classes.slotHeader),
+    buildHeader("Cost", 'cost', 2, 'right'),
+    buildHeader("Rarity", 'affixType', 3, 'left'),
+    buildHeader("Tags", 'tags', 4, 'left', classes.tagsHeader),
+    buildHeader("Short Description", 'descShort', 5, 'left', classes.descriptionHeader),
+  ]
   
   // paging
   const pageSizeOptions = [20, 50, 100];
@@ -56,6 +72,16 @@ export default function AffixGrid(props) {
   React.useEffect(() => {
     setCurrentPage(0);
   }, [props.affixes]);
+  
+  // sorting
+  const [sortField, setSortField] = React.useState('name'); // field we are currently sorting on
+  const [sortDirection, setSortDirection] = React.useState('desc'); // ascending or descending? 
+  
+  const updateSorting = (field) => { // updates the sorting parameters to fit the sort field that was clicked
+    const shouldFlipFromAscToDesc = sortField === field && sortDirection === 'asc'; // if we click the same field, switch from ascending to descending
+    setSortDirection(shouldFlipFromAscToDesc ? 'desc' : 'asc') // if we should flip to desc, do so. Otherwise, default to ascending sorting
+    setSortField(field);
+  };
 
   return (
     <>
@@ -67,12 +93,25 @@ export default function AffixGrid(props) {
         >
           <TableHead>
             <TableRow>
-              <TableCell className={`${classes.header} ${classes.nameHeader}`}>Name</TableCell>
-              <TableCell className={`${classes.header} ${classes.slotHeader}`}>Slot</TableCell>
-              <TableCell className={classes.header} align="right">Cost</TableCell>
-              <TableCell className={classes.header}>Rarity</TableCell>
-              <TableCell className={`${classes.header} ${classes.tagsHeader}`}>Tags</TableCell>
-              <TableCell className={`${classes.header} ${classes.descriptionHeader}`}>Short Description</TableCell>
+              {
+                headerData.map(header => (
+                  <TableCell
+                    key={header.id}
+                    align={header.align}
+                    className={`${classes.header} ${header.cls}`}
+                    sortDirection={sortField === header.field ? sortDirection : false}
+                  >
+                    {/* i have no idea why the sort direction needs to be set on both of these fields. it just does. */}
+                    <TableSortLabel
+                      active={sortField === header.field}
+                      direction={sortField === header.field ? sortDirection : 'asc'}
+                      onClick={(ev) => (updateSorting(header.field)) /* we do some slightly weird stuff here so the callback knows what field was clicked */}
+                    >
+                      {header.label}
+                    </TableSortLabel>
+                  </TableCell>
+                ))
+              }
             </TableRow>
           </TableHead>
           <TableBody>
