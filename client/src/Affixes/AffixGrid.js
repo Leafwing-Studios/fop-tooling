@@ -117,7 +117,7 @@ export default function AffixGrid(props) {
           <TableBody>
             { props.affixes
               .sort((a, b) => {
-                const comp = (a[sortField] > b[sortField]) ? 1 : -1
+                const comp = (a[sortField] >= b[sortField]) ? 1 : -1 // if you set this to strictly greater than, weird things happen on non-string sorts. don't ask me why.
                 return (sortDirection === 'asc' ? comp : comp * -1)
               })
               .slice(currentPage*rowsPerPage, currentPage*rowsPerPage + rowsPerPage)
