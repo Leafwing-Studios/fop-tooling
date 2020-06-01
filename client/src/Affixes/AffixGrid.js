@@ -13,12 +13,11 @@ import {
   Container,
   Divider,
   Typography,
+  LinearProgress,
 } from '@material-ui/core';
 import {
   Visibility as VisibilityIcon
 } from '@material-ui/icons'
-import MaterialTable from 'material-table';
-import { MTableCell } from 'material-table';
 import SlotIcon from '../Icons/SlotIcon';
 import { titleCase } from '../utils.js';
 
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tableRow: {
     cursor: 'pointer'
-  }
+  },
 }));
 
 export default function AffixGrid(props) {
@@ -66,52 +65,55 @@ export default function AffixGrid(props) {
   }, [props.affixes]);
 
   return (
-    <TableContainer component={Paper}>
-      <Table 
-        size="small" 
-        aria-label="affixes-table"
-      >
-        <TableHead>
-          <TableRow>
-            <TableCell className={`${classes.header} ${classes.nameHeader}`}>Name</TableCell>
-            <TableCell className={`${classes.header} ${classes.slotHeader}`}>Slot</TableCell>
-            <TableCell className={classes.header} align="right">Cost</TableCell>
-            <TableCell className={classes.header}>Rarity</TableCell>
-            <TableCell className={`${classes.header} ${classes.tagsHeader}`}>Tags</TableCell>
-            <TableCell className={`${classes.header} ${classes.descriptionHeader}`}>Short Description</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          { props.affixes
-            .slice(currentPage*rowsPerPage, currentPage*rowsPerPage + rowsPerPage)
-            .map((affix) => (
-              <TableRow 
-                key={affix._id} 
-                hover
-                selected={props.selectedId === affix._id}
-                onClick={(ev) => props.viewOnClick(ev, affix)}
-                className={classes.tableRow}
-              >
-                <TableCell scope="row">{titleCase(affix.name)}</TableCell>
-                <TableCell>{titleCase(affix.slot)}</TableCell>
-                <TableCell align="right">{affix.cost}</TableCell>
-                <TableCell>{titleCase(affix.affixType)}</TableCell>
-                <TableCell>{affix.tags.join(', ')}</TableCell>
-                <TableCell>{affix.descShort}</TableCell>
-              </TableRow>
-            ))
-          }
-        </TableBody> 
-      </Table>
-      <TablePagination
-        rowsPerPageOptions={pageSizeOptions}
-        component="div"
-        count={props.affixes.length}
-        rowsPerPage={rowsPerPage}
-        page={currentPage}
-        onChangePage={updateCurrentPage}
-        onChangeRowsPerPage={updateRowsPerPage}
-      />
-    </TableContainer>
+    <>
+      {props.isLoading && <LinearProgress />}
+      <TableContainer component={Paper}>
+        <Table 
+          size="small" 
+          aria-label="affixes-table"
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell className={`${classes.header} ${classes.nameHeader}`}>Name</TableCell>
+              <TableCell className={`${classes.header} ${classes.slotHeader}`}>Slot</TableCell>
+              <TableCell className={classes.header} align="right">Cost</TableCell>
+              <TableCell className={classes.header}>Rarity</TableCell>
+              <TableCell className={`${classes.header} ${classes.tagsHeader}`}>Tags</TableCell>
+              <TableCell className={`${classes.header} ${classes.descriptionHeader}`}>Short Description</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            { props.affixes
+              .slice(currentPage*rowsPerPage, currentPage*rowsPerPage + rowsPerPage)
+              .map((affix) => (
+                <TableRow 
+                  key={affix._id} 
+                  hover
+                  selected={props.selectedId === affix._id}
+                  onClick={(ev) => props.viewOnClick(ev, affix)}
+                  className={classes.tableRow}
+                >
+                  <TableCell scope="row">{titleCase(affix.name)}</TableCell>
+                  <TableCell>{titleCase(affix.slot)}</TableCell>
+                  <TableCell align="right">{affix.cost}</TableCell>
+                  <TableCell>{titleCase(affix.affixType)}</TableCell>
+                  <TableCell>{affix.tags.join(', ')}</TableCell>
+                  <TableCell>{affix.descShort}</TableCell>
+                </TableRow>
+              ))
+            }
+          </TableBody> 
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={pageSizeOptions}
+          component="div"
+          count={props.affixes.length}
+          rowsPerPage={rowsPerPage}
+          page={currentPage}
+          onChangePage={updateCurrentPage}
+          onChangeRowsPerPage={updateRowsPerPage}
+        />
+      </TableContainer>
+    </>
   );
 }
