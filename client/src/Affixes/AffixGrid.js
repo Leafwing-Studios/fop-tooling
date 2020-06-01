@@ -81,6 +81,7 @@ export default function AffixGrid(props) {
     const shouldFlipFromAscToDesc = sortField === field && sortDirection === 'asc'; // if we click the same field, switch from ascending to descending
     setSortDirection(shouldFlipFromAscToDesc ? 'desc' : 'asc') // if we should flip to desc, do so. Otherwise, default to ascending sorting
     setSortField(field);
+    setCurrentPage(0); // if you change the sort, kick back to the first page of the table
   };
 
   return (
@@ -117,7 +118,8 @@ export default function AffixGrid(props) {
           <TableBody>
             { props.affixes
               .sort((a, b) => {
-                const comp = (a[sortField] >= b[sortField]) ? 1 : -1 // if you set this to strictly greater than, weird things happen on non-string sorts. don't ask me why.
+                const nameSort = (a.name > b.name) ? 1 : -1 // specify this completely so that there's no ambiguity when sorting on something other than name
+                const comp = (a[sortField] > b[sortField]) ? 1 : (a[sortField] === b[sortField]) ? nameSort : -1; // if they're the same, use the name sort 
                 return (sortDirection === 'asc' ? comp : comp * -1)
               })
               .slice(currentPage*rowsPerPage, currentPage*rowsPerPage + rowsPerPage)
