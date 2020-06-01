@@ -92,10 +92,10 @@ export default function AffixGrid(props) {
                 onClick={(ev) => props.viewOnClick(ev, affix)}
                 className={classes.tableRow}
               >
-                <TableCell scope="row">{affix.name}</TableCell>
-                <TableCell>{affix.slot}</TableCell>
+                <TableCell scope="row">{titleCase(affix.name)}</TableCell>
+                <TableCell>{titleCase(affix.slot)}</TableCell>
                 <TableCell align="right">{affix.cost}</TableCell>
-                <TableCell>{affix.affixType}</TableCell>
+                <TableCell>{titleCase(affix.affixType)}</TableCell>
                 <TableCell>{affix.tags.join(', ')}</TableCell>
                 <TableCell>{affix.descShort}</TableCell>
               </TableRow>
