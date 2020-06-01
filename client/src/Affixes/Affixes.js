@@ -103,6 +103,8 @@ export default class Rules extends Component {
               filters={this.state.filters}
             />
             <Spacer height={25} />
+            
+            {false && JSON.stringify(this.state.filteredAffixes) /* debug */}
 
             <AffixGrid affixes={this.state.filteredAffixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))} isLoading={this.state.allAffixes.length === 0}/>
           </div>
