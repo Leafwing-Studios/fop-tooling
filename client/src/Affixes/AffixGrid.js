@@ -75,7 +75,7 @@ export default function AffixGrid(props) {
   
   // sorting
   const [sortField, setSortField] = React.useState('name'); // field we are currently sorting on
-  const [sortDirection, setSortDirection] = React.useState('desc'); // ascending or descending? 
+  const [sortDirection, setSortDirection] = React.useState('asc'); // ascending or descending? 
   
   const updateSorting = (field) => { // updates the sorting parameters to fit the sort field that was clicked
     const shouldFlipFromAscToDesc = sortField === field && sortDirection === 'asc'; // if we click the same field, switch from ascending to descending
@@ -98,7 +98,7 @@ export default function AffixGrid(props) {
                   <TableCell
                     key={header.id}
                     align={header.align}
-                    className={`${classes.header} ${header.cls}`}
+                    className={`${classes.header} ${header.class}`}
                     sortDirection={sortField === header.field ? sortDirection : false}
                   >
                     {/* i have no idea why the sort direction needs to be set on both of these fields. it just does. */}
