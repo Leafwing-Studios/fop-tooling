@@ -22,11 +22,23 @@ import { MTableCell } from 'material-table';
 import SlotIcon from '../Icons/SlotIcon';
 import { titleCase } from '../utils.js';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   header: {
     fontWeight: 'bold',
+  },
+  descriptionHeader: {
+    width: 700,
+  },
+  nameHeader: {
+    width: 180,
+  },
+  tagsHeader: {
+    width: 180,
+  },
+  slotHeader: {
+    minWidth: 117
   }
-});
+}));
 
 export default function AffixGrid(props) {
   const classes = useStyles();
@@ -55,12 +67,12 @@ export default function AffixGrid(props) {
       <Table size="small" aria-label="Affixes Table">
         <TableHead>
           <TableRow>
-            <TableCell className={classes.header}>Name</TableCell>
-            <TableCell className={classes.header}>Slot</TableCell>
+            <TableCell className={`${classes.header} ${classes.nameHeader}`}>Name</TableCell>
+            <TableCell className={`${classes.header} ${classes.slotHeader}`}>Slot</TableCell>
             <TableCell className={classes.header} align="right">Cost</TableCell>
             <TableCell className={classes.header}>Rarity</TableCell>
-            <TableCell className={classes.header}>Tags</TableCell>
-            <TableCell className={classes.header}>Short Description</TableCell>
+            <TableCell className={`${classes.header} ${classes.tagsHeader}`}>Tags</TableCell>
+            <TableCell className={`${classes.header} ${classes.descriptionHeader}`}>Short Description</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -72,7 +84,7 @@ export default function AffixGrid(props) {
                 <TableCell>{affix.slot}</TableCell>
                 <TableCell align="right">{affix.cost}</TableCell>
                 <TableCell>{affix.affixType}</TableCell>
-                <TableCell>{affix.tags}</TableCell>
+                <TableCell>{affix.tags.join(', ')}</TableCell>
                 <TableCell>{affix.descShort}</TableCell>
               </TableRow>
             ))
