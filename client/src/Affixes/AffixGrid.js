@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
   slotHeader: {
     minWidth: 117
+  },
+  tableRow: {
+    cursor: 'pointer'
   }
 }));
 
@@ -60,11 +63,14 @@ export default function AffixGrid(props) {
   // set to page zero whenever a filter changes, but not when an affix is selected
   React.useEffect(() => {
     setCurrentPage(0);
-  }, [props.affixes])
+  }, [props.affixes]);
 
   return (
     <TableContainer component={Paper}>
-      <Table size="small" aria-label="Affixes Table">
+      <Table 
+        size="small" 
+        aria-label="affixes-table"
+      >
         <TableHead>
           <TableRow>
             <TableCell className={`${classes.header} ${classes.nameHeader}`}>Name</TableCell>
@@ -79,8 +85,14 @@ export default function AffixGrid(props) {
           { props.affixes
             .slice(currentPage*rowsPerPage, currentPage*rowsPerPage + rowsPerPage)
             .map((affix) => (
-              <TableRow key={affix._id}>
-                <TableCell component="th" scope="row">{affix.name}</TableCell>
+              <TableRow 
+                key={affix._id} 
+                hover
+                selected={props.selectedId === affix._id}
+                onClick={(ev) => props.viewOnClick(ev, affix)}
+                className={classes.tableRow}
+              >
+                <TableCell scope="row">{affix.name}</TableCell>
                 <TableCell>{affix.slot}</TableCell>
                 <TableCell align="right">{affix.cost}</TableCell>
                 <TableCell>{affix.affixType}</TableCell>

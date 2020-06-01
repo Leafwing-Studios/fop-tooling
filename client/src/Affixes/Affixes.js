@@ -106,7 +106,12 @@ export default class Rules extends Component {
             
             {false && JSON.stringify(this.state.filteredAffixes) /* debug */}
 
-            <AffixGrid affixes={this.state.filteredAffixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))} isLoading={this.state.allAffixes.length === 0}/>
+            <AffixGrid 
+              affixes={this.state.filteredAffixes} 
+              selectedId={this.state.currentAffix && this.state.currentAffix._id}
+              viewOnClick={(ev, affix) => (this.selectAffix(affix))} 
+              isLoading={this.state.allAffixes.length === 0}
+            />
           </div>
           <InfoPanel variant={this.state.currentAffix} variantName="an affix">
             <AffixInfo affix={this.state.currentAffix} />
