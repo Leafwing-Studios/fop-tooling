@@ -116,6 +116,10 @@ export default function AffixGrid(props) {
           </TableHead>
           <TableBody>
             { props.affixes
+              .sort((a, b) => {
+                const comp = (a[sortField] > b[sortField]) ? 1 : -1
+                return (sortDirection === 'asc' ? comp : comp * -1)
+              })
               .slice(currentPage*rowsPerPage, currentPage*rowsPerPage + rowsPerPage)
               .map((affix) => (
                 <TableRow 
