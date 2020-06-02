@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   email: {type: String, required: true,},
-  googleID: String,
+  googleId: String,
   hash: String,
   salt: String,
   token: String,

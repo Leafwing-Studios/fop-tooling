@@ -20,26 +20,31 @@ const User = mongoose.model('User');
 // }));
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser(function(id, done) {
+  User.findById(id).then((user) => {
+    done(null, user);
+  })
 });
 
 passport.use(new GoogleStrategy({
     clientID: process.env.OAUTH_CLIENT_ID,
     clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    callbackURL: '/api/user/google/callback'
+    callbackURL: '/api/user/google/callback',
+    proxy: true
   },
   
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({
-      googleId: profile.id, 
-      email: profile.emails[0].value,
-      token: accessToken,
-    }, (err, user) => {
-      return done(err, user);
-    });
+  (accessToken, refreshToken, profile, done) => {
+    User.findOne({ googleId: profile.id })
+      .then((existingUser) => {
+        if (existingUser) {
+          done(null, existingUser);
+        } else {
+          new User({ googleId: profile.id }).save()
+            .then((user) => done(null, user));
+        }
+      });
   }
 ));
