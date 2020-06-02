@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Table,
@@ -7,79 +7,151 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TablePagination,
+  TableSortLabel,
   Paper,
-  IconButton,
-  Container,
   Divider,
-  Typography,
+  LinearProgress,
 } from '@material-ui/core';
-import {
-  Visibility as VisibilityIcon
-} from '@material-ui/icons'
-import MaterialTable from 'material-table';
-import { MTableCell } from 'material-table';
-import SlotIcon from '../Icons/SlotIcon';
 import { titleCase } from '../utils.js';
 
-const styles = {
-  typography: {
-    fontSize: 14,
+const useStyles = makeStyles((theme) => ({
+  header: {
+    fontWeight: 'bold',
   },
-};
+  descriptionHeader: {
+    width: 700,
+  },
+  nameHeader: {
+    width: 180,
+  },
+  tagsHeader: {
+    width: 180,
+  },
+  slotHeader: {
+    minWidth: 117
+  },
+  tableRow: {
+    cursor: 'pointer'
+  },
+}));
 
-
-const capitalTextField = (field) => ((rowData) => (
-  <Typography style={styles.typography}>
-    {titleCase(rowData[field])}
-  </Typography>
-))
-
-const mySort = (field) => ((row1, row2) => row1[field] < row2[field] ? -1 : 1) // i have no idea why this isn't the default sort for numbers (for text it's confused because it doesn't have a field to work with, just a react element)
+// helper function for making the header data
+const buildHeader = (label, field, id, align, cls) => (
+  {label: label, field: field, id: id, class: cls, align: align}
+);
 
 export default function AffixGrid(props) {
+  const classes = useStyles();
+  
+  // data for the column headers (label, field, id, alignment, class)
+  const headerData = [
+    buildHeader("Name", 'name', 0, 'left', classes.nameHeader),
+    buildHeader("Slot", 'slot', 1, 'left', classes.slotHeader),
+    buildHeader("Cost", 'cost', 2, 'right'),
+    buildHeader("Rarity", 'affixType', 3, 'left'),
+    buildHeader("Tags", 'tags', 4, 'left', classes.tagsHeader),
+    buildHeader("Short Description", 'descShort', 5, 'left', classes.descriptionHeader),
+  ]
+  
+  // paging
+  const pageSizeOptions = [20, 50, 100];
+  const [currentPage, setCurrentPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(pageSizeOptions[0])
+  
+  const updateCurrentPage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+  
+  const updateRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
+  };
+  
+  // set to page zero whenever a filter changes, but not when an affix is selected
+  React.useEffect(() => {
+    setCurrentPage(0);
+  }, [props.affixes]);
+  
+  // sorting
+  const [sortField, setSortField] = React.useState('name'); // field we are currently sorting on
+  const [sortDirection, setSortDirection] = React.useState('asc'); // ascending or descending? 
+  
+  const updateSorting = (field) => { // updates the sorting parameters to fit the sort field that was clicked
+    const shouldFlipFromAscToDesc = sortField === field && sortDirection === 'asc'; // if we click the same field, switch from ascending to descending
+    setSortDirection(shouldFlipFromAscToDesc ? 'desc' : 'asc') // if we should flip to desc, do so. Otherwise, default to ascending sorting
+    setSortField(field);
+    setCurrentPage(0); // if you change the sort, kick back to the first page of the table
+  };
 
   return (
-    <MaterialTable
-      title="Affixes"
-      columns={[
-        {
-          title: 'Name',
-          defaultSort: 'asc',
-          render: capitalTextField('name'),
-          customSort: mySort('name'),
-          // field: 'name',
-        },
-        { title: 'Slot', render: capitalTextField('slot'), customSort: mySort('slot')},
-        { title: 'Cost', field: 'cost', type: 'numerical', customSort: mySort('cost'), },
-        { title: 'Type', render: capitalTextField('affixType'), customSort: mySort('affixType') },
-        {
-          title: 'Tags',
-          customSort: mySort('tags'),
-          render: (rowData) => (
-            <Typography style={styles.typography}>
-              {rowData.tags.join(', ')}
-            </Typography>
-          )
-        },
-        { title: 'Short Description', customSort: mySort('descShort'), field: 'descShort'},
-      ]}
-      data={props.affixes}
-      isLoading={props.isLoading}
-      onRowClick={props.viewOnClick}
-      options={{
-        sorting: true,
-        padding: 'dense',
-        toolbar: false,
-        draggable: false,
-        headerStyle: {
-          fontWeight: 'bold'
-        },
-        // paging stuff
-        pageSize: 20,
-        emptyRowsWhenPaging: false,
-        pageSizeOptions: [20, 100, 1000],
-        // end paging stuff
-      }}
-    />
+    <>
+      {props.isLoading && <LinearProgress />}
+      <TableContainer component={Paper}>
+        <Table 
+          size="small" 
+          aria-label="affixes-table"
+        >
+          <TableHead>
+            <TableRow>
+              {
+                headerData.map(header => (
+                  <TableCell
+                    key={header.id}
+                    align={header.align}
+                    className={`${classes.header} ${header.class}`}
+                    sortDirection={sortField === header.field ? sortDirection : false}
+                  >
+                    {/* i have no idea why the sort direction needs to be set on both of these fields. it just does. */}
+                    <TableSortLabel
+                      active={sortField === header.field}
+                      direction={sortField === header.field ? sortDirection : 'asc'}
+                      onClick={(ev) => (updateSorting(header.field)) /* we do some slightly weird stuff here so the callback knows what field was clicked */}
+                    >
+                      {header.label}
+                    </TableSortLabel>
+                  </TableCell>
+                ))
+              }
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            { props.affixes
+              .sort((a, b) => {
+                const nameSort = (a.name > b.name) ? 1 : -1 // specify this completely so that there's no ambiguity when sorting on something other than name
+                const comp = (a[sortField] > b[sortField]) ? 1 : (a[sortField] === b[sortField]) ? nameSort : -1; // if they're the same, use the name sort 
+                return (sortDirection === 'asc' ? comp : comp * -1)
+              })
+              .slice(currentPage*rowsPerPage, currentPage*rowsPerPage + rowsPerPage)
+              .map((affix) => (
+                <TableRow 
+                  key={affix._id} 
+                  hover
+                  selected={props.selectedId === affix._id}
+                  onClick={(ev) => props.viewOnClick(ev, affix)}
+                  className={classes.tableRow}
+                >
+                  <TableCell scope="row">{titleCase(affix.name)}</TableCell>
+                  <TableCell>{titleCase(affix.slot)}</TableCell>
+                  <TableCell align="right">{affix.cost}</TableCell>
+                  <TableCell>{titleCase(affix.affixType)}</TableCell>
+                  <TableCell>{affix.tags.join(', ')}</TableCell>
+                  <TableCell>{affix.descShort}</TableCell>
+                </TableRow>
+              ))
+            }
+          </TableBody> 
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={pageSizeOptions}
+          component="div"
+          count={props.affixes.length}
+          rowsPerPage={rowsPerPage}
+          page={currentPage}
+          onChangePage={updateCurrentPage}
+          onChangeRowsPerPage={updateRowsPerPage}
+        />
+      </TableContainer>
+    </>
   );
 }

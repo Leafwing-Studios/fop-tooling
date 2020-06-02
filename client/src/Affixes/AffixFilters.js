@@ -65,10 +65,10 @@ export default function AffixFilters(props) {
         <Grid item xs>
           <div style={{display: 'flex'}}>
             <MultipleSelect
-              label="Type"
+              label="Rarity"
               value={props.filters.type}
               items={[
-                'Mundane',
+                'Common',
                 'Advanced',
                 'Exotic',
                 'Prismatic'

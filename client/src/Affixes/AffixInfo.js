@@ -52,7 +52,7 @@ export default class AffixInfo extends Component {
             {this.props.affix.source}
           </Typography>
           <Typography>
-            <b>{`${this.props.affix.affixType === 'mundane' ? 'Gear' : 'Enchantment'} Point Cost: `}</b>
+            <b>Cost: </b>
             {this.props.affix.cost}
           </Typography>
           <Typography>
@@ -60,7 +60,7 @@ export default class AffixInfo extends Component {
             {this.props.affix.maxReplicates === 0 ? 'Infinite' : this.props.affix.maxReplicates}
           </Typography>
           <Typography>
-            <b>Affix Type: </b>
+            <b>Rarity: </b>
             {titleCase(this.props.affix.affixType)}
           </Typography>
           {

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const secure = require('express-force-https');
 
 require('dotenv').config();
 
@@ -29,8 +30,9 @@ db.on('error', console.error.bind(console, "MongoDB connection error: "));
 app.use(cors()); // i don't actually know what this is
 app.use(bodyParser.urlencoded({ extended: false })); // body parsing
 app.use(bodyParser.json());
-app.use(logger("dev")); // mogan logging i guess? i never use this T.T
+app.use(logger("dev")); // morgan logging i guess? i never use this T.T
 app.use(express.static(path.join(__dirname, "client", "build"))); // for serving up the clientside code
+app.use(secure); // ensure that the connection is using https
 
 // models and routes
 require('./models/rule');

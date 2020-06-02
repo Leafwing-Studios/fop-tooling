@@ -60,9 +60,9 @@ export default class Rules extends Component {
     const filters = {...oldFilters, ...newFilters}; // yknow, i'm starting to like this es7 mixing stuff
 
     const filteredAffixes = this.state.allAffixes.filter((affix) => (
-      (stringContains(affix.name, filters.nameDesc) || stringContains(affix.descShort, filters.nameDesc)) &&
+      (stringContains(affix.name, filters.nameDesc) || stringContains(affix.descShort, filters.nameDesc) || stringContains(affix.descLong, filters.nameDesc)) &&
       (filters.tags.length === 0 ? true : affix.tags.some(category => filters.tags.includes(category))) &&
-      (parseInt(filters.cost) ? affix.cost === parseInt(filters.cost) : true) &&  // parseInt here because we store as a string
+      (isNaN(parseFloat(filters.cost)) ? true: affix.cost === parseFloat(filters.cost)) &&  // parseFloat here because we store as a string
       (filters.slot ? affix.slot === filters.slot : true) &&
       (filters.type.length === 0 ? true : filters.type.includes(affix.affixType))
     ))
@@ -103,8 +103,16 @@ export default class Rules extends Component {
               filters={this.state.filters}
             />
             <Spacer height={25} />
+            
+            {false && JSON.stringify(this.state.filters)}
+            {false && JSON.stringify(this.state.filteredAffixes) /* debug */}
 
-            <AffixGrid affixes={this.state.filteredAffixes} viewOnClick={(ev, affix) => (this.selectAffix(affix))} isLoading={this.state.allAffixes.length === 0}/>
+            <AffixGrid 
+              affixes={this.state.filteredAffixes} 
+              selectedId={this.state.currentAffix && this.state.currentAffix._id}
+              viewOnClick={(ev, affix) => (this.selectAffix(affix))} 
+              isLoading={this.state.allAffixes.length === 0}
+            />
           </div>
           <InfoPanel variant={this.state.currentAffix} variantName="an affix">
             <AffixInfo affix={this.state.currentAffix} />
