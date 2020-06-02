@@ -17,7 +17,7 @@ export default function Login() {
         Login with Google
       </Button>
       
-      <a href="/api/user/google">Log in with Google</a>
+      <a href="/api/user/google"><button>Log in with Google</button></a>
     </>
   );
 }
