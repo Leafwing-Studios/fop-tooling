@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const router = require('express').Router();
 const auth = require('../auth');
+const cors = require('cors');
 const User = mongoose.model('User');
+
+router.options('/google', cors());
 
 router.get('/google', 
   passport.authenticate('google', {

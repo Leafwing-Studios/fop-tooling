@@ -7,7 +7,11 @@ import {
 } from '@material-ui/core';
 
 const handleClick = () => {
-  fetch('/api/user/google')
+  const requestOptions = {
+    headers: {'Access-Control-Allow-Origin': '*'}
+  };
+  
+  fetch('/api/user/google', requestOptions);
 }
 
 export default function Login() {

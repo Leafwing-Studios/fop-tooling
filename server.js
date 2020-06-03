@@ -28,8 +28,14 @@ let db = mongoose.connection;
 db.once('open', () => console.log("Connected to the database"));
 db.on('error', console.error.bind(console, "MongoDB connection error: "));
 
+// CORS options
+const corsOptions = {
+  preflightContinue: true,
+  credentials: true,
+}
+
 // middleware
-app.use(cors()); // i don't actually know what this is
+app.use(cors(corsOptions)); // i don't actually know what this is
 app.use(bodyParser.urlencoded({ extended: false })); // body parsing
 app.use(bodyParser.json());
 app.use(logger("dev")); // morgan logging i guess? i never use this T.T
