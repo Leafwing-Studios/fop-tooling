@@ -6,11 +6,13 @@ require('dotenv').config();
 const User = mongoose.model('User');
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  // console.log('serializeUser\n', user, '\n');
+  done(null, user.id); // this id parameter grabs the oauth id from the oauth provider
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id).then((user) => {
+  User.findOne({ googleId: id }).then((user) => { // deserialize using the oauth id
+    // console.log('deserializeUser\n', user, '\n');
     done(null, user);
   })
 });
