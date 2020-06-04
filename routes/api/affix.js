@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
 const auth = require('../auth');
+const passport = require('passport');
 const Affix = mongoose.model('Affix');
 
 // POST new affix(es)
@@ -36,7 +37,7 @@ router.post('/', auth.required, function (req, res) {
 
 // get affixes matching a filter provided
 // this is a post route in name only
-router.post('/allWhere', auth.optional, (req, res) => {
+router.post('/allWhere', (req, res) => {
   const { query } = req.body;
   const formattedQuery = { // this is the type of thing that feels like it shouldn't work
     ...(query.slot && {slot: query.slot}),

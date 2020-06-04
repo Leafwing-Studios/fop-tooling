@@ -35,7 +35,7 @@ const corsOptions = {
 }
 
 // middleware
-app.use(cors(corsOptions)); // i don't actually know what this is
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false })); // body parsing
 app.use(bodyParser.json());
 app.use(logger("dev")); // morgan logging i guess? i never use this T.T
