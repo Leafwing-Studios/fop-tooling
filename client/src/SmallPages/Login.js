@@ -8,7 +8,7 @@ import {
 
 const handleClick = () => {
   const requestOptions = {
-    headers: {'Access-Control-Allow-Origin': '*'}
+  //   headers: {'Access-Control-Allow-Origin': '*'}
   };
   
   fetch('/api/user/google', requestOptions);
@@ -21,7 +21,7 @@ export default function Login() {
         Login with Google
       </Button>
       
-      <a href="http://localhost:5000/api/user/google"><button>Log in with Google</button></a>
+      <a href="/api/user/google"><button>Log in with Google</button></a>
     </>
   );
 }
