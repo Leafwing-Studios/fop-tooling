@@ -14,11 +14,10 @@ router.get('/google',
 );
 
 router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login'}),
-  (req, res) => {
-    console.log(req.user);
-    res.redirect('/');
-  }
+  passport.authenticate('google', {
+     failureRedirect: '/login',
+     successRedirect: '/init',
+  }),
 );
 
 //POST new user route (optional, everyone has access)
