@@ -6,22 +6,10 @@ import {
   Button
 } from '@material-ui/core';
 
-const handleClick = () => {
-  const requestOptions = {
-  //   headers: {'Access-Control-Allow-Origin': '*'}
-  };
-  
-  fetch('/api/user/google', requestOptions);
-}
-
 export default function Login() {
   return (
     <>
-      <Button onClick={handleClick}>
-        Login with Google
-      </Button>
-      
-      <a href="/api/user/google"><button>Log in with Google</button></a>
+      <a href="/api/user/google" style={{textDecoration: 'none'}}><Button variant='contained'>Log in with Google</Button></a>
     </>
   );
 }
