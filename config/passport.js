@@ -19,21 +19,25 @@ passport.use(new GoogleStrategy({
     clientID: process.env.OAUTH_CLIENT_ID,
     clientSecret: process.env.OAUTH_CLIENT_SECRET,
     callbackURL: '/api/user/google/callback',
-    proxy: true
   },
   
   (accessToken, refreshToken, profile, done) => {
-    console.log("Strategy");
-    console.log(profile);
-    console.log(accessToken);
-    console.log(refreshToken);
+    // console.log("Strategy");
+    // console.log(profile);
+    // console.log(accessToken);
+    // console.log(refreshToken);
     
     User.findOne({ googleId: profile.id })
       .then((existingUser) => {
         if (existingUser) {
+          console.log('existing user!');
           done(null, existingUser);
         } else {
-          new User({ googleId: profile.id }).save()
+          new User({
+            googleId: profile.id,
+            email: profile.emails[0].value,
+          })
+            .save()
             .then((user) => done(null, user));
         }
       });
