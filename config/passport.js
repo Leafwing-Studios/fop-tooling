@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 require('dotenv').config();
 
+const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 passport.serializeUser(function(user, done) {
@@ -24,11 +24,12 @@ passport.use(new GoogleStrategy({
   },
   
   (accessToken, refreshToken, profile, done) => {
+    // console.log('google strategy', profile);
     
     User.findOne({ googleId: profile.id })
       .then((existingUser) => {
         if (existingUser) {
-          console.log('existing user!');
+          // console.log('existing user!', existingUser)
           done(null, existingUser);
         } else {
           new User({
@@ -39,7 +40,7 @@ passport.use(new GoogleStrategy({
             .then((user) => done(null, user));
         }
       });
-      
+    
     done(null, profile);  
   }
 ));
