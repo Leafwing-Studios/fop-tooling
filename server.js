@@ -28,20 +28,14 @@ let db = mongoose.connection;
 db.once('open', () => console.log("Connected to the database"));
 db.on('error', console.error.bind(console, "MongoDB connection error: "));
 
-// CORS options
-const corsOptions = {
-  preflightContinue: true,
-  credentials: true,
-}
-
 // middleware
-app.use(cors(corsOptions));
+app.use(cors()); // I'm not sure why someone would be making a CORS request to our site, but hey, it's here
 app.use(bodyParser.urlencoded({ extended: false })); // body parsing
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(express.static(path.join(__dirname, "client", "build"))); // for serving up the clientside code
 app.use(secure); // ensure that the connection is using https
-app.use(cookieSession({ // cookies!
+app.use(cookieSession({ // cookies! this middleware needs to be before the passport middleware for auth cookies to work properly
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   keys: [process.env.COOKIE_SIGNATURE]
 }));
@@ -53,8 +47,8 @@ require('./models/user');
 
 // passport security
 require('./config/passport');
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize()); // start passport
+app.use(passport.session()); // passport sessions for persistent login
 
 // routes
 app.use(require('./routes'));

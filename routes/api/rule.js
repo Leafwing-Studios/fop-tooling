@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
-const auth = require('../auth');
 const Rule = mongoose.model('Rule');
 
 // POST new rule
-router.post('/', auth.required, (req, res, next) => {
+router.post('/', (req, res, next) => {
   const rules = req.body.rules;
 
   if (!rules) {
@@ -34,7 +33,7 @@ router.post('/', auth.required, (req, res, next) => {
 });
 
 // update rule
-router.post('/:id', auth.required, (req, res) => {
+router.post('/:id', (req, res) => {
   const rule = req.body;
   const options = {
     new: true,
@@ -49,7 +48,7 @@ router.post('/:id', auth.required, (req, res) => {
 });
 
 // delete single rule
-router.delete('/:id', auth.required, (req, res) => {
+router.delete('/:id', (req, res) => {
   Rule.findByIdAndDelete(req.params.id, {useFindAndModify: false}, (err, deletedObject) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send(deletedObject);
@@ -57,7 +56,7 @@ router.delete('/:id', auth.required, (req, res) => {
 });
 
 // get all rules
-router.get('/', auth.optional, (req, res, next) => {
+router.get('/', (req, res, next) => {
   Rule.find((err, rules) => {
     if (err) console.error(err);
     res.send(rules);
@@ -65,7 +64,7 @@ router.get('/', auth.optional, (req, res, next) => {
 });
 
 // get all rules matching query
-router.get('/allWhere', auth.optional, (req, res) => {
+router.get('/allWhere', (req, res) => {
   const query = req.body;
 
   // some amount of processing will be required, probably.
@@ -77,7 +76,7 @@ router.get('/allWhere', auth.optional, (req, res) => {
 });
 
 // get a rule by id
-router.get('/:id', auth.optional, (req, res) => {
+router.get('/:id', (req, res) => {
   Rule.findById(req.params.id, (err, rule) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send(rule);
