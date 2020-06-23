@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setUser } from '../redux/actions';
 import {
   ComingSoon,
   Spacer,
@@ -9,7 +11,7 @@ import {
   Divider,
 } from '@material-ui/core';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props); 
     this.state = {
@@ -21,9 +23,13 @@ export default class Login extends Component {
     fetch('/api/user/current')
       .then(res => res.json())
       .then(res => {
+				console.log('1', res);
         this.setState({
           profile: res,
         });
+				console.log('2', res);
+				this.props.setUser(res);
+				console.log('3', res);
       })
       .catch(err => console.log(err.response));
   }
@@ -64,3 +70,8 @@ export default class Login extends Component {
     );
   }
 }
+
+export default connect(
+	null,
+	{ setUser }
+)(Login);

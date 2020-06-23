@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
+
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 import { CssBaseline } from '@material-ui/core';
 import {
   createMuiTheme,
@@ -18,13 +22,15 @@ export default class App extends Component {
   render() {
     return (
       <DocumentTitle title='FoP Database'>
-        <ThemeProvider theme={this.theme}>
-          <CssBaseline/>
-          <Router>
-            <NavigationFrame/>
-          </Router>
-        </ThemeProvider>
-      </DocumentTitle>
+				<Provider store={store}>
+	        <ThemeProvider theme={this.theme}>
+	          <CssBaseline/>
+	          <Router>
+	            <NavigationFrame/>
+	          </Router>
+	        </ThemeProvider>
+      	</Provider>
+			</DocumentTitle>
     );
   }
 }
