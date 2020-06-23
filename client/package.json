@@ -16,9 +16,11 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.13.1",
     "react-https-redirect": "^1.1.0",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "recharts": "^2.0.0-beta.5"
+    "recharts": "^2.0.0-beta.5",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.8"
   }
 }
