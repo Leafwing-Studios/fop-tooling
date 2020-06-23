@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const secure = require('express-force-https');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
 
 require('dotenv').config();
 
@@ -27,18 +29,28 @@ db.once('open', () => console.log("Connected to the database"));
 db.on('error', console.error.bind(console, "MongoDB connection error: "));
 
 // middleware
-app.use(cors()); // i don't actually know what this is
+app.use(cors()); // I'm not sure why someone would be making a CORS request to our site, but hey, it's here
 app.use(bodyParser.urlencoded({ extended: false })); // body parsing
 app.use(bodyParser.json());
-app.use(logger("dev")); // morgan logging i guess? i never use this T.T
+app.use(logger("dev"));
 app.use(express.static(path.join(__dirname, "client", "build"))); // for serving up the clientside code
 app.use(secure); // ensure that the connection is using https
+app.use(cookieSession({ // cookies! this middleware needs to be before the passport middleware for auth cookies to work properly
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  keys: [process.env.COOKIE_SIGNATURE]
+}));
 
-// models and routes
+// models
 require('./models/rule');
 require('./models/affix');
 require('./models/user');
+
+// passport security
 require('./config/passport');
+app.use(passport.initialize()); // start passport
+app.use(passport.session()); // passport sessions for persistent login
+
+// routes
 app.use(require('./routes'));
 
 // The "catchall" handler: for any request that doesn't

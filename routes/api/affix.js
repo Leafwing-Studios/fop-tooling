@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
-const auth = require('../auth');
+const passport = require('passport');
+const middleware = require('../middleware'); // custom middleware functions
 const Affix = mongoose.model('Affix');
 
+// use middleware.isAdmin for routes that only admins should be able to access, like affix updating, creation, and deletion. 
+
 // POST new affix(es)
-// Expects a top level "affix" field in the body, which is a list of affixes. See ../../models/affix.js for which fields are expected.
-router.post('/', auth.required, function (req, res) {
+// Expects a top level "affixes" field in the body, which is a list of affixes. See ../../models/affix.js for which fields are expected.
+router.post('/', middleware.isAdmin, function (req, res) {
     const affixes = req.body.affixes;
 
     if (!affixes) {
@@ -35,8 +38,8 @@ router.post('/', auth.required, function (req, res) {
 });
 
 // get affixes matching a filter provided
-// this is a post route in name only
-router.post('/allWhere', auth.optional, (req, res) => {
+// this is a post route in name only- this basically just gets affixes based on queryies present in the body of the request
+router.post('/allWhere', (req, res) => {
   const { query } = req.body;
   const formattedQuery = { // this is the type of thing that feels like it shouldn't work
     ...(query.slot && {slot: query.slot}),
@@ -50,7 +53,7 @@ router.post('/allWhere', auth.optional, (req, res) => {
 });
 
 // update affix
-router.post('/:id', auth.required, (req, res) => {
+router.post('/:id', middleware.isAdmin, (req, res) => {
   const affix = req.body;
   const options = {
     new: true,
@@ -65,7 +68,7 @@ router.post('/:id', auth.required, (req, res) => {
 });
 
 // delete single affix
-router.delete('/:id', auth.required, (req, res) => {
+router.delete('/:id', middleware.isAdmin, (req, res) => {
   Affix.findByIdAndDelete(req.params.id, {useFindAndModify: false}, (err, deletedObject) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send(deletedObject);
@@ -73,7 +76,7 @@ router.delete('/:id', auth.required, (req, res) => {
 });
 
 // get all affixes
-router.get('/', auth.optional, (req, res, next) => {
+router.get('/', (req, res, next) => {
   Affix.find((err, affixes) => {
     if (err) console.error(err);
     res.send(affixes);
@@ -81,7 +84,7 @@ router.get('/', auth.optional, (req, res, next) => {
 });
 
 // get a affix by id
-router.get('/:id', auth.optional, (req, res) => {
+router.get('/:id', (req, res) => {
   Affix.findById(req.params.id, (err, affix) => {
     if (err) return res.status(500).send(err);
     return res.status(200).send(affix);
