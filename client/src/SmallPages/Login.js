@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setUser } from '../redux/actions';
+import { clearUser } from '../redux/actions';
 import {
   ComingSoon,
   Spacer,
@@ -23,13 +23,9 @@ class Login extends Component {
     fetch('/api/user/current')
       .then(res => res.json())
       .then(res => {
-				console.log('1', res);
         this.setState({
           profile: res,
         });
-				console.log('2', res);
-				this.props.setUser(res);
-				console.log('3', res);
       })
       .catch(err => console.log(err.response));
   }
@@ -62,7 +58,11 @@ class Login extends Component {
                 {this.state.profile._id}
               </Typography>
               <Spacer height={20} />
-              <a href='/api/user/logout' style={{textDecoration: 'none'}}><Button variant='contained'>Log Out</Button></a>
+              <a href='/api/user/logout' style={{textDecoration: 'none'}}>
+								<Button variant='contained' onClick={this.props.clearUser}>
+									Log Out
+								</Button>
+							</a>
             </>
           )
         }
@@ -73,5 +73,5 @@ class Login extends Component {
 
 export default connect(
 	null,
-	{ setUser }
+	{ clearUser }
 )(Login);
