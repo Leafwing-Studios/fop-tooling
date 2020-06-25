@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
 			return {
 				id: user._id || 'no id',
 				email: user.email || 'no email',
-				isAdmin: user.isAdmin || 'no isAdmin',
+				isAdmin: user.isAdmin,
 			}
 		case CLEAR_USER:
 			return initialState;
