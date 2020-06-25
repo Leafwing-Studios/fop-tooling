@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import Home from '../SmallPages/Home';
-import Affixes from '../Affixes/Affixes';
+import Affixes from '../Affixes/View/Affixes';
 import Rules from '../Rules/Rules';
 import Login from '../SmallPages/Login';
 import Settings from '../SmallPages/Settings';

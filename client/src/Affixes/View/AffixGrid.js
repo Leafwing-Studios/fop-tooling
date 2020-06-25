@@ -13,7 +13,7 @@ import {
   Divider,
   LinearProgress,
 } from '@material-ui/core';
-import { titleCase } from '../utils.js';
+import { titleCase } from '../../utils.js';
 
 const useStyles = makeStyles((theme) => ({
   header: {

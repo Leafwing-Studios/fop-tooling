@@ -6,11 +6,11 @@ import {
   Tooltip,
   SvgIcon,
 } from '@material-ui/core';
-import SlotIcon from '../Icons/SlotIcon';
-import Spacer from '../Common/Spacer';
+import SlotIcon from '../../Icons/SlotIcon';
+import Spacer from '../../Common/Spacer';
 import {
   titleCase
-} from '../utils';
+} from '../../utils';
 
 export default class AffixInfo extends Component {
   constructor(props) {
