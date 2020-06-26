@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   Typography,
@@ -173,7 +174,20 @@ export default class AffixEditor extends Component {
 				<Spacer height={20} />
 				<Divider />
 				<Spacer height={5} />
-				<Button variant='contained' color='primary' type='submit'>Submit</Button>
+				<div style={{display: 'flex'}}>
+					<Link to='/affixes' style={{textDecoration: 'none'}}>
+						<Button variant='contained'>Cancel</Button>
+					</Link>
+					<Button 
+						variant='contained' 
+						color='primary' 
+						type='submit' 
+						style={{marginLeft: 'auto'}}
+						disabled={this.validateCost() || this.validateMaxReplicates() /* if either validation function has errors, turn off the submit button. the submit automatically fails if there are unfilled required fields */}
+					>
+						Submit
+					</Button>
+				</div>
 			</form>
 		);
 	}
