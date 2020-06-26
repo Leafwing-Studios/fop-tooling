@@ -10,6 +10,7 @@ import TwoPanelsResizable from './TwoPanelsResizable';
 import Title from './Title';
 import MultipleSelectBoxes from './MultipleSelectBoxes';
 import NameValuePair from './NameValuePair';
+import SubmissionMessage from './SubmissionMessage';
 
 export {
   Center,
@@ -22,6 +23,7 @@ export {
   MultipleSelect,
   NameValuePair,
   Spacer,
+	SubmissionMessage,
   TwoColumns,
   TwoPanelsResizable,
 }
