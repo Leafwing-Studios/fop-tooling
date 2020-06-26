@@ -27,6 +27,8 @@ export default class AffixEditor extends Component {
 		this.state = {
 			affix: {},
 		}
+		
+		this.submitForm = this.submitForm.bind(this); // this incantation is required to access this in submitForm()
 	}
 	
 	componentDidMount() {
@@ -72,7 +74,29 @@ export default class AffixEditor extends Component {
 		ev.preventDefault();
 		// make the name all lowercase before sending it off
 		// parse the cost and max replicates into floats
-		console.log('this is how we submit!');
+		const cleanedAffix = {...this.state.affix, ...{
+			name: this.state.affix.name.toLowerCase(),
+			cost: parseFloat(this.state.affix.cost),
+			maxReplicates: parseFloat(this.state.affix.maxReplicates),
+		}};
+		
+		const requestOptions = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(cleanedAffix),
+		}
+		
+		fetch(`/api/affix/${this.props.match.params.affixId}`, requestOptions)
+			.then(res => {
+				if (res.status === 200) {
+					console.log('success!');
+				} else {
+					console.log('something went wrong. show your console to sixfold.');
+				}
+			})
+			.catch(err => console.log(err.response));
 	}
 
 	render() {
