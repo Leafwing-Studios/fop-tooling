@@ -18,6 +18,8 @@ const getAllIndicies = (arr, fn) => {
   return indexes;
 };
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 export {
   onlyUnique,
   stringContains,
@@ -25,4 +27,5 @@ export {
   removeElement,
   randRange,
   getAllIndicies,
+	sleep,
 }

@@ -3,7 +3,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-import Affixes from './Affixes';
+import Affixes from './View/Affixes';
 import {
   ControlledStepper,
   Title,

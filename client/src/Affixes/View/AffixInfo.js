@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getUser } from '../../redux/selectors';
+import { Link } from 'react-router-dom';
 import {
   Typography,
   Divider,
   Grid,
   Tooltip,
   SvgIcon,
+	Fab,
 } from '@material-ui/core';
-import SlotIcon from '../Icons/SlotIcon';
-import Spacer from '../Common/Spacer';
+import {
+	Edit as EditIcon,
+} from '@material-ui/icons';
+import SlotIcon from '../../Icons/SlotIcon';
+import Spacer from '../../Common/Spacer';
 import {
   titleCase
-} from '../utils';
+} from '../../utils';
 
-export default class AffixInfo extends Component {
+class AffixInfo extends Component {
   constructor(props) {
       super(props);
   }
@@ -73,8 +80,29 @@ export default class AffixInfo extends Component {
           <Typography paragraph>
             {this.props.affix.descLong}
           </Typography>
+					{
+						this.props.user.isAdmin && (
+							<div style={{display: 'flex'}}>
+								<Link to={`/affixes/edit/${this.props.affix._id}`} style={{marginLeft: 'auto'}}>
+									<Tooltip title='Edit this affix'>
+										<Fab color='primary' size='medium' aria-label='edit'>
+											<EditIcon />
+										</Fab>
+									</Tooltip>
+								</Link>
+							</div>
+						)
+					}
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+	user: getUser(state)
+});
+
+export default connect(
+	mapStateToProps
+)(AffixInfo);

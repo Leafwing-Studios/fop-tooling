@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 
 import Home from '../SmallPages/Home';
-import Affixes from '../Affixes/Affixes';
+import Affixes from '../Affixes/View/Affixes';
+import AffixEditor from '../Affixes/Edit/AffixEditor';
 import Rules from '../Rules/Rules';
 import Login from '../SmallPages/Login';
 import Settings from '../SmallPages/Settings';
@@ -18,7 +19,8 @@ export default function RouterBase() {
       {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
       <Switch>
-        <Route path="/affixes">
+        <Route path="/affixes/edit/:affixId" render={(props) => <AffixEditor {...props} /> } />
+				<Route path="/affixes">
           <Affixes />
         </Route>
         <Route path="/rules">
