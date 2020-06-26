@@ -11,12 +11,14 @@ import {
 	MenuItem,
 	FormControl,
 	InputLabel,
+	CircularProgress,
 } from '@material-ui/core';
 import {
 	Spacer,
 } from '../../Common';
 import {
-	titleCase
+	titleCase,
+	sleep,
 } from '../../utils';
 
 const spacerHeight = 25;
@@ -26,6 +28,7 @@ export default class AffixEditor extends Component {
 		super(props);
 		this.state = {
 			affix: {},
+			submissionStatus: null, // options: null, submitting, success, error
 		}
 		
 		this.submitForm = this.submitForm.bind(this); // this incantation is required to access this in submitForm()
@@ -70,8 +73,13 @@ export default class AffixEditor extends Component {
 		this.setState({affix});
 	}
 	
-	submitForm(ev) {
+	async submitForm(ev) { // callback for form submission
 		ev.preventDefault();
+		
+		this.setState({
+			submissionStatus: 'submitting',
+		})
+		
 		// make the name all lowercase before sending it off
 		// parse the cost and max replicates into floats
 		const cleanedAffix = {...this.state.affix, ...{
@@ -91,9 +99,13 @@ export default class AffixEditor extends Component {
 		fetch(`/api/affix/${this.props.match.params.affixId}`, requestOptions)
 			.then(res => {
 				if (res.status === 200) {
-					console.log('success!');
+					this.setState({
+						submissionStatus: 'success'
+					})
 				} else {
-					console.log('something went wrong. show your console to sixfold.');
+					this.setState({
+						submissionStatus: 'error'
+					})
 				}
 			})
 			.catch(err => console.log(err.response));
@@ -200,17 +212,34 @@ export default class AffixEditor extends Component {
 				<Spacer height={5} />
 				<div style={{display: 'flex'}}>
 					<Link to='/affixes' style={{textDecoration: 'none'}}>
-						<Button variant='contained'>Cancel</Button>
+						<Button variant='contained'>Back</Button>
 					</Link>
-					<Button 
-						variant='contained' 
-						color='primary' 
-						type='submit' 
-						style={{marginLeft: 'auto'}}
-						disabled={this.validateCost() || this.validateMaxReplicates() /* if either validation function has errors, turn off the submit button. the submit automatically fails if there are unfilled required fields */}
-					>
-						Submit
-					</Button>
+					<div style={{display: 'flex', marginLeft: 'auto', alignItems: 'center'}}>
+						{
+							this.state.submissionStatus === 'success' && (
+								<Typography style={{marginRight: 15}}>Affix saved successfully!</Typography>
+							)
+						}
+						{
+							this.state.submissionStatus === 'error' && (
+								<Typography style={{marginRight: 15}}>An error occurred saving this affix. Please contact a site administrator.</Typography>
+							)
+						}
+						<Button 
+							variant='contained' 
+							color='primary' 
+							type='submit' 
+							style={{marginLeft: 'auto'}}
+							disabled={this.validateCost() || this.validateMaxReplicates() /* if either validation function has errors, turn off the submit button. the submit automatically fails if there are unfilled required fields */}
+						>
+							Submit
+							{
+								this.state.submissionStatus === 'submitting' && ( /* loading spinner for submitting */
+									<CircularProgress size={20} color='#ffffff' style={{marginLeft: '10px'}}/> 
+								)
+							}
+						</Button>
+					</div>
 				</div>
 			</form>
 		);
