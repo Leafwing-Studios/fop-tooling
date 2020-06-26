@@ -39,7 +39,11 @@ export default class AffixEditor extends Component {
 		fetch(`/api/affix/${this.props.match.params.affixId}`)
 			.then(res => res.json())
 			.then(affix => {
-				const prettyAffix = {...affix, ...{name: titleCase(affix.name)}}; // force title case to make it look nicer. we squash back down to lower case before saving in the submitForm function
+				const prettyAffix = {...affix, ...{
+					name: titleCase(affix.name), // force title case to make it look nicer. we squash back down to lower case before saving in the submitForm function
+					cost: '' + affix.cost, // cast number fields to strings so the autofill doesn't treat 0 like null
+					maxReplicates: '' + affix.maxReplicates,
+				}};
 				this.setState({
 					affix: prettyAffix,
 				});
