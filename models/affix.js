@@ -31,7 +31,7 @@ let AffixSchema = Schema({
   },
   affixType: {
     type: String,
-    enum: ['advanced', 'exotic', 'prismatic', 'mundane'],
+    enum: ['advanced', 'exotic', 'prismatic', 'common'],
     required: true,
   },
   prerequisites: String,
