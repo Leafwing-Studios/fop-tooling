@@ -3,6 +3,12 @@ import {
 	Typography,
 	Fab,
 	Tooltip,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogContentText,
+	DialogActions,
+	Button,
 } from '@material-ui/core';
 import {
 	Delete as DeleteIcon
@@ -29,15 +35,47 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 	}
 	
 	return (
-		<Tooltip title={`Delete this ${props.variantName}`}>
-			<Fab 
-				size='medium' 
-				aria-label='delete'
-				onClick={(ev) => send()}
-				disabled={isSubmitting || dialogOpen}
+		<>
+			<Tooltip title={`Delete this ${props.variantName}`}>
+				<Fab 
+					size='medium' 
+					aria-label='delete'
+					onClick={(ev) => (setDialogOpen(true))}
+					disabled={isSubmitting || dialogOpen}
+				>
+					<DeleteIcon />
+				</Fab>
+			</Tooltip>
+			<Dialog
+				open={dialogOpen}
+				onClose={() => setDialogOpen(false)}
+				aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
 			>
-				<DeleteIcon />
-			</Fab>
-		</Tooltip>
+				<DialogTitle id='alert-dialog-title'>
+					{`Are you sure you want to delete this ${props.variantName}?`}
+				</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-description">
+						This action cannot be undone.
+					</DialogContentText>
+					<DialogActions>
+	          <Button onClick={() => setDialogOpen(false)} color="primary">
+	            Back
+	          </Button>
+	          <Button 
+							onClick={() => {
+								setDialogOpen(false);
+								send();
+							}} 
+							color="primary" 
+							autoFocus
+						>
+	            Confirm
+	          </Button>
+	        </DialogActions>
+				</DialogContent>
+			</Dialog>
+		</>
 	)
 }
