@@ -11,6 +11,7 @@ import Title from './Title';
 import MultipleSelectBoxes from './MultipleSelectBoxes';
 import NameValuePair from './NameValuePair';
 import SubmissionMessage from './SubmissionMessage';
+import DeleteWithConfirmation from './DeleteWithConfirmation.js';
 
 export {
   Center,
@@ -18,6 +19,7 @@ export {
   Title,
   ComingSoon,
   ControlledStepper,
+	DeleteWithConfirmation,
   InfoPanel,
   Lipsum,
   MultipleSelect,

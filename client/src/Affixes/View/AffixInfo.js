@@ -14,7 +14,10 @@ import {
 	Edit as EditIcon,
 } from '@material-ui/icons';
 import SlotIcon from '../../Icons/SlotIcon';
-import Spacer from '../../Common/Spacer';
+import {
+	Spacer,
+	DeleteWithConfirmation
+} from '../../Common';
 import {
   titleCase
 } from '../../utils';
@@ -90,6 +93,11 @@ class AffixInfo extends Component {
 										</Fab>
 									</Tooltip>
 								</Link>
+								<Spacer width={15} />
+								<DeleteWithConfirmation 
+									variantName='affix'
+									apiURL={`/api/affix/${this.props.affix._id}`}
+								/>
 							</div>
 						)
 					}
