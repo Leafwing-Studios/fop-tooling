@@ -58,6 +58,9 @@ export default class AffixEditor extends Component {
 	
 	validateCost() { // computes the validations for the cost field. returns any error strings if any, otherwise returns null. this is nice because we can treat the value as either the error string, or as a boolean for whether to enable error mode on the field
 		// must be a number
+		if (this.state.affix.cost === '' || this.state.affix.cost === undefined) { // you're allowed to blank out fields because it gets caught by the required validation
+			return null;
+		}
 		if (isNaN(this.state.affix.cost)) {
 			return "Must be a number";
 		}
@@ -66,6 +69,9 @@ export default class AffixEditor extends Component {
 	
 	validateMaxReplicates() { // validations for the maxReplicates field
 		// must be a number, must be >= 0
+		if (this.state.affix.maxReplicates === '' || this.state.affix.maxReplicates === undefined) { 
+			return null;
+		}
 		if (isNaN(this.state.affix.maxReplicates)) {
 			return "Must be a number";
 		}
@@ -103,19 +109,18 @@ export default class AffixEditor extends Component {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(
-				this.props.newAffix ? {affixes: cleanedAffix} : cleanedAffix
+				this.props.newAffix ? {affixes: cleanedAffix} : cleanedAffix // body format changes based on adding vs updating
 			),
 		}
 		
+		// api endpoint changes based on whether we're adding or updating
 		const apiURL = this.props.newAffix ? '/api/affix' : `/api/affix/${this.props.match.params.affixId}`
 		
 		console.log(apiURL, cleanedAffix)
 		
 		fetch(apiURL, requestOptions)
 			.then(res => {
-				console.log(res);
 				if (res.status === 200) {
-					console.log('sub success~');
 					this.setState({
 						isSubmitting: false,
 						submissionSuccessful: true,
@@ -140,12 +145,6 @@ export default class AffixEditor extends Component {
 						<Spacer height={10} />
 					</>
 				)}
-				
-				{
-					this.props.newAffix && (
-						<p>we're making a new affix!</p>
-					)
-				}
 				
 				<AffixFormFields 
 					affix={this.state.affix} 
