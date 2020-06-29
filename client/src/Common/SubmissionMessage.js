@@ -7,7 +7,7 @@ export default function SubmissionMessage(props) { // displays a message for for
 	if (props.show) {
 		if (props.success) {
 			return (
-				<Typography>Saved successfully!</Typography>
+				<Typography>Success!</Typography>
 			)
 		} else {
 			return (
