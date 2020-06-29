@@ -97,9 +97,7 @@ class AffixInfo extends Component {
 								<DeleteWithConfirmation 
 									variantName={titleCase(this.props.affix.name)}
 									apiURL={`/api/affix/${this.props.affix._id}`}
-									callback={res => {
-										console.log(res);
-									}}
+									callback={() => this.props.refresh()}
 								/>
 							</div>
 						)

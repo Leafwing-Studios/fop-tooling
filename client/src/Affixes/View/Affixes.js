@@ -74,6 +74,14 @@ export default class Rules extends Component {
       filteredAffixes,
     });
   }
+	
+	refresh() { // refreshes the component, pulling a new affix list and reseting the info panel. used to reset the page after deleting an affix
+		this.setState({
+			currentAffix: null,
+			allAffixes: []
+		});
+		this.componentDidMount();
+	}
 
   resetFilters() {
     this.updateFilters({ // reset to defaults
@@ -123,7 +131,10 @@ export default class Rules extends Component {
             />
           </div>
           <InfoPanel variant={this.state.currentAffix} variantName="an affix">
-            <AffixInfo affix={this.state.currentAffix} />
+            <AffixInfo 
+							affix={this.state.currentAffix}
+							refresh={() => this.refresh()}
+						/>
           </InfoPanel>
         </TwoColumns>
       </DocumentTitle>
