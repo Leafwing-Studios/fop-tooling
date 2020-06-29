@@ -87,7 +87,7 @@ class AffixInfo extends Component {
 						this.props.user.isAdmin && (
 							<div style={{display: 'flex'}}>
 								<Link to={`/affixes/edit/${this.props.affix._id}`} style={{marginLeft: 'auto'}}>
-									<Tooltip title='Edit this affix'>
+									<Tooltip title={`Edit ${titleCase(this.props.affix.name)}`}>
 										<Fab color='primary' size='medium' aria-label='edit'>
 											<EditIcon />
 										</Fab>
@@ -95,7 +95,7 @@ class AffixInfo extends Component {
 								</Link>
 								<Spacer width={15} />
 								<DeleteWithConfirmation 
-									variantName='affix'
+									variantName={titleCase(this.props.affix.name)}
 									apiURL={`/api/affix/${this.props.affix._id}`}
 									callback={res => {
 										console.log(res);

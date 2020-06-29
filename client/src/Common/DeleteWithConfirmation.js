@@ -36,7 +36,7 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 	
 	return (
 		<>
-			<Tooltip title={`Delete this ${props.variantName}`}>
+			<Tooltip title={`Delete ${props.variantName}`}>
 				<Fab 
 					size='medium' 
 					aria-label='delete'
@@ -53,7 +53,7 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
         aria-describedby="alert-dialog-description"
 			>
 				<DialogTitle id='alert-dialog-title'>
-					{`Are you sure you want to delete this ${props.variantName}?`}
+					{`Are you sure you want to delete ${props.variantName}?`}
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
