@@ -40,8 +40,11 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 		setIsSubmitting(true);
 		
 		fetch(props.apiURL, {method: 'DELETE'})
+			.then((res) => {
+				setIsSubmitting(false);
+				return res;
+			})
 			.then(props.callback) // generic callback that the parent can provide. for redirects, success messages, page reloads, etc.
-			.then(() => (setIsSubmitting(false)))
 			.catch(err => console.log(err.response));
 	}
 	
