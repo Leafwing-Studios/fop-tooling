@@ -33,18 +33,14 @@ const useStyles = makeStyles((theme) => ({
 export default function DeleteWithConfirmation(props) { // displays a message for form submissions. can show either a success or error message
 	const classes = useStyles();
 	
-	const [dialogOpen, setDialogOpen] = React.useState(false);
-	const [isSubmitting, setIsSubmitting] = React.useState(false);
+	const [dialogOpen, setDialogOpen] = React.useState(false); // is the dialog box open?
+	const [isSubmitting, setIsSubmitting] = React.useState(false); // are we currently waiting on the api? 
 	
 	const send = async () => { // actually send the deletion api request
 		setIsSubmitting(true);
-		// console.log(props.apiURL);
-		// await sleep(2000);
-		// console.log('we done');
-		// setIsSubmitting(false);
 		
 		fetch(props.apiURL, {method: 'DELETE'})
-			.then(props.callback)
+			.then(props.callback) // generic callback that the parent can provide. for redirects, success messages, page reloads, etc.
 			.then(() => (setIsSubmitting(false)))
 			.catch(err => console.log(err.response));
 	}
