@@ -11,6 +11,10 @@ import {
   Divider,
 } from '@material-ui/core';
 
+import googleButton from '../Icons/btn_google_signin_dark_normal_web.png';
+import googleButtonFocus from '../Icons/btn_google_signin_dark_focus_web.png';
+import googleButtonPressed from '../Icons/btn_google_signin_dark_pressed_web.png';
+
 export default class Login extends Component {
   constructor(props) {
     super(props); 
@@ -19,11 +23,15 @@ export default class Login extends Component {
   render () {
     return (
       <>
-        { false && JSON.stringify(this.state.profile) }
-				{ false && JSON.stringify(this.props.user)}
-				
-        <a href="/api/user/google" style={{textDecoration: 'none'}}>
-					<Button variant='contained'>Log in with Google</Button>
+				<a href="/api/user/google" style={{textDecoration: 'none'}}>
+					<img 
+						alt="Logo" 
+						src={googleButton} 
+						onMouseOver={e => (e.currentTarget.src = googleButtonFocus)}
+						onMouseOut={e => (e.currentTarget.src = googleButton)}
+						onMouseDown={e => (e.currentTarget.src = googleButtonPressed)}
+						onMouseUp={e => (e.currentTarget.src = googleButton)}
+					/>
 				</a>
       </>
     );
