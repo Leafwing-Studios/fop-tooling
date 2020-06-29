@@ -30,8 +30,17 @@ export default class AffixEditor extends Component {
 	}
 	
 	componentDidMount() {
-		// fetch the appropriate affix from the api. storing this in the redux store is not recommended for two reasons: 1. users can navigate to this page directly and 2. this component should be reusable for other editing or creation contexts
-		fetch(`/api/affix/${this.props.match.params.affixId}`)
+		if (this.props.newAffix) {
+			this.setState({ // set the default values for rarity and slot so they don't send null if unedited
+				affix: {
+					affixType: 'common',
+					slot: 'arms',
+					source: 'official:core', // TODO change this once other people can make affixes
+				}
+			})
+		} else { // only fetch if we are editing
+			// fetch the appropriate affix from the api. storing this in the redux store is not recommended for two reasons: 1. users can navigate to this page directly and 2. this component should be reusable for other editing or creation contexts
+			fetch(`/api/affix/${this.props.match.params.affixId}`)
 			.then(res => res.json())
 			.then(affix => {
 				const prettyAffix = {...affix, ...{
@@ -44,6 +53,7 @@ export default class AffixEditor extends Component {
 				});
 			})
 			.catch(err => console.log(err.response));
+		}
 	}
 	
 	validateCost() { // computes the validations for the cost field. returns any error strings if any, otherwise returns null. this is nice because we can treat the value as either the error string, or as a boolean for whether to enable error mode on the field
@@ -92,12 +102,20 @@ export default class AffixEditor extends Component {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(cleanedAffix),
+			body: JSON.stringify(
+				this.props.newAffix ? {affixes: cleanedAffix} : cleanedAffix
+			),
 		}
 		
-		fetch(`/api/affix/${this.props.match.params.affixId}`, requestOptions)
+		const apiURL = this.props.newAffix ? '/api/affix' : `/api/affix/${this.props.match.params.affixId}`
+		
+		console.log(apiURL, cleanedAffix)
+		
+		fetch(apiURL, requestOptions)
 			.then(res => {
+				console.log(res);
 				if (res.status === 200) {
+					console.log('sub success~');
 					this.setState({
 						isSubmitting: false,
 						submissionSuccessful: true,
@@ -122,6 +140,12 @@ export default class AffixEditor extends Component {
 						<Spacer height={10} />
 					</>
 				)}
+				
+				{
+					this.props.newAffix && (
+						<p>we're making a new affix!</p>
+					)
+				}
 				
 				<AffixFormFields 
 					affix={this.state.affix} 

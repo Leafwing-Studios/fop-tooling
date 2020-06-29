@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DocumentTitle from 'react-document-title';
+import { Link } from 'react-router-dom';
 import {
   TwoPanelsResizable,
   Lipsum,
@@ -12,6 +13,7 @@ import AffixGrid from './AffixGrid';
 import AffixInfo from './AffixInfo';
 import {
   Typography,
+	Button
 } from '@material-ui/core';
 import {
   onlyUnique,
@@ -102,7 +104,13 @@ export default class Rules extends Component {
               uniqueTags={this.state.uniqueTags}
               filters={this.state.filters}
             />
-            <Spacer height={25} />
+            <Spacer height={15} />
+						
+						<Link to='/affixes/new' style={{textDecoration: 'none'}}>
+							<Button variant='contained'>New Affix</Button>
+						</Link>
+						
+						<Spacer height={10} />
             
             {false && JSON.stringify(this.state.filters)}
             {false && JSON.stringify(this.state.filteredAffixes) /* debug */}

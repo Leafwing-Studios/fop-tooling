@@ -21,8 +21,7 @@ router.post('/', middleware.isAdmin, function (req, res) {
     Affix.insertMany(affixes)
       .catch((err) => { // returns the first error that is encountered. if there is an error, no records are written
         if(err) {
-          res.json(err);
-          res.status(400); // HTTP 400: Bad Request
+          res.status(400).send(err); // HTTP 400: Bad Request
         }
       })
       .then((affixes) => {
