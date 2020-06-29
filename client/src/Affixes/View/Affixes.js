@@ -54,9 +54,8 @@ class Affixes extends Component {
         allAffixes: affixes,
         filteredAffixes: affixes,
         uniqueTags: affixes.map(affix => affix.tags).flat().filter(onlyUnique).sort(),
-      }));
-
-      this.updateFilters(this.state.filters); // this way if someone types something while the page is still loading, the filter still applies
+      }))
+			.then(() => this.updateFilters(this.state.filters)); // this way if someone types something while the page is still loading, the filter still applies
   }
 
   updateFilters(newFilters) {
