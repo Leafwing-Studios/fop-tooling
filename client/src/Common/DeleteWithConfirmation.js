@@ -1,4 +1,5 @@
 import React from 'react'
+import { makeStyles } from '@material-ui/core/styles';
 import {
 	Typography,
 	Fab,
@@ -17,7 +18,21 @@ import {
 	sleep
 } from '../utils';
 
+const useStyles = makeStyles((theme) => ({
+	fabDelete: {
+		'&:hover': {
+			backgroundColor: '#e83f3f',
+			color: '#f0f0f0',
+		}
+	},
+	confirmButton: {
+		color: '#e83f3f'
+	}
+}));
+
 export default function DeleteWithConfirmation(props) { // displays a message for form submissions. can show either a success or error message
+	const classes = useStyles();
+	
 	const [dialogOpen, setDialogOpen] = React.useState(false);
 	const [isSubmitting, setIsSubmitting] = React.useState(false);
 	
@@ -42,6 +57,7 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 					aria-label='delete'
 					onClick={(ev) => (setDialogOpen(true))}
 					disabled={isSubmitting || dialogOpen}
+					className={classes.fabDelete}
 				>
 					<DeleteIcon />
 				</Fab>
@@ -60,7 +76,7 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 						This action cannot be undone.
 					</DialogContentText>
 					<DialogActions>
-	          <Button onClick={() => setDialogOpen(false)} color="primary">
+	          <Button onClick={() => setDialogOpen(false)} >
 	            Back
 	          </Button>
 	          <Button 
@@ -68,6 +84,7 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 								setDialogOpen(false);
 								send();
 							}} 
+							className={classes.confirmButton}
 							color="primary" 
 							autoFocus
 						>
