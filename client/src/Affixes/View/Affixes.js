@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getUser } from '../../redux/selectors';
 import DocumentTitle from 'react-document-title';
 import { Link } from 'react-router-dom';
 import {
@@ -20,7 +22,7 @@ import {
   stringContains,
 } from '../../utils';
 
-export default class Rules extends Component {
+class Affixes extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -114,9 +116,11 @@ export default class Rules extends Component {
             />
             <Spacer height={15} />
 						
-						<Link to='/affixes/new' style={{textDecoration: 'none'}}>
-							<Button variant='contained'>New Affix</Button>
-						</Link>
+						{ this.props.user.isAdmin && (
+							<Link to='/affixes/new' style={{textDecoration: 'none'}}>
+								<Button variant='contained'>New Affix</Button>
+							</Link>
+						)}
 						
 						<Spacer height={15} />
             
@@ -141,3 +145,11 @@ export default class Rules extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+	user: getUser(state)
+});
+
+export default connect(
+	mapStateToProps
+)(Affixes);
