@@ -110,7 +110,7 @@ export default class Rules extends Component {
 							<Button variant='contained'>New Affix</Button>
 						</Link>
 						
-						<Spacer height={10} />
+						<Spacer height={15} />
             
             {false && JSON.stringify(this.state.filters)}
             {false && JSON.stringify(this.state.filteredAffixes) /* debug */}
