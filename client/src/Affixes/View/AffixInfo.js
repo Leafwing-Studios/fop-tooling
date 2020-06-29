@@ -14,7 +14,10 @@ import {
 	Edit as EditIcon,
 } from '@material-ui/icons';
 import SlotIcon from '../../Icons/SlotIcon';
-import Spacer from '../../Common/Spacer';
+import {
+	Spacer,
+	DeleteWithConfirmation
+} from '../../Common';
 import {
   titleCase
 } from '../../utils';
@@ -84,12 +87,18 @@ class AffixInfo extends Component {
 						this.props.user.isAdmin && (
 							<div style={{display: 'flex'}}>
 								<Link to={`/affixes/edit/${this.props.affix._id}`} style={{marginLeft: 'auto'}}>
-									<Tooltip title='Edit this affix'>
+									<Tooltip title={`Edit ${titleCase(this.props.affix.name)}`}>
 										<Fab color='primary' size='medium' aria-label='edit'>
 											<EditIcon />
 										</Fab>
 									</Tooltip>
 								</Link>
+								<Spacer width={15} />
+								<DeleteWithConfirmation 
+									variantName={titleCase(this.props.affix.name)}
+									apiURL={`/api/affix/${this.props.affix._id}`}
+									callback={() => this.props.refresh()}
+								/>
 							</div>
 						)
 					}
