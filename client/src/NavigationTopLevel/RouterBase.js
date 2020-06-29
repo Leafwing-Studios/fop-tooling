@@ -9,6 +9,7 @@ import Affixes from '../Affixes/View/Affixes';
 import AffixEditor from '../Affixes/Edit/AffixEditor';
 import Rules from '../Rules/Rules';
 import Login from '../SmallPages/Login';
+import Profile from '../SmallPages/Profile';
 import Settings from '../SmallPages/Settings';
 import InitTracker from '../InitTracker/InitTracker';
 import MonsterBuilder from '../MonsterBuilder/MonsterBuilder';
@@ -31,6 +32,9 @@ export default function RouterBase() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/profile">
+          <Profile />
         </Route>
         <Route path="/settings">
           <Settings />

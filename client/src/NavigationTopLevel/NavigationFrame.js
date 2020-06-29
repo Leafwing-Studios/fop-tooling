@@ -2,6 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
 import useStyles from '../styles';
+import { connect } from 'react-redux';
+import { getUser } from '../redux/selectors';
 
 import {
   Drawer,
@@ -28,7 +30,7 @@ import {
 import RouterBase from './RouterBase';
 import DrawerLink from './DrawerLink';
 
-export default function NavigationFrame() {
+function NavigationFrame(props) {
   const classes = useStyles()(); // what the fuck javascript
   const [open, setOpen] = React.useState(false);
 
@@ -112,7 +114,11 @@ export default function NavigationFrame() {
         </List>
         <Divider />
         <List>
-          <DrawerLink buttonKey='user' buttonText='Log In' routePath='/login'>
+          <DrawerLink 
+						buttonKey='user' 
+						buttonText={props.user.id ? 'Profile' : 'Log In'} 
+						routePath={props.user.id ? '/profile' : '/login'}
+					>
             <UserIcon />
           </DrawerLink>
           <DrawerLink buttonKey='settings' buttonText='Settings' routePath='/settings'>
@@ -127,3 +133,11 @@ export default function NavigationFrame() {
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+	user: getUser(state)
+});
+
+export default connect(
+	mapStateToProps
+)(NavigationFrame);
