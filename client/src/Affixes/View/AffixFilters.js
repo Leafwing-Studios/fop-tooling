@@ -26,6 +26,7 @@ export default function AffixFilters(props) {
           <TextField
             autoFocus
             fullWidth
+						onFocus={(ev) => ev.target.select()}
             label="Search"
             type="search"
             value={props.filters.nameDesc}

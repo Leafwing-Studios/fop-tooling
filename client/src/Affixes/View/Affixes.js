@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUser } from '../../redux/selectors';
+import { 
+	getUser, 
+	getAffixFilters 
+} from '../../redux/selectors';
+import { setAffixFilters } from '../../redux/actions';
 import DocumentTitle from 'react-document-title';
 import { Link } from 'react-router-dom';
 import {
@@ -27,19 +31,23 @@ class Affixes extends Component {
     super(props);
     this.state = {
       allAffixes: [], // this remanins unchanged after page load
-      filters: { // filters subcomponent gets a callback to change this bit
-        nameDesc: "",
-        slot: "",
-        cost: "", // this is stored a string because you start with a '-' when typing in negative numbers
-        type: [],
-        tags: [],
-      },
+      filters: {}, // filters subcomponent gets a callback to change this bit. don't include default values because they get loaded in from redux
       filteredAffixes: [], // this changes based on filter state
       uniqueTags: [], // used to populate filter options
       currentAffix: null, // which thing is selected in the panel on the right
       filterRefreshFlag: true, // flip this to cause the filter child to refresh- useful for the reset filters button
     };
   }
+	
+	componentWillMount() { // load filters from redux store before mounting to avoid bugs
+		this.setState({
+			filters: this.props.filters
+		});
+	}
+	
+	componentWillUnmount() { // save changes to filters in redux
+		this.props.setAffixFilters(this.state.filters);
+	}
 
   componentDidMount() {
     const requestOptions = {
@@ -58,7 +66,7 @@ class Affixes extends Component {
 			.then(() => this.updateFilters(this.state.filters)); // this way if someone types something while the page is still loading, the filter still applies
   }
 
-  updateFilters(newFilters) {
+  updateFilters(newFilters) { // filter update callback for the filter component. also calculates what to show
     const oldFilters = this.state.filters;
     const filters = {...oldFilters, ...newFilters}; // yknow, i'm starting to like this es7 mixing stuff
 
@@ -146,9 +154,11 @@ class Affixes extends Component {
 }
 
 const mapStateToProps = state => ({
-	user: getUser(state)
+	user: getUser(state),
+	filters: getAffixFilters(state),
 });
 
 export default connect(
-	mapStateToProps
+	mapStateToProps,
+	{ setAffixFilters }
 )(Affixes);

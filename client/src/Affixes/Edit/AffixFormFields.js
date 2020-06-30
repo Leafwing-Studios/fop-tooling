@@ -82,6 +82,14 @@ export default function AffixFormFields(props) { // just form fields, no state o
 				</FormControl>
 				<Spacer height={spacerHeight} />
 				<TextField
+					id='prerequisites'
+					label='Prerequisites'
+					fullWidth
+					value={props.affix.prerequisites || ''}
+					onChange={(ev) => props.updateAffix({prerequisites: ev.target.value})}
+				/>
+				<Spacer height={spacerHeight} />
+				<TextField
 					id='cost'
 					label='Cost'
 					required

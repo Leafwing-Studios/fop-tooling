@@ -1,2 +1,4 @@
 export const SET_USER = 'SET_USER';
 export const CLEAR_USER = 'CLEAR_USER';
+export const SET_AFFIX_FILTERS = 'SET_AFFIX_FILTERS';
+export const CLEAR_AFFIX_FILTERS = 'CLEAR_AFFIX_FILTERS';
