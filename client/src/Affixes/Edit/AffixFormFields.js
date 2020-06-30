@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import {
 	Spacer,
+	SearchSelect,
 } from '../../Common';
 
 const spacerHeight = 25;
@@ -82,14 +83,6 @@ export default function AffixFormFields(props) { // just form fields, no state o
 				</FormControl>
 				<Spacer height={spacerHeight} />
 				<TextField
-					id='prerequisites'
-					label='Prerequisites'
-					fullWidth
-					value={props.affix.prerequisites || ''}
-					onChange={(ev) => props.updateAffix({prerequisites: ev.target.value})}
-				/>
-				<Spacer height={spacerHeight} />
-				<TextField
 					id='cost'
 					label='Cost'
 					required
@@ -109,6 +102,27 @@ export default function AffixFormFields(props) { // just form fields, no state o
 					onChange={(ev) => props.updateAffix({maxReplicates: ev.target.value})}
 					error={props.maxReplicatesError ? true : false}
 					helperText={props.maxReplicatesError || 'Enter 0 for infinite max replicates'}
+				/>
+			</Grid>
+			<Grid item sm={3}>
+				<TextField
+					id='prerequisites'
+					label='Prerequisites'
+					fullWidth
+					multiline
+					value={props.affix.prerequisites || ''}
+					onChange={(ev) => props.updateAffix({prerequisites: ev.target.value})}
+				/>
+				<Spacer height={spacerHeight} />
+				<SearchSelect 
+					label="Tags"
+					options={[
+						"Chocolate",
+						"Vanilla",
+						"Vanilla Bean",
+						"Strawberry",
+						"Mint Chip",
+					]}
 				/>
 			</Grid>
 		</Grid>
