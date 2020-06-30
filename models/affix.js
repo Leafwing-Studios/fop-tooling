@@ -37,27 +37,7 @@ let AffixSchema = Schema({
   prerequisites: String,
   tags: {
     type: [String],
-    enum: common.affixTags,
   },
-  elements: {
-    type: [String],
-    enum: [
-      'physical',
-      'arcane',
-      'eldritch',
-      'air',
-      'earth',
-      'fire',
-      'water',
-      'primal',
-      'decay',
-      'radiant',
-      'umbral',
-      'corrosion',
-      'electric',
-      'specified',
-    ],
-  }
 });
 
 AffixSchema.index({ source: 1, name: 1 }, { unique: true });
