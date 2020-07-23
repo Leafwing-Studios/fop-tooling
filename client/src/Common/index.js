@@ -12,6 +12,7 @@ import MultipleSelectBoxes from './MultipleSelectBoxes';
 import NameValuePair from './NameValuePair';
 import SubmissionMessage from './SubmissionMessage';
 import DeleteWithConfirmation from './DeleteWithConfirmation.js';
+import SearchSelect from './SearchSelect.js';
 
 export {
   Center,
@@ -24,6 +25,7 @@ export {
   Lipsum,
   MultipleSelect,
   NameValuePair,
+	SearchSelect,
   Spacer,
 	SubmissionMessage,
   TwoColumns,

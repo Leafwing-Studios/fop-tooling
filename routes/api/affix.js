@@ -82,6 +82,14 @@ router.get('/', (req, res, next) => {
   })
 });
 
+// get all unique tags
+router.get('/tags', (req, res, next) => {
+	Affix.distinct("tags", (err, tags) => {
+		if (err) return res.status(500).send(err);
+		return res.status(200).send(tags);
+	});
+});
+
 // get a affix by id
 router.get('/:id', (req, res) => {
   Affix.findById(req.params.id, (err, affix) => {
