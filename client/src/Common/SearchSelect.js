@@ -17,6 +17,7 @@ const filter = createFilterOptions();
 	multiple: selecting single or multiple?
 	onChange: callback when the autocomplete changes. spits out the event and the new value
 	defaultValue: starting value for the picker
+	readOnly: disables the ability to add new variants
 */
 
 export default function SearchSelect(props) {
@@ -24,6 +25,16 @@ export default function SearchSelect(props) {
 	
 	const [value, setValue] = React.useState(startValue);
 	React.useEffect(() => setValue(props.defaultValue || startValue), [props.defaultValue]); // this is done so the default value can be grabbed asynchronously, like when fetching an affix from the db on page load
+	
+	const filterOptions = (options, params) => { // adds the "create new" option to the bottom of the list. if readOnly is set, this is never passed to the child.
+		const filtered = filter(options, params);
+		
+		if (params.inputValue !== '') {
+			filtered.push(`Add "${params.inputValue}"`)
+		}
+		
+		return filtered;
+	}
 
   return (
 		<>
@@ -58,21 +69,12 @@ export default function SearchSelect(props) {
 						props.onChange(event, valueToSave);
 					}
 				}}
-				filterOptions={(options, params) => {
-					const filtered = filter(options, params);
-					
-					if (params.inputValue !== '') {
-						filtered.push(`Add "${params.inputValue}"`)
-					}
-					
-					return filtered;
-				}}
-				freeSolo
+				filterOptions={props.readOnly ? undefined : filterOptions}
+				freeSolo={!props.readOnly}
 				multiple={props.multiple}
 				fullWidth
 				selectOnFocus
 				clearOnBlur
-				handleHomeEndKeys
 				options={props.options}
 				renderInput={(params) => (
 					<TextField
