@@ -61,9 +61,15 @@ class Affixes extends Component {
       .then(affixes => this.setState({
         allAffixes: affixes,
         filteredAffixes: affixes,
-        uniqueTags: affixes.map(affix => affix.tags).flat().filter(onlyUnique).sort(),
       }))
 			.then(() => this.updateFilters(this.state.filters)); // this way if someone types something while the page is still loading, the filter still applies
+			
+			fetch('/api/affix/tags')
+				.then(res => res.json())
+				.then(tags => this.setState({
+					uniqueTags: tags,
+				}))
+				.catch(err => console.log(err.response));
   }
 
   updateFilters(newFilters) { // filter update callback for the filter component. also calculates what to show

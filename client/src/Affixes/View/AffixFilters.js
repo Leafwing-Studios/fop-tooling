@@ -15,7 +15,11 @@ import {
 import {
   Spacer,
   MultipleSelect,
+	SearchSelect,
 } from '../../Common';
+import {
+	titleCase,
+} from '../../utils';
 
 export default function AffixFilters(props) {
   return (
@@ -63,33 +67,35 @@ export default function AffixFilters(props) {
           </div>
         </Grid>
         <Grid item xs>
-          <div style={{display: 'flex'}}>
-            <MultipleSelect
-              label="Rarity"
-              value={props.filters.type}
-              items={[
-                'Common',
-                'Advanced',
-                'Exotic',
-                'Prismatic'
-              ]}
-              onChange={(val) => props.onChange({type: val.map(v => v.toLowerCase())})}
-            />
-          </div>
+					<SearchSelect
+						label="Rarity"
+						options={['Common', 'Advanced', 'Exotic', 'Prismatic']}
+						multiple
+						readOnly
+						defaultValue={props.filters.type.map(v => titleCase(v))}
+						onChange={(ev, val) => {
+							let lowerVals = []
+							for (var i=0; i<val.length; i++) {
+								lowerVals.push(val[i].toLowerCase())
+							}
+							props.onChange({type: lowerVals});
+						}}
+					/>
         </Grid>
       </Grid>
       <Spacer height={10} />
       <Grid container direction="row" alignItems="center" spacing={2}>
         <Grid item lg>
-          <div style={{display: 'flex'}}>
-            <MultipleSelect
-              label="Tags"
-              value={props.filters.tags}
-              items={props.uniqueTags}
-              onChange={(val) => props.onChange({tags: val})}
-              helperText='Matches all affixes with at least one of the selected tags'
-            />
-          </div>
+					<SearchSelect
+						label="Tags"
+						options={props.uniqueTags}
+						multiple
+						readOnly
+						placeholder="Search for tags..."
+						defaultValue={props.filters.tags}
+						onChange={(ev, val) => props.onChange({tags: val})}
+						helperText="Matches all affixes with at least one of the selected tags"
+					/>
         </Grid>
         <Grid item>
           <Tooltip title='Reset Filters'>

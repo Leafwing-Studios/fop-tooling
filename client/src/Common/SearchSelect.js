@@ -81,6 +81,7 @@ export default function SearchSelect(props) {
 						{...params}
 						label={props.label || "Search Box"}
 						placeholder={props.placeholder}
+						helperText={props.helperText}
 					/>
 				)}
 			/>
