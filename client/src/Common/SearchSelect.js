@@ -38,7 +38,7 @@ export default function SearchSelect(props) {
 
   return (
 		<>
-		{true && JSON.stringify(value) /* debug */}
+		{false && JSON.stringify(value) /* debug */}
 			<Autocomplete 
 				id='combo-box'
 				value={value}
