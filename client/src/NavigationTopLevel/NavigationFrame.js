@@ -64,7 +64,7 @@ function NavigationFrame(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Fonts of Power Searchable Database
+            Fonts of Power Tooling
           </Typography>
         </Toolbar>
       </AppBar>
