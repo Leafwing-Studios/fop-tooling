@@ -18,6 +18,14 @@ import {
 const spacerHeight = 25;
 
 export default function AffixFormFields(props) { // just form fields, no state or control. validations are done at a higher level so that form submit buttons can disable themselves when there are errors
+	const [tagOptions, setTagOptions] = React.useState([]);
+	
+	React.useEffect(() => {
+		fetch('/api/affix/tags')
+			.then(res => res.json())
+			.then(tags => setTagOptions(tags))
+			.catch(err => console.log(err.response));
+	});
 	
 	return (
 		<Grid container direction='row' spacing={5}>
@@ -116,13 +124,7 @@ export default function AffixFormFields(props) { // just form fields, no state o
 				<Spacer height={spacerHeight} />
 				<SearchSelect 
 					label="Tags"
-					options={[
-						"Chocolate",
-						"Vanilla",
-						"Vanilla Bean",
-						"Strawberry",
-						"Mint Chip",
-					]}
+					options={tagOptions}
 				/>
 			</Grid>
 		</Grid>
