@@ -35,7 +35,7 @@ export default class AffixEditor extends Component {
 				affix: {
 					affixType: 'common',
 					slot: 'arms',
-					source: 'official:core', // TODO change this once other people can make affixes
+					source: 'official:core', // set deafult source so it doesn't end up blank by accident. TODO: change this once other people can make affixes
 				}
 			})
 		} else { // only fetch if we are editing

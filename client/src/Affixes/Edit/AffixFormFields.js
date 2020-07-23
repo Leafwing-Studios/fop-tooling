@@ -127,7 +127,8 @@ export default function AffixFormFields(props) { // just form fields, no state o
 					options={tagOptions}
 					multiple
 					placeholder="Add more tags..."
-					onChange={(newValue) => console.log('parent callback', newValue)}
+					defaultValue={props.affix.tags}
+					onChange={(ev, newValue) => props.updateAffix({tags: newValue})}
 				/>
 			</Grid>
 		</Grid>
