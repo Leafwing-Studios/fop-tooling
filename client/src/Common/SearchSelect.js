@@ -27,35 +27,37 @@ export default function SearchSelect(props) {
 			id='combo-box'
 			value={value}
 			onChange={(event, newValue) => {
-				let savedValue = newValue; // we need this to make the parent callback code clean
-				
-				if (typeof newValue === 'string') { // picking a value from the list (should all be strings)
-					setValue(newValue);
-				} else if (newValue && newValue.inputValue) { // adding a new value (this option is an object)
-					setValue(newValue.inputValue);
-					savedValue = newValue.inputValue; // saving something weird, so we need to propogate that down
-				} else { // final case for the multiple option: always adds the objects since we need the whole thing
-					setValue(newValue);
+				// grab the value that was just added. for single, that's just the value. for multiple, it's pushed to the end of the array
+				let valueToSave = newValue;
+				if (props.multiple) {
+					valueToSave = newValue[newValue.length - 1];
 				}
 				
-				// send information up to the parent
-				if (props.multiple) { // we need to do some data processing here to make sure the right values go out with custom options
-					props.onChange(savedValue.map(val => {
-						if (typeof val === 'string') return val;
-						return val.inputValue;
-					}))
-				} else { // everything is just strings, so we can just send it up safely 
-					props.onChange(savedValue)
+				if (valueToSave && valueToSave.slice(0, 5) === 'Add "') { // if this is a new custom value, strip off the 'Add ""' text
+					valueToSave = valueToSave.slice(5, -1);
+				}
+				
+				if (props.multiple) { // multiple select has to save arrays, not values
+					if (newValue.length < value.length) { // if we are deleting a value
+						setValue(newValue);
+						props.onChange(newValue);
+					} else { // adding a new value appends it to the original array now that it's been cleaned
+						const fullArray = value;
+						fullArray.push(valueToSave);
+						
+						setValue(fullArray);
+						props.onChange(fullArray);
+					}
+				} else { // single select case can just save out the string
+					setValue(valueToSave);
+					props.onChange(valueToSave);
 				}
 			}}
 			filterOptions={(options, params) => {
 				const filtered = filter(options, params);
 				
 				if (params.inputValue !== '') {
-					filtered.push({
-						inputValue: params.inputValue,
-						title: `Add "${params.inputValue}"`
-					})
+					filtered.push(`Add "${params.inputValue}"`)
 				}
 				
 				return filtered;
@@ -67,22 +69,6 @@ export default function SearchSelect(props) {
 			clearOnBlur
 			handleHomeEndKeys
 			options={props.options}
-			getOptionLabel={(option) => {
-				if (typeof option === 'string') { // all supplied options should be just strings that we can use directly
-					return option;
-				} 
-				
-				if (option.inputValue) { // the "Add X" option is an object, so we need to pull the actual value out of it
-					return option.inputValue;
-				}
-			}}
-			renderOption={(option) => { // as with getOptionLabel, we need to handle the "Add X" case, since it's not just a string
-				if (typeof option === 'string') { 
-					return option;
-				} else { 
-					return option.title;
-				}
-			}}
 			renderInput={(params) => (
 				<TextField
 					{...params}
