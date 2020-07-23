@@ -101,6 +101,7 @@ export default class AffixEditor extends Component {
 			name: this.state.affix.name.toLowerCase(),
 			cost: parseFloat(this.state.affix.cost),
 			maxReplicates: parseFloat(this.state.affix.maxReplicates),
+			tags: this.state.affix.tags.map(tag => tag.toLowerCase()),
 		}};
 		
 		const requestOptions = {
