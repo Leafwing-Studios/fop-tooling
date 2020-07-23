@@ -125,6 +125,9 @@ export default function AffixFormFields(props) { // just form fields, no state o
 				<SearchSelect 
 					label="Tags"
 					options={tagOptions}
+					multiple
+					placeholder="Add more tags..."
+					onChange={(newValue) => console.log('parent callback', newValue)}
 				/>
 			</Grid>
 		</Grid>

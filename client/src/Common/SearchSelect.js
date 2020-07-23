@@ -12,25 +12,40 @@ const filter = createFilterOptions();
 
 /* Important config props:
 	label: label
+	placeholder: placeholder text for the search box
 	options: select list options
-	freeSolo: allow entry of custom text, not just list options
-	selectOnFocus: selects the entered text when clicked on
+	multiple: selecting single or multiple?
 */
 
 export default function SearchSelect(props) {
-	const [value, setValue] = React.useState(null);
+	const [value, setValue] = React.useState(props.multiple ? [] : null);
 
-  return (		
+  return (
+		<>
+		<p>{JSON.stringify(value)}</p>
 		<Autocomplete 
 			id='combo-box'
 			value={value}
 			onChange={(event, newValue) => {
+				let savedValue = newValue; // we need this to make the parent callback code clean
+				
 				if (typeof newValue === 'string') { // picking a value from the list (should all be strings)
 					setValue(newValue);
 				} else if (newValue && newValue.inputValue) { // adding a new value (this option is an object)
 					setValue(newValue.inputValue);
-				} else { // edge case for if something messes up
+					savedValue = newValue.inputValue; // saving something weird, so we need to propogate that down
+				} else { // final case for the multiple option: always adds the objects since we need the whole thing
 					setValue(newValue);
+				}
+				
+				// send information up to the parent
+				if (props.multiple) { // we need to do some data processing here to make sure the right values go out with custom options
+					props.onChange(savedValue.map(val => {
+						if (typeof val === 'string') return val;
+						return val.inputValue;
+					}))
+				} else { // everything is just strings, so we can just send it up safely 
+					props.onChange(savedValue)
 				}
 			}}
 			filterOptions={(options, params) => {
@@ -45,6 +60,9 @@ export default function SearchSelect(props) {
 				
 				return filtered;
 			}}
+			freeSolo
+			multiple={props.multiple}
+			fullWidth
 			selectOnFocus
 			clearOnBlur
 			handleHomeEndKeys
@@ -65,14 +83,14 @@ export default function SearchSelect(props) {
 					return option.title;
 				}
 			}}
-			freeSolo
-			fullWidth
 			renderInput={(params) => (
 				<TextField
 					{...params}
 					label={props.label || "Search Box"}
+					placeholder={props.placeholder}
 				/>
 			)}
 		/>
+		</>
   );
 }
