@@ -1,3 +1,10 @@
+/*
+
+	DEPRECATED AS OF 2020-07-23. DO NOT USE.
+	USE SearchSelect.js INSTEAD
+
+*/
+
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
