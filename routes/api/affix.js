@@ -90,6 +90,14 @@ router.get('/tags', (req, res, next) => {
 	});
 });
 
+// get all unique sources
+router.get('/sources', (req, res, next) => {
+	Affix.distinct("source", (err, sources) => {
+		if (err) return res.status(500).send(err);
+		return res.status(200).send(sources);
+	})
+});
+
 // get a affix by id
 router.get('/:id', (req, res) => {
   Affix.findById(req.params.id, (err, affix) => {
