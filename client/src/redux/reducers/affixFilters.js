@@ -9,6 +9,7 @@ const initialState = {
 	cost: "", // this is stored a string because you start with a '-' when typing in negative numbers
 	type: [],
 	tags: [],
+	sources: [],
 }
 
 export default function(state = initialState, action) {

@@ -34,6 +34,7 @@ class Affixes extends Component {
       filters: {}, // filters subcomponent gets a callback to change this bit. don't include default values because they get loaded in from redux
       filteredAffixes: [], // this changes based on filter state
       uniqueTags: [], // used to populate filter options
+			uniqueSources: [], // ''
       currentAffix: null, // which thing is selected in the panel on the right
       filterRefreshFlag: true, // flip this to cause the filter child to refresh- useful for the reset filters button
     };
@@ -64,12 +65,19 @@ class Affixes extends Component {
       }))
 			.then(() => this.updateFilters(this.state.filters)); // this way if someone types something while the page is still loading, the filter still applies
 			
-			fetch('/api/affix/tags')
-				.then(res => res.json())
-				.then(tags => this.setState({
-					uniqueTags: tags,
-				}))
-				.catch(err => console.log(err.response));
+		fetch('/api/affix/tags')
+			.then(res => res.json())
+			.then(tags => this.setState({
+				uniqueTags: tags,
+			}))
+			.catch(err => console.log(err.response));
+		
+		fetch('/api/affix/sources')
+			.then(res => res.json())
+			.then(sources => this.setState({
+				uniqueSources: sources,
+			}))
+			.catch(err => console.log(err.response));
   }
 
   updateFilters(newFilters) { // filter update callback for the filter component. also calculates what to show
@@ -81,7 +89,8 @@ class Affixes extends Component {
       (filters.tags.length === 0 ? true : affix.tags.some(category => filters.tags.includes(category))) &&
       (isNaN(parseFloat(filters.cost)) ? true: affix.cost === parseFloat(filters.cost)) &&  // parseFloat here because we store as a string
       (filters.slot ? affix.slot === filters.slot : true) &&
-      (filters.type.length === 0 ? true : filters.type.includes(affix.affixType))
+      (filters.type.length === 0 ? true : filters.type.includes(affix.affixType)) &&
+			(filters.sources.length === 0 ? true : filters.sources.includes(affix.source))
     ))
 
     this.setState({
@@ -99,12 +108,13 @@ class Affixes extends Component {
 	}
 
   resetFilters() {
-    this.updateFilters({ // reset to defaults
+    this.updateFilters({ // reset to defaults. make sure this is kept in line with the redux defaults in ../../redux/reducers/affixFilters.js
       nameDesc: '',
       slot: '',
       cost: null,
       type: [],
-      tags: []
+      tags: [],
+			sources: [],
     });
 
     this.setState({ // force the child to rerender
@@ -125,6 +135,7 @@ class Affixes extends Component {
               onChange={(filters) => this.updateFilters(filters)}
               resetFilters={() => this.resetFilters()}
               uniqueTags={this.state.uniqueTags}
+							uniqueSources={this.state.uniqueSources}
               filters={this.state.filters}
             />
             <Spacer height={15} />
