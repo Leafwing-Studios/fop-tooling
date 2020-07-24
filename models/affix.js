@@ -11,7 +11,6 @@ let AffixSchema = Schema({
   descLong: {type: String, required: true},
   source: {
     type: String,
-    enum: common.sources,
     required: true,
   },
   cost: {
