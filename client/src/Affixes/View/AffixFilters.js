@@ -84,8 +84,8 @@ export default function AffixFilters(props) {
 					/>
         </Grid>
       </Grid>
-      <Spacer height={10} />
-      <Grid container direction="row" alignItems="center" spacing={2}>
+      <Spacer height={15} />
+      <Grid container direction="row" alignItems="flex-start" spacing={2}>
         <Grid item lg>
 					<SearchSelect
 						label="Tags"
@@ -98,15 +98,28 @@ export default function AffixFilters(props) {
 						helperText="Matches all affixes with at least one of the selected tags"
 					/>
         </Grid>
+				<Grid item lg={4}>
+					<SearchSelect
+						label="Sources"
+						options={props.uniqueSources}
+						multiple
+						readOnly
+						defaultValue={props.filters.sources}
+						onChange={(ev, val) => props.onChange({sources: val})}
+						helperText="Which sourcebooks, expansions, and homebrew should be included?"
+					/>
+        </Grid>
         <Grid item>
-          <Tooltip title='Reset Filters'>
-            <IconButton
-              size='small'
-              onClick={(ev) => props.resetFilters()}
-            >
-              <ResetIcon />
-            </IconButton>
-          </Tooltip>
+					<div style={{marginTop: '20px'}}>
+	          <Tooltip title='Reset Filters'>
+	            <IconButton
+	              size='small'
+	              onClick={(ev) => props.resetFilters()}
+	            >
+	              <ResetIcon />
+	            </IconButton>
+	          </Tooltip>
+					</div>
         </Grid>
       </Grid>
     </div>

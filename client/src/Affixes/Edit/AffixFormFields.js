@@ -19,11 +19,17 @@ const spacerHeight = 25;
 
 export default function AffixFormFields(props) { // just form fields, no state or control. validations are done at a higher level so that form submit buttons can disable themselves when there are errors
 	const [tagOptions, setTagOptions] = React.useState([]);
+	const [sourceOptions, setSourceOptions] = React.useState([]);
 	
 	React.useEffect(() => {
 		fetch('/api/affix/tags')
 			.then(res => res.json())
 			.then(tags => setTagOptions(tags))
+			.catch(err => console.log(err.response));
+			
+		fetch('/api/affix/sources')
+			.then(res => res.json())
+			.then(sources => setSourceOptions(sources))
 			.catch(err => console.log(err.response));
 	}, []);
 	
@@ -120,6 +126,13 @@ export default function AffixFormFields(props) { // just form fields, no state o
 					multiline
 					value={props.affix.prerequisites || ''}
 					onChange={(ev) => props.updateAffix({prerequisites: ev.target.value})}
+				/>
+				<Spacer height={spacerHeight} />
+				<SearchSelect 
+					label="Sources"
+					options={sourceOptions}
+					defaultValue={props.affix.source}
+					onChange={(ev, newValue) => props.updateAffix({source: newValue})}
 				/>
 				<Spacer height={spacerHeight} />
 				<SearchSelect 

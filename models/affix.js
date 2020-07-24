@@ -1,4 +1,3 @@
-const common = require('./common');
 const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
@@ -11,7 +10,6 @@ let AffixSchema = Schema({
   descLong: {type: String, required: true},
   source: {
     type: String,
-    enum: common.sources,
     required: true,
   },
   cost: {
