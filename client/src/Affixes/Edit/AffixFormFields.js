@@ -25,7 +25,7 @@ export default function AffixFormFields(props) { // just form fields, no state o
 			.then(res => res.json())
 			.then(tags => setTagOptions(tags))
 			.catch(err => console.log(err.response));
-	});
+	}, []);
 	
 	return (
 		<Grid container direction='row' spacing={5}>
