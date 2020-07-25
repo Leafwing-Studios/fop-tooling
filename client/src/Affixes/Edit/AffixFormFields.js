@@ -129,7 +129,7 @@ export default function AffixFormFields(props) { // just form fields, no state o
 				/>
 				<Spacer height={spacerHeight} />
 				<SearchSelect 
-					label="Sources"
+					label="Source"
 					options={sourceOptions}
 					defaultValue={props.affix.source}
 					onChange={(ev, newValue) => props.updateAffix({source: newValue})}
