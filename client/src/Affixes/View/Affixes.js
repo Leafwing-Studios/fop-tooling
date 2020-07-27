@@ -82,7 +82,7 @@ class Affixes extends Component {
 
   updateFilters(newFilters) { // filter update callback for the filter component. also calculates what to show
     const oldFilters = this.state.filters;
-    const filters = {...oldFilters, ...newFilters}; // yknow, i'm starting to like this es7 mixing stuff
+    const filters = {...oldFilters, ...{pageNumber: 0}, ...newFilters}; // yknow, i'm starting to like this es7 mixing stuff
 
     const filteredAffixes = this.state.allAffixes.filter((affix) => (
       (stringContains(affix.name, filters.nameDesc) || stringContains(affix.descShort, filters.nameDesc) || stringContains(affix.descLong, filters.nameDesc)) &&
@@ -98,6 +98,13 @@ class Affixes extends Component {
       filteredAffixes,
     });
   }
+	
+	updatePageNumber(newPageNumber) {
+		const oldFilters = this.state.filters;
+		const filters = {...oldFilters, ...{pageNumber: newPageNumber}};
+		
+		this.setState({ filters });
+	}
 	
 	refresh() { // refreshes the component, pulling a new affix list and reseting the info panel. used to reset the page after deleting an affix
 		this.setState({
@@ -156,6 +163,8 @@ class Affixes extends Component {
               selectedId={this.state.currentAffix && this.state.currentAffix._id}
               viewOnClick={(ev, affix) => (this.selectAffix(affix))} 
               isLoading={this.state.allAffixes.length === 0}
+							updatePageNumber={(newPageNumber) => this.updatePageNumber(newPageNumber)}
+							pageNumber={this.state.filters.pageNumber}
             />
           </div>
           <InfoPanel variant={this.state.currentAffix} variantName="an affix">

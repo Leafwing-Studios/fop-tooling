@@ -10,6 +10,7 @@ const initialState = {
 	type: [],
 	tags: [],
 	sources: [],
+	pageNumber: 0,
 }
 
 export default function(state = initialState, action) {
