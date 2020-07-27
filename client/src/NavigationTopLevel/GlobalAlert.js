@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getGlobalAlert } from '../redux/selectors';
+
 import {
 	Snackbar,
 	Button,
@@ -9,8 +12,19 @@ function Alert(props) {
 	return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
 
-export default function GlobalAlert(props) {
+function GlobalAlert(props) {
 	const [open, setOpen] = React.useState(false);
+	const [alert, setAlert] = React.useState({
+		severity: 'success',
+		message: ''
+	})
+	
+	React.useEffect(() => {
+		if (props.reduxAlert.message) {
+			setAlert(props.reduxAlert);
+			setOpen(true);
+		}
+	}, [props.reduxAlert])
 	
 	const handleClose = (ev, reason) => {
 		if (reason === 'clickaway') return;
@@ -19,14 +33,19 @@ export default function GlobalAlert(props) {
 	
 	return (
 		<>
-			<Button variant="outlined" onClick={() => setOpen(true)}>
-				Open the snackbar!
-			</Button>
 			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-				<Alert onClose={handleClose} severity='success'>
-					Affix saved successfully
+				<Alert onClose={handleClose} severity={alert.severity}>
+					{alert.message}
 				</Alert>
 			</Snackbar>
 		</>
 	)
 }
+
+const mapStateToProps = state => ({
+	reduxAlert: getGlobalAlert(state)
+});
+
+export default connect(
+	mapStateToProps
+)(GlobalAlert);

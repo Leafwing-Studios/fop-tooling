@@ -10,8 +10,8 @@ const initialState = {
 export default function (state=initialState, action) {
 	switch (action.type) {
 		case SET_GLOBAL_ALERT:
-			const { message } = action.payload;
-			return message;
+			const { globalAlert } = action.payload;
+			return globalAlert;
 		default:
 			return state;
 	}
