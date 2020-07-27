@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import {
+	Link,
+	Redirect,
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setGlobalAlert } from '../../redux/actions';
 
@@ -25,6 +28,7 @@ class AffixEditor extends Component {
 		this.state = {
 			affix: {},
 			isSubmitting: false, // are we currently submitting the form? 
+			redirect: null, // URL to redirect to. once set, the page will redirect there.
 		}
 		
 		this.submitForm = this.submitForm.bind(this); // this incantation is required to access this in submitForm()
@@ -129,6 +133,7 @@ class AffixEditor extends Component {
 					})
 					this.setState({
 						isSubmitting: false,
+						redirect: '/affixes',
 					});
 				} else {
 					this.props.setGlobalAlert({
@@ -146,6 +151,7 @@ class AffixEditor extends Component {
 	render() {
 		return (
 			<form onSubmit={this.submitForm} autoComplete='off'>
+				
 				{false && ( /* debug */
 					<>
 						<p>{JSON.stringify(this.state.affix)}</p>
@@ -153,6 +159,12 @@ class AffixEditor extends Component {
 						<Spacer height={10} />
 					</>
 				)}
+				
+				{
+					this.state.redirect && (
+						<Redirect to={this.state.redirect} />
+					)
+				}
 				
 				<AffixFormFields 
 					affix={this.state.affix} 

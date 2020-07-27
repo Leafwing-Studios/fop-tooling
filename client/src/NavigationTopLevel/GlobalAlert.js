@@ -33,7 +33,7 @@ function GlobalAlert(props) {
 	
 	return (
 		<>
-			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+			<Snackbar open={open} autoHideDuration={4500} onClose={handleClose}>
 				<Alert onClose={handleClose} severity={alert.severity}>
 					{alert.message}
 				</Alert>
