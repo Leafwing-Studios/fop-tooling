@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
     width: 180,
   },
   tagsHeader: {
-    width: 180,
+    width: 250,
   },
   slotHeader: {
-    minWidth: 117
+    minWidth: 50,
   },
   tableRow: {
     cursor: 'pointer'
@@ -51,6 +51,7 @@ export default function AffixGrid(props) {
     buildHeader("Cost", 'cost', 2, 'right'),
     buildHeader("Rarity", 'affixType', 3, 'left'),
     buildHeader("Tags", 'tags', 4, 'left', classes.tagsHeader),
+		buildHeader("Source", 'source', 6, 'left'),
     buildHeader("Short Description", 'descShort', 5, 'left', classes.descriptionHeader),
   ]
   
@@ -136,6 +137,7 @@ export default function AffixGrid(props) {
                   <TableCell align="right">{affix.cost}</TableCell>
                   <TableCell>{titleCase(affix.affixType)}</TableCell>
                   <TableCell>{affix.tags.join(', ')}</TableCell>
+									<TableCell>{affix.source}</TableCell>
                   <TableCell>{affix.descShort}</TableCell>
                 </TableRow>
               ))

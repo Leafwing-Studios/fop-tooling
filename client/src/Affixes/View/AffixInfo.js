@@ -57,17 +57,13 @@ class AffixInfo extends Component {
         <Divider />
         <Spacer height={10} />
         <div>
-          <Typography>
-            <b>Source: </b>
-            {this.props.affix.source}
-          </Typography>
+					<Typography>
+						<b>Max Replicates: </b>
+						{this.props.affix.maxReplicates === 0 ? 'Infinite' : this.props.affix.maxReplicates}
+					</Typography>
           <Typography>
             <b>Cost: </b>
             {this.props.affix.cost}
-          </Typography>
-          <Typography>
-            <b>Max Replicates: </b>
-            {this.props.affix.maxReplicates === 0 ? 'Infinite' : this.props.affix.maxReplicates}
           </Typography>
           <Typography>
             <b>Rarity: </b>
@@ -76,10 +72,14 @@ class AffixInfo extends Component {
           {
             this.getPrerequisites()
           }
-          <Typography gutterBottom>
+          <Typography>
             <b>Tags: </b>
             {this.buildList(this.props.affix.tags)}
           </Typography >
+					<Typography gutterBottom>
+						<b>Source: </b>
+						{this.props.affix.source}
+					</Typography>
           <Typography paragraph>
             {this.props.affix.descLong}
           </Typography>
