@@ -3,6 +3,7 @@ import {
 	CLEAR_USER,
 	SET_AFFIX_FILTERS,
 	CLEAR_AFFIX_FILTERS,
+	SET_GLOBAL_ALERT,
 } from './actionTypes';
 
 export const setUser = user => ({
@@ -24,3 +25,8 @@ export const clearAffixFilters = () => ({
 	type: CLEAR_AFFIX_FILTERS,
 	payload: { affixFilters: {} }
 });
+
+export const setGlobalAlert = globalAlert => ({
+	type: SET_GLOBAL_ALERT,
+	payload: { globalAlert }
+})
