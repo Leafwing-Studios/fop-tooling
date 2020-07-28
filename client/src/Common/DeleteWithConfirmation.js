@@ -12,7 +12,7 @@ import {
 	Button,
 } from '@material-ui/core';
 import {
-	Delete as DeleteIcon
+	Delete as DeleteIcon,
 } from '@material-ui/icons';
 import {
 	sleep
@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	confirmButton: {
 		color: '#e83f3f'
+	},
+	icon: {
+		marginRight: theme.spacing(1),
 	}
 }));
 
@@ -52,13 +55,15 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 		<>
 			<Tooltip title={`Delete ${props.variantName}`}>
 				<Fab 
-					size='medium' 
+					size={props.size || 'medium'}
+					variant={props.variant}
 					aria-label='delete'
 					onClick={(ev) => (setDialogOpen(true))}
 					disabled={isSubmitting || dialogOpen}
 					className={classes.fabDelete}
 				>
-					<DeleteIcon />
+					<DeleteIcon className={props.buttonText ? classes.icon : undefined}/>
+					{props.buttonText}
 				</Fab>
 			</Tooltip>
 			<Dialog
