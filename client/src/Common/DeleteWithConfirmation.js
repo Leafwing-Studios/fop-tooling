@@ -1,5 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { setGlobalAlert } from '../redux/actions';
 import {
 	Typography,
 	Fab,
@@ -12,7 +14,7 @@ import {
 	Button,
 } from '@material-ui/core';
 import {
-	Delete as DeleteIcon
+	Delete as DeleteIcon,
 } from '@material-ui/icons';
 import {
 	sleep
@@ -27,10 +29,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	confirmButton: {
 		color: '#e83f3f'
+	},
+	icon: {
+		marginRight: theme.spacing(1),
 	}
 }));
 
-export default function DeleteWithConfirmation(props) { // displays a message for form submissions. can show either a success or error message
+function DeleteWithConfirmation(props) { // displays a message for form submissions. can show either a success or error message
 	const classes = useStyles();
 	
 	const [dialogOpen, setDialogOpen] = React.useState(false); // is the dialog box open?
@@ -42,6 +47,17 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 		fetch(props.apiURL, {method: 'DELETE'})
 			.then((res) => {
 				setIsSubmitting(false);
+				if (res.status === 200) {
+					props.setGlobalAlert({
+						severity: 'success',
+						message: `${props.variantName} deleted successfully!`
+					});
+				} else {
+					props.setGlobalAlert({
+						severity: 'error',
+						message: `An error occured trying to delete ${props.variantName}. Please contact a site administrator`,
+					});
+				}
 				return res;
 			})
 			.then(props.callback) // generic callback that the parent can provide. for redirects, success messages, page reloads, etc.
@@ -52,13 +68,15 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 		<>
 			<Tooltip title={`Delete ${props.variantName}`}>
 				<Fab 
-					size='medium' 
+					size={props.size || 'medium'}
+					variant={props.variant}
 					aria-label='delete'
 					onClick={(ev) => (setDialogOpen(true))}
 					disabled={isSubmitting || dialogOpen}
 					className={classes.fabDelete}
 				>
-					<DeleteIcon />
+					<DeleteIcon className={props.buttonText ? classes.icon : undefined}/>
+					{props.buttonText}
 				</Fab>
 			</Tooltip>
 			<Dialog
@@ -95,3 +113,8 @@ export default function DeleteWithConfirmation(props) { // displays a message fo
 		</>
 	)
 }
+
+export default connect(
+	null,
+	{ setGlobalAlert }
+)(DeleteWithConfirmation);

@@ -8,10 +8,12 @@ import {
   Grid,
   Tooltip,
   SvgIcon,
+	IconButton,
 	Fab,
 } from '@material-ui/core';
 import {
 	Edit as EditIcon,
+	Link as LinkIcon,
 } from '@material-ui/icons';
 import SlotIcon from '../../Icons/SlotIcon';
 import {
@@ -44,14 +46,27 @@ class AffixInfo extends Component {
   render() {
     return (
       <div>
-        <Grid container direction="row">
+        <Grid container direction="row" alignItems='center'>
           <Grid item xs>
-            <Typography variant="h4">
-              {titleCase(this.props.affix.name)}
-            </Typography>
+						<Grid container direction="row" alignItems='center' spacing={1}>
+							<Grid item>
+		            <Typography variant="h4">
+		              {titleCase(this.props.affix.name)}
+		            </Typography>
+							</Grid>
+							<Grid item>
+								<Tooltip title='Permalink to this affix'>
+									<Link to={`/affixes/${this.props.affix._id}`}>
+										<IconButton size='small'>
+											<LinkIcon color="action"/>
+										</IconButton>
+									</Link>
+								</Tooltip>
+							</Grid>
+						</Grid>
           </Grid>
-          <Grid item justify="flex-end">
-            <SlotIcon slot={this.props.affix.slot}/>
+          <Grid item>
+            <SlotIcon slot={this.props.affix.slot} />
           </Grid>
         </Grid>
         <Divider />
@@ -72,14 +87,10 @@ class AffixInfo extends Component {
           {
             this.getPrerequisites()
           }
-          <Typography>
+          <Typography gutterBottom>
             <b>Tags: </b>
             {this.buildList(this.props.affix.tags)}
-          </Typography >
-					<Typography gutterBottom>
-						<b>Source: </b>
-						{this.props.affix.source}
-					</Typography>
+          </Typography>
           <Typography paragraph>
             {this.props.affix.descLong}
           </Typography>
