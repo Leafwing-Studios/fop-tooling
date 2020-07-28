@@ -2,7 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUser } from '../../redux/selectors';
-import { Link } from 'react-router-dom';
+import { 
+	Link, 
+	Redirect
+} from 'react-router-dom';
 import {
   Typography,
   Divider,
@@ -30,6 +33,7 @@ class AffixPage extends Component {
     super(props);
 		this.state = {
 			affix: {},
+			redirect: null, // redirect location for redirects on affix deletion
 		}
   }
 	
@@ -49,6 +53,11 @@ class AffixPage extends Component {
   render() {
     return (
 			<Container>
+				{
+					this.state.redirect && (
+						<Redirect to={this.state.redirect} />
+					)
+				}
 	      <Paper style={{
 					padding: 20,
 					maxWidth: 1000,
@@ -112,7 +121,7 @@ class AffixPage extends Component {
 									<DeleteWithConfirmation 
 										variantName={titleCase(this.state.affix.name || '')}
 										apiURL={`/api/affix/${this.state.affix._id}`}
-										callback={() => console.log('THIS SHOULD REDIRECT TO THE AFFIX BROWSING PAGE AND MAKE A GLOBAL MESSAGE THAT SAYS SUCCESSFULLY DELETED')}
+										callback={() => this.setState({redirect: '/affixes'})}
 										variant='extended'
 										buttonText='Delete'
 									/>
