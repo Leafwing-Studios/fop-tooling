@@ -75,6 +75,7 @@ export default function SearchSelect(props) {
 				fullWidth
 				selectOnFocus
 				clearOnBlur
+				autoHighlight
 				options={props.options}
 				renderInput={(params) => (
 					<TextField
