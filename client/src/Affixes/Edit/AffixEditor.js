@@ -41,6 +41,7 @@ class AffixEditor extends Component {
 					affixType: 'common',
 					slot: 'arms',
 					source: 'official:core', // set deafult source so it doesn't end up blank by accident. TODO: change this once other people can make affixes
+					tags: [],
 				}
 			})
 		} else { // only fetch if we are editing
