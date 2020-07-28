@@ -7,6 +7,7 @@ import {
 import Home from '../SmallPages/Home';
 import Affixes from '../Affixes/View/Affixes';
 import AffixEditor from '../Affixes/Edit/AffixEditor';
+import AffixPage from '../Affixes/View/AffixPage';
 import Rules from '../Rules/Rules';
 import Login from '../SmallPages/Login';
 import Profile from '../SmallPages/Profile';
@@ -24,6 +25,7 @@ export default function RouterBase() {
 				<Route path="/affixes/new">
 					<AffixEditor newAffix />
 				</Route>
+				<Route path="/affixes/:affixId" render={(props) => <AffixPage {...props} /> } />
 				<Route path="/affixes">
           <Affixes />
         </Route>
