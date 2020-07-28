@@ -15,6 +15,7 @@ import {
 	Fab,
 	Paper,
 	Container,
+	CircularProgress,
 } from '@material-ui/core';
 import {
 	Edit as EditIcon,
@@ -22,11 +23,17 @@ import {
 import SlotIcon from '../../Icons/SlotIcon';
 import {
 	Spacer,
-	DeleteWithConfirmation
+	DeleteWithConfirmation,
+	Center,
 } from '../../Common';
 import {
   titleCase
 } from '../../utils';
+
+const paperStyle={
+	padding: 20,
+	maxWidth: 1000,
+};
 
 class AffixPage extends Component {
   constructor(props) {
@@ -34,6 +41,7 @@ class AffixPage extends Component {
 		this.state = {
 			affix: {},
 			redirect: null, // redirect location for redirects on affix deletion
+			isLoading: true, // are we loading the affix?
 		}
   }
 	
@@ -41,7 +49,10 @@ class AffixPage extends Component {
 		// fetch the affix from the db
 		fetch(`/api/affix/${this.props.match.params.affixId}`)
 			.then(res => res.json())
-			.then(affix => this.setState({ affix }))
+			.then(affix => this.setState({ 
+				affix,
+				isLoading: false,
+			}))
 			.catch(err => console.log(err.response));
 	}
 
@@ -51,6 +62,17 @@ class AffixPage extends Component {
   }
 
   render() {
+		if (this.state.isLoading) {
+			return (
+				<Container>
+					<Paper style={paperStyle}>
+						<div style={{display: 'flex'}}>
+							<CircularProgress size={100} style={{margin: 'auto'}}/>
+						</div>
+					</Paper>
+				</Container>
+			)
+		}
     return (
 			<Container>
 				{
@@ -58,10 +80,7 @@ class AffixPage extends Component {
 						<Redirect to={this.state.redirect} />
 					)
 				}
-	      <Paper style={{
-					padding: 20,
-					maxWidth: 1000,
-				}}>
+	      <Paper style={paperStyle}>
 	        <Grid container direction="row">
 	          <Grid item xs>
 	            <Typography variant="h4">
