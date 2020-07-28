@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import {
+	Link,
+	Redirect,
+} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setGlobalAlert } from '../../redux/actions';
 
 import {
   Typography,
@@ -17,13 +22,13 @@ import {
 	sleep,
 } from '../../utils';
 
-export default class AffixEditor extends Component {
+class AffixEditor extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			affix: {},
 			isSubmitting: false, // are we currently submitting the form? 
-			submissionSuccessful: null, // did the API give us a 200 response?
+			redirect: null, // URL to redirect to. once set, the page will redirect there.
 		}
 		
 		this.submitForm = this.submitForm.bind(this); // this incantation is required to access this in submitForm()
@@ -122,15 +127,22 @@ export default class AffixEditor extends Component {
 		fetch(apiURL, requestOptions)
 			.then(res => {
 				if (res.status === 200) {
+					this.props.setGlobalAlert({
+						severity: 'success',
+						message: 'Affix saved successfully!'
+					})
 					this.setState({
 						isSubmitting: false,
-						submissionSuccessful: true,
-					})
+						redirect: '/affixes',
+					});
 				} else {
+					this.props.setGlobalAlert({
+						severity: 'error',
+						message: 'An error occured trying to save this affix. Please contact a site administrator',
+					});
 					this.setState({
 						isSubmitting: false,
-						submissionSuccessful: false,
-					})
+					});
 				}
 			})
 			.catch(err => console.log(err.response));
@@ -139,6 +151,7 @@ export default class AffixEditor extends Component {
 	render() {
 		return (
 			<form onSubmit={this.submitForm} autoComplete='off'>
+				
 				{false && ( /* debug */
 					<>
 						<p>{JSON.stringify(this.state.affix)}</p>
@@ -146,6 +159,12 @@ export default class AffixEditor extends Component {
 						<Spacer height={10} />
 					</>
 				)}
+				
+				{
+					this.state.redirect && (
+						<Redirect to={this.state.redirect} />
+					)
+				}
 				
 				<AffixFormFields 
 					affix={this.state.affix} 
@@ -164,10 +183,6 @@ export default class AffixEditor extends Component {
 					</Link>
 					
 					<div style={{display: 'flex', marginLeft: 'auto', alignItems: 'center'}}>
-						<SubmissionMessage 
-							show={this.state.submissionSuccessful !== null} 
-							success={this.state.submissionSuccessful} 
-						/>
 						<Spacer width={15} />
 						<Button 
 							variant='contained' 
@@ -189,3 +204,8 @@ export default class AffixEditor extends Component {
 		);
 	}
 }
+
+export default connect(
+	null,
+	{ setGlobalAlert }
+)(AffixEditor);

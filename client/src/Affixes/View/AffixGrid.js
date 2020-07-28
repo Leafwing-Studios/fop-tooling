@@ -57,11 +57,12 @@ export default function AffixGrid(props) {
   
   // paging
   const pageSizeOptions = [20, 50, 100];
-  const [currentPage, setCurrentPage] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(props.pageNumber);
   const [rowsPerPage, setRowsPerPage] = React.useState(pageSizeOptions[0])
   
   const updateCurrentPage = (event, newPage) => {
     setCurrentPage(newPage);
+		props.updatePageNumber(newPage);
   };
   
   const updateRowsPerPage = (event) => {
@@ -71,7 +72,7 @@ export default function AffixGrid(props) {
   
   // set to page zero whenever a filter changes, but not when an affix is selected
   React.useEffect(() => {
-    setCurrentPage(0);
+    setCurrentPage(props.pageNumber);
   }, [props.affixes]);
   
   // sorting

@@ -11,6 +11,7 @@ import {
 import DocumentTitle from 'react-document-title';
 
 import NavigationFrame from './NavigationTopLevel/NavigationFrame';
+import GlobalAlert from './NavigationTopLevel/GlobalAlert';
 
 class App extends Component {
   constructor() {
@@ -36,6 +37,7 @@ class App extends Component {
           <CssBaseline/>
           <Router>
             <NavigationFrame/>
+						<GlobalAlert/>
           </Router>
         </ThemeProvider>
 			</DocumentTitle>
