@@ -32,7 +32,7 @@ class App extends Component {
 
   render() {
     return (
-      <DocumentTitle title='FoP Database'>
+      <DocumentTitle title='Fonts of Power Tooling'>
         <ThemeProvider theme={this.theme}>
           <CssBaseline/>
           <Router>

@@ -41,6 +41,7 @@ class AffixEditor extends Component {
 					affixType: 'common',
 					slot: 'arms',
 					source: 'official:core', // set deafult source so it doesn't end up blank by accident. TODO: change this once other people can make affixes
+					tags: [],
 				}
 			})
 		} else { // only fetch if we are editing
@@ -131,10 +132,7 @@ class AffixEditor extends Component {
 						severity: 'success',
 						message: 'Affix saved successfully!'
 					})
-					this.setState({
-						isSubmitting: false,
-						redirect: '/affixes',
-					});
+					this.props.history.goBack();
 				} else {
 					this.props.setGlobalAlert({
 						severity: 'error',
@@ -178,9 +176,7 @@ class AffixEditor extends Component {
 				<Spacer height={5} />
 				
 				<div style={{display: 'flex'}}>
-					<Link to='/affixes' style={{textDecoration: 'none'}}>
-						<Button variant='contained'>Back</Button>
-					</Link>
+				<Button variant='contained' onClick={() => this.props.history.goBack()}>Back</Button>
 					
 					<div style={{display: 'flex', marginLeft: 'auto', alignItems: 'center'}}>
 						<Spacer width={15} />
