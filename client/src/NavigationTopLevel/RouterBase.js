@@ -22,9 +22,7 @@ export default function RouterBase() {
           renders the first one that matches the current URL. */}
       <Switch>
         <Route path="/affixes/edit/:affixId" render={(props) => <AffixEditor {...props} /> } />
-				<Route path="/affixes/new">
-					<AffixEditor newAffix />
-				</Route>
+				<Route path="/affixes/new" render={(props) => <AffixEditor newAffix {...props} /> } />
 				<Route path="/affixes/:affixId" render={(props) => <AffixPage {...props} /> } />
 				<Route path="/affixes">
           <Affixes />
