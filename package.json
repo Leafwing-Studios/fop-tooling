@@ -22,7 +22,7 @@
     "passport-google-oauth": "^2.0.0",
     "passport-local": "^1.0.0",
     "superagent": "^5.1.2",
-    "yarn": "^1.21.1"
+    "yarn": "^1.22.0"
   },
   "devDependencies": {
     "eslint": "^6.7.2",
