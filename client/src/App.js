@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { setUser } from './redux/actions';
 
 import { CssBaseline } from '@material-ui/core';
+import { lightGreen } from '@material-ui/core/colors';
 import {
   createMuiTheme,
   ThemeProvider,
@@ -13,10 +14,17 @@ import DocumentTitle from 'react-document-title';
 import NavigationFrame from './NavigationTopLevel/NavigationFrame';
 import GlobalAlert from './NavigationTopLevel/GlobalAlert';
 
+const theme = createMuiTheme({
+	palette: {
+		secondary: {
+			main: lightGreen[500],
+		},
+	},
+});
+
 class App extends Component {
   constructor() {
     super();
-    const theme = createMuiTheme({});
   }
 	
 	componentDidMount() {
@@ -33,7 +41,7 @@ class App extends Component {
   render() {
     return (
       <DocumentTitle title='Fonts of Power Tooling'>
-        <ThemeProvider theme={this.theme}>
+        <ThemeProvider theme={theme}>
           <CssBaseline/>
           <Router>
             <NavigationFrame/>
