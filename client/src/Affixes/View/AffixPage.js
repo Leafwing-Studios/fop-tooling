@@ -4,6 +4,8 @@ import {
 	Link, 
 	Redirect
 } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+
 import {
   Typography,
   Divider,
@@ -19,6 +21,7 @@ import {
 	Edit as EditIcon,
 	FileCopy as CopyIcon,
 } from '@material-ui/icons';
+
 import SlotIcon from '../../Icons/SlotIcon';
 import {
 	Spacer,
@@ -54,8 +57,7 @@ export default class AffixPage extends Component {
 					affix,
 					isLoading: false,
 				});
-				document.title = `${titleCase(affix.name)} - ${document.title}`;
-				console.log(document);
+				// document.title = `${titleCase(affix.name)} - ${document.title}`;
 			})
 			.catch(err => console.log(err.response));
 	}
@@ -69,6 +71,10 @@ export default class AffixPage extends Component {
 		if (this.state.isLoading) {
 			return (
 				<Container>
+					<Helmet>
+						<title>Placeholder Affix Name - Fonts of Power Tooling</title>
+						<meta name="description" content="Placeholder description" />
+					</Helmet>
 					<Paper style={paperStyle}>
 						<div style={{display: 'flex'}}>
 							<CircularProgress size={100} style={{margin: 'auto'}}/>
@@ -84,6 +90,10 @@ export default class AffixPage extends Component {
 						<Redirect to={this.state.redirect} />
 					)
 				}
+				<Helmet>
+					<title>{`${titleCase(this.state.affix.name)} - Fonts of Power Tooling`}</title>
+					<meta name="description" content={this.state.affix.descLong} />
+				</Helmet>
 	      <Paper style={paperStyle}>
 	        <Grid container direction="row">
 	          <Grid item xs>
