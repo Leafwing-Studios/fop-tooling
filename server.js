@@ -8,6 +8,7 @@ const secure = require('express-force-https');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const fs = require('fs');
+const { titleCase } = require('./utils');
 
 require('dotenv').config();
 
@@ -65,7 +66,7 @@ app.get('/affixes/:id', (req, res) => {
 		Affix.findById(req.params.id, (err, affix) => {
 	    if (err) return console.log(err);
 	    
-			data = data.replace(/\$OG_TITLE/g, affix.name);
+			data = data.replace(/\$OG_TITLE/g, titleCase(affix.name));
 			result = data.replace(/\$OG_DESCRIPTION/g, affix.descLong);
 			res.send(result);
 	  });
