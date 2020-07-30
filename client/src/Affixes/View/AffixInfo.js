@@ -14,7 +14,7 @@ import {
 import {
 	Edit as EditIcon,
 	Link as LinkIcon,
-	CallSplit as CopyIcon,
+	FileCopy as CopyIcon,
 } from '@material-ui/icons';
 import SlotIcon from '../../Icons/SlotIcon';
 import {
