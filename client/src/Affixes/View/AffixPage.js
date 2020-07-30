@@ -27,6 +27,7 @@ import {
 	Spacer,
 	DeleteWithConfirmation,
 	Center,
+	DisplayParagraph,
 } from '../../Common';
 import AffixActions from '../AffixActions';
 import {
@@ -86,6 +87,11 @@ export default class AffixPage extends Component {
 						<Redirect to={this.state.redirect} />
 					)
 				}
+				{
+					false && (
+						JSON.stringify(this.state.affix)
+					)
+				}
 				<Helmet>
 					<title>{`${titleCase(this.state.affix.name)} - Fonts of Power Tooling`}</title>
 					<meta name="description" content={this.state.affix.descLong} />
@@ -134,9 +140,7 @@ export default class AffixPage extends Component {
 							<b>Source: </b>
 							{this.state.affix.source}
 						</Typography>
-	          <Typography paragraph>
-	            {this.state.affix.descLong}
-	          </Typography>
+						<DisplayParagraph text={this.state.affix.descLong} />
 						{
 							this.state.affix.stacking && (
 								<Typography paragraph>
