@@ -21,8 +21,9 @@ export default function RouterBase() {
       {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
       <Switch>
-        <Route path="/affixes/edit/:affixId" render={(props) => <AffixEditor {...props} /> } />
-				<Route path="/affixes/new" render={(props) => <AffixEditor newAffix {...props} /> } />
+        <Route path="/affixes/edit/:affixId" render={(props) => <AffixEditor mode="edit" {...props} /> } />
+				<Route path="/affixes/new" render={(props) => <AffixEditor mode="new" {...props} /> } />
+				<Route path="/affixes/copy/:affixId" render={(props) => <AffixEditor mode="copy" {...props} /> } />
 				<Route path="/affixes/:affixId" render={(props) => <AffixPage {...props} /> } />
 				<Route path="/affixes">
           <Affixes />
