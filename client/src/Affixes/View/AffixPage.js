@@ -74,6 +74,8 @@ export default class AffixPage extends Component {
 					<Helmet>
 						<title>Placeholder Affix Name - Fonts of Power Tooling</title>
 						<meta name="description" content="Placeholder description" />
+						<meta property="og:title" content="Placeholder Affix Name - Fonts of Power Tooling" />
+						<meta property="og:description" content="Placeholder description" />
 					</Helmet>
 					<Paper style={paperStyle}>
 						<div style={{display: 'flex'}}>
@@ -93,6 +95,8 @@ export default class AffixPage extends Component {
 				<Helmet>
 					<title>{`${titleCase(this.state.affix.name)} - Fonts of Power Tooling`}</title>
 					<meta name="description" content={this.state.affix.descLong} />
+					<meta property="og:title" content={`${titleCase(this.state.affix.name)} - Fonts of Power Tooling`} />
+					<meta property="og:description" content={this.state.affix.descLong} />
 				</Helmet>
 	      <Paper style={paperStyle}>
 	        <Grid container direction="row">
