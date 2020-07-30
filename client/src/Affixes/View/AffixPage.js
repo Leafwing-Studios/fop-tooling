@@ -49,10 +49,14 @@ export default class AffixPage extends Component {
 		// fetch the affix from the db
 		fetch(`/api/affix/${this.props.match.params.affixId}`)
 			.then(res => res.json())
-			.then(affix => this.setState({ 
-				affix,
-				isLoading: false,
-			}))
+			.then(affix => {
+				this.setState({ 
+					affix,
+					isLoading: false,
+				});
+				document.title = `${titleCase(affix.name)} - ${document.title}`;
+				console.log(document);
+			})
 			.catch(err => console.log(err.response));
 	}
 
