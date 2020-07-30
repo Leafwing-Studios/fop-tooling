@@ -35,7 +35,7 @@ class AffixEditor extends Component {
 	}
 	
 	componentDidMount() {
-		if (this.props.newAffix) {
+		if (this.props.mode === 'new') { // creating a totally new affix
 			this.setState({ // set the default values for rarity and slot so they don't send null if unedited
 				affix: {
 					affixType: 'common',
@@ -44,7 +44,7 @@ class AffixEditor extends Component {
 					tags: [],
 				}
 			})
-		} else { // only fetch if we are editing
+		} else { // if it's not new, it's a copy or an edit, so we should fetch the affix from the route params
 			// fetch the appropriate affix from the api. storing this in the redux store is not recommended for two reasons: 1. users can navigate to this page directly and 2. this component should be reusable for other editing or creation contexts
 			fetch(`/api/affix/${this.props.match.params.affixId}`)
 			.then(res => res.json())
@@ -108,6 +108,7 @@ class AffixEditor extends Component {
 			cost: parseFloat(this.state.affix.cost),
 			maxReplicates: parseFloat(this.state.affix.maxReplicates),
 			tags: this.state.affix.tags.map(tag => tag.toLowerCase()).sort(),
+			_id: this.props.mode === 'copy' ? null : this.state.affix._id, // blank out the id when coping from an existing affix
 		}};
 		
 		const requestOptions = {
@@ -116,14 +117,14 @@ class AffixEditor extends Component {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(
-				this.props.newAffix ? {affixes: cleanedAffix} : cleanedAffix // body format changes based on adding vs updating
+				this.props.mode === 'edit' ? cleanedAffix : {affixes: cleanedAffix} // body format changes based on adding vs updating
 			),
 		}
 		
 		// api endpoint changes based on whether we're adding or updating
-		const apiURL = this.props.newAffix ? '/api/affix' : `/api/affix/${this.props.match.params.affixId}`
+		const apiURL = this.props.mode === 'edit' ? `/api/affix/${this.props.match.params.affixId}` : '/api/affix';
 		
-		console.log(apiURL, cleanedAffix)
+		// console.log(this.props.mode, apiURL, cleanedAffix, requestOptions.body);
 		
 		fetch(apiURL, requestOptions)
 			.then(res => {
