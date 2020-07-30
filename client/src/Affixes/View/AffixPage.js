@@ -71,12 +71,6 @@ export default class AffixPage extends Component {
 		if (this.state.isLoading) {
 			return (
 				<Container>
-					<Helmet>
-						<title>Placeholder Affix Name - Fonts of Power Tooling</title>
-						<meta name="description" content="Placeholder description" />
-						<meta property="og:title" content="Placeholder Affix Name - Fonts of Power Tooling" />
-						<meta property="og:description" content="Placeholder description" />
-					</Helmet>
 					<Paper style={paperStyle}>
 						<div style={{display: 'flex'}}>
 							<CircularProgress size={100} style={{margin: 'auto'}}/>
