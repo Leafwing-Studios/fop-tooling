@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getUser } from '../../redux/selectors';
 import { Link } from 'react-router-dom';
 import {
   Typography,
@@ -24,7 +22,7 @@ import {
   titleCase
 } from '../../utils';
 
-class AffixInfo extends Component {
+export default class AffixInfo extends Component {
   constructor(props) {
       super(props);
   }
@@ -94,24 +92,12 @@ class AffixInfo extends Component {
           <Typography paragraph>
             {this.props.affix.descLong}
           </Typography>
-					{
-						this.props.user.isAdmin && (
-							<AffixActions 
-								deleteCallback={() => this.props.refresh()}
-								affix={this.props.affix}
-							/>
-						)
-					}
+					<AffixActions 
+						deleteCallback={() => this.props.refresh()}
+						affix={this.props.affix}
+					/>
         </div>
       </div>
     );
   }
 }
-
-const mapStateToProps = state => ({
-	user: getUser(state)
-});
-
-export default connect(
-	mapStateToProps
-)(AffixInfo);

@@ -1,7 +1,5 @@
 // standalone page for affix permalinks
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getUser } from '../../redux/selectors';
 import { 
 	Link, 
 	Redirect
@@ -37,7 +35,7 @@ const paperStyle={
 	maxWidth: 1000,
 };
 
-class AffixPage extends Component {
+export default class AffixPage extends Component {
   constructor(props) {
     super(props);
 		this.state = {
@@ -127,25 +125,13 @@ class AffixPage extends Component {
 	          <Typography paragraph>
 	            {this.state.affix.descLong}
 	          </Typography>
-						{
-							this.props.user.isAdmin && (
-								<AffixActions 
-									deleteCallback={() => this.setState({redirect: '/affixes'})}
-									affix={this.state.affix}
-								/>
-							)
-						}
+						<AffixActions 
+							deleteCallback={() => this.setState({redirect: '/affixes'})}
+							affix={this.state.affix}
+						/>
 	        </div>
 	      </Paper>
 			</Container>
     );
   }
 }
-
-const mapStateToProps = state => ({
-	user: getUser(state)
-});
-
-export default connect(
-	mapStateToProps
-)(AffixPage);
