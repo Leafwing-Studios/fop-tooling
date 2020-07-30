@@ -151,7 +151,7 @@ class AffixEditor extends Component {
 		return (
 			<form onSubmit={this.submitForm} autoComplete='off'>
 				
-				{true && ( /* debug */
+				{false && ( /* debug */
 					<>
 						<p>{JSON.stringify(this.state.affix)}</p>
 						<Divider />
