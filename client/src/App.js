@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { setUser } from './redux/actions';
 
 import { CssBaseline } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
+import { lightGreen } from '@material-ui/core/colors';
 import {
   createMuiTheme,
   ThemeProvider,
@@ -17,7 +17,7 @@ import GlobalAlert from './NavigationTopLevel/GlobalAlert';
 const theme = createMuiTheme({
 	palette: {
 		secondary: {
-			main: green[400],
+			main: lightGreen[500],
 		},
 	},
 });
