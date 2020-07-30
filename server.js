@@ -54,8 +54,8 @@ app.use(passport.session()); // passport sessions for persistent login
 // routes
 app.use(require('./routes'));
 
+// clientside routes (these should probably be their own file, also there's some unfortunate code duplication here with the /api/affix/:id route)
 const Affix = mongoose.model('Affix');
-// clientside routes (these should probably be their own file...)
 app.get('/affixes/:id', (req, res) => {
 	const filePath = path.join(__dirname+'/client/build/index.html');
 	fs.readFile(filePath, 'utf8', (err, data) => {
