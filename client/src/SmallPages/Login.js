@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { getUser } from '../redux/selectors';
 import {
@@ -23,6 +24,10 @@ export default class Login extends Component {
   render () {
     return (
       <>
+				<Helmet>
+					<title>Login - Fonts of Power Tooling</title>
+					<meta property="og:title" content="Login - Fonts of Power Tooling" />
+				</Helmet>
 				<a href="/api/user/google" style={{textDecoration: 'none'}}>
 					<img 
 						alt="Logo" 

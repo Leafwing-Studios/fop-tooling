@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { setUser } from './redux/actions';
 
@@ -9,7 +10,6 @@ import {
   createMuiTheme,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import DocumentTitle from 'react-document-title';
 
 import NavigationFrame from './NavigationTopLevel/NavigationFrame';
 import GlobalAlert from './NavigationTopLevel/GlobalAlert';
@@ -40,15 +40,21 @@ class App extends Component {
 
   render() {
     return (
-      <DocumentTitle title='Fonts of Power Tooling'>
-        <ThemeProvider theme={theme}>
-          <CssBaseline/>
-          <Router>
-            <NavigationFrame/>
+			<>
+				<Helmet>
+					<title>Fonts of Power Tooling</title>
+					<meta name="description" content="The official tooling tooling website for the Fonts of Power tabletop RPG" />
+					<meta property="og:title" content="Fonts of Power Tooling" />
+					<meta property="og:description" content="The official tooling tooling website for the Fonts of Power tabletop RPG" />
+				</Helmet>
+	      <ThemeProvider theme={theme}>
+	        <CssBaseline/>
+	        <Router>
+	          <NavigationFrame/>
 						<GlobalAlert/>
-          </Router>
-        </ThemeProvider>
-			</DocumentTitle>
+	        </Router>
+	      </ThemeProvider>
+			</>
     );
   }
 }
