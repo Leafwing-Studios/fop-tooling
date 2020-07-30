@@ -8,6 +8,8 @@ let AffixSchema = Schema({
   },
   descShort: {type: String, required: true},
   descLong: {type: String, required: true},
+	stacking: String,
+	flavorText: String,
   source: {
     type: String,
     required: true,

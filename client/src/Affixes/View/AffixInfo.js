@@ -15,7 +15,8 @@ import {
 import SlotIcon from '../../Icons/SlotIcon';
 import {
 	Spacer,
-	DeleteWithConfirmation
+	DeleteWithConfirmation,
+	DisplayParagraph,
 } from '../../Common';
 import AffixActions from '../AffixActions';
 import {
@@ -69,6 +70,11 @@ export default class AffixInfo extends Component {
         </Grid>
         <Divider />
         <Spacer height={10} />
+				{
+					false && (
+						JSON.stringify(this.props.affix)
+					)
+				}
         <div>
 					<Typography>
 						<b>Max Replicates: </b>
@@ -89,9 +95,15 @@ export default class AffixInfo extends Component {
             <b>Tags: </b>
             {this.buildList(this.props.affix.tags)}
           </Typography>
-          <Typography paragraph>
-            {this.props.affix.descLong}
-          </Typography>
+          <DisplayParagraph text={this.props.affix.descLong} />
+					{
+						this.props.affix.stacking && (
+							<Typography paragraph>
+								<b> With additional stacks: </b>
+								{this.props.affix.stacking}
+							</Typography>
+						)
+					}
 					<AffixActions 
 						deleteCallback={() => this.props.refresh()}
 						affix={this.props.affix}
