@@ -1,7 +1,5 @@
 // standalone page for affix permalinks
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getUser } from '../../redux/selectors';
 import { 
 	Link, 
 	Redirect
@@ -19,6 +17,7 @@ import {
 } from '@material-ui/core';
 import {
 	Edit as EditIcon,
+	FileCopy as CopyIcon,
 } from '@material-ui/icons';
 import SlotIcon from '../../Icons/SlotIcon';
 import {
@@ -26,6 +25,7 @@ import {
 	DeleteWithConfirmation,
 	Center,
 } from '../../Common';
+import AffixActions from '../AffixActions';
 import {
   titleCase
 } from '../../utils';
@@ -35,7 +35,7 @@ const paperStyle={
 	maxWidth: 1000,
 };
 
-class AffixPage extends Component {
+export default class AffixPage extends Component {
   constructor(props) {
     super(props);
 		this.state = {
@@ -125,39 +125,13 @@ class AffixPage extends Component {
 	          <Typography paragraph>
 	            {this.state.affix.descLong}
 	          </Typography>
-						{
-							this.props.user.isAdmin && (
-								<div style={{display: 'flex'}}>
-									<Link to={`/affixes/edit/${this.state.affix._id}`} style={{marginLeft: 'auto', textDecoration: 'none'}}>
-										<Tooltip title={`Edit ${titleCase(this.state.affix.name || '')}`}>
-											<Fab color='primary' size='medium' aria-label='edit' variant='extended'>
-												<EditIcon style={{marginRight: '10px'}}/>
-												Edit
-											</Fab>
-										</Tooltip>
-									</Link>
-									<Spacer width={15} />
-									<DeleteWithConfirmation 
-										variantName={titleCase(this.state.affix.name || '')}
-										apiURL={`/api/affix/${this.state.affix._id}`}
-										callback={() => this.setState({redirect: '/affixes'})}
-										variant='extended'
-										buttonText='Delete'
-									/>
-								</div>
-							)
-						}
+						<AffixActions 
+							deleteCallback={() => this.setState({redirect: '/affixes'})}
+							affix={this.state.affix}
+						/>
 	        </div>
 	      </Paper>
 			</Container>
     );
   }
 }
-
-const mapStateToProps = state => ({
-	user: getUser(state)
-});
-
-export default connect(
-	mapStateToProps
-)(AffixPage);
