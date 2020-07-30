@@ -74,6 +74,16 @@ export default function AffixFormFields(props) { // just form fields, no state o
 					value={props.affix.stacking || ''}
 					onChange={(ev) => props.updateAffix({stacking: ev.target.value})}
 				/>
+				<Spacer height={spacerHeight} />
+				<TextField
+					id='flavor'
+					label='Flavor Text'
+					helperText='Fun fluff text about the affix in-universe'
+					multiline
+					fullWidth
+					value={props.affix.flavorText || ''}
+					onChange={(ev) => props.updateAffix({flavorText: ev.target.value})}
+				/>
 			</Grid>
 			<Grid item sm={3}>
 				<FormControl style={{flexGrow: 1}} fullWidth>

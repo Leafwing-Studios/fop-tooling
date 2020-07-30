@@ -149,6 +149,13 @@ export default class AffixPage extends Component {
 								</Typography>
 							)
 						}
+						{
+							this.state.affix.flavorText && (
+								<Typography paragraph>
+									<i>{this.state.affix.flavorText}</i>
+								</Typography>
+							)
+						}
 						<AffixActions 
 							deleteCallback={() => this.setState({redirect: '/affixes'})}
 							affix={this.state.affix}
