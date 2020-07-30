@@ -12,15 +12,14 @@ import {
 	Fab,
 } from '@material-ui/core';
 import {
-	Edit as EditIcon,
 	Link as LinkIcon,
-	FileCopy as CopyIcon,
 } from '@material-ui/icons';
 import SlotIcon from '../../Icons/SlotIcon';
 import {
 	Spacer,
 	DeleteWithConfirmation
 } from '../../Common';
+import AffixActions from '../AffixActions';
 import {
   titleCase
 } from '../../utils';
@@ -97,37 +96,10 @@ class AffixInfo extends Component {
           </Typography>
 					{
 						this.props.user.isAdmin && (
-							<>
-								<Divider />
-								<Spacer height={20} />
-								<div style={{display: 'flex'}}>
-									<Link to={`/affixes/edit/${this.props.affix._id}`} style={{marginLeft: 'auto', textDecoration: 'none'}}>
-										<Tooltip title={`Edit ${titleCase(this.props.affix.name)}`}>
-											<Fab color='primary' size='medium' aria-label='edit' variant='extended'>
-												<EditIcon style={{marginRight: '10px'}} />
-												Edit
-											</Fab>
-										</Tooltip>
-									</Link>
-									<Spacer width={15} />
-									<Link to={`/affixes/copy/${this.props.affix._id}`} style={{textDecoration: 'none'}}>
-										<Tooltip title={`Create a new affix, using ${titleCase(this.props.affix.name)} as a base`}>
-											<Fab color='secondary' size='medium' aria-label='edit' variant='extended'>
-												<CopyIcon style={{marginRight: '10px'}} />
-												Copy
-											</Fab>
-										</Tooltip>
-									</Link>
-									<Spacer width={15} />
-									<DeleteWithConfirmation 
-										variantName={titleCase(this.props.affix.name)}
-										apiURL={`/api/affix/${this.props.affix._id}`}
-										callback={() => this.props.refresh()}
-										variant='extended'
-										buttonText='Delete'
-									/>
-								</div>
-							</>
+							<AffixActions 
+								deleteCallback={() => this.props.refresh()}
+								affix={this.props.affix}
+							/>
 						)
 					}
         </div>

@@ -19,6 +19,7 @@ import {
 } from '@material-ui/core';
 import {
 	Edit as EditIcon,
+	FileCopy as CopyIcon,
 } from '@material-ui/icons';
 import SlotIcon from '../../Icons/SlotIcon';
 import {
@@ -26,6 +27,7 @@ import {
 	DeleteWithConfirmation,
 	Center,
 } from '../../Common';
+import AffixActions from '../AffixActions';
 import {
   titleCase
 } from '../../utils';
@@ -127,24 +129,10 @@ class AffixPage extends Component {
 	          </Typography>
 						{
 							this.props.user.isAdmin && (
-								<div style={{display: 'flex'}}>
-									<Link to={`/affixes/edit/${this.state.affix._id}`} style={{marginLeft: 'auto', textDecoration: 'none'}}>
-										<Tooltip title={`Edit ${titleCase(this.state.affix.name || '')}`}>
-											<Fab color='primary' size='medium' aria-label='edit' variant='extended'>
-												<EditIcon style={{marginRight: '10px'}}/>
-												Edit
-											</Fab>
-										</Tooltip>
-									</Link>
-									<Spacer width={15} />
-									<DeleteWithConfirmation 
-										variantName={titleCase(this.state.affix.name || '')}
-										apiURL={`/api/affix/${this.state.affix._id}`}
-										callback={() => this.setState({redirect: '/affixes'})}
-										variant='extended'
-										buttonText='Delete'
-									/>
-								</div>
+								<AffixActions 
+									deleteCallback={() => this.setState({redirect: '/affixes'})}
+									affix={this.state.affix}
+								/>
 							)
 						}
 	        </div>
