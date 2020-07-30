@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DocumentTitle from 'react-document-title';
+import { Helmet } from 'react-helmet';
 import RuleGrid from './RuleGrid';
 import RuleFilters from './RuleFilters';
 import RuleInfo from './RuleInfo';
@@ -67,7 +67,11 @@ export default class Rules extends Component {
 
   render() {
     return (
-      <DocumentTitle title='Rules'>
+      <>
+				<Helmet>
+					<title>Rules - Fonts of Power Tooling</title>
+					<meta property="og:title" content="Rules - Fonts of Power Tooling" />
+				</Helmet>
         <TwoPanelsResizable>
           <div style={{flexGrow: 1}}>
               <RuleFilters onChange={(filters) => this.updateFilters(filters)} uniqueTags={this.state.uniqueTags} />
@@ -86,7 +90,7 @@ export default class Rules extends Component {
             <RuleInfo rule={this.state.selectedRule} />
           </InfoPanel>
         </TwoPanelsResizable>
-      </DocumentTitle>
+      </>
     );
   }
 }

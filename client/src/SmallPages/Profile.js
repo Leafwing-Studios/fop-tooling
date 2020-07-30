@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { getUser } from '../redux/selectors';
 import {
@@ -19,6 +20,10 @@ class Profile extends Component {
   render () {
     return (
       <>
+				<Helmet>
+					<title>Profile - Fonts of Power Tooling</title>
+					<meta property="og:title" content="Profile - Fonts of Power Tooling" />
+				</Helmet>
         { false && JSON.stringify(this.state.profile) }
 				{ false && JSON.stringify(this.props.user)}
         <Typography variant='h4'>User Profile</Typography>
