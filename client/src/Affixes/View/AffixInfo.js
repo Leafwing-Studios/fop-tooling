@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getUser } from '../../redux/selectors';
 import { Link } from 'react-router-dom';
 import {
   Typography,
@@ -12,7 +10,6 @@ import {
 	Fab,
 } from '@material-ui/core';
 import {
-	Edit as EditIcon,
 	Link as LinkIcon,
 } from '@material-ui/icons';
 import SlotIcon from '../../Icons/SlotIcon';
@@ -20,11 +17,12 @@ import {
 	Spacer,
 	DeleteWithConfirmation
 } from '../../Common';
+import AffixActions from '../AffixActions';
 import {
   titleCase
 } from '../../utils';
 
-class AffixInfo extends Component {
+export default class AffixInfo extends Component {
   constructor(props) {
       super(props);
   }
@@ -94,35 +92,12 @@ class AffixInfo extends Component {
           <Typography paragraph>
             {this.props.affix.descLong}
           </Typography>
-					{
-						this.props.user.isAdmin && (
-							<div style={{display: 'flex'}}>
-								<Link to={`/affixes/edit/${this.props.affix._id}`} style={{marginLeft: 'auto'}}>
-									<Tooltip title={`Edit ${titleCase(this.props.affix.name)}`}>
-										<Fab color='primary' size='medium' aria-label='edit'>
-											<EditIcon />
-										</Fab>
-									</Tooltip>
-								</Link>
-								<Spacer width={15} />
-								<DeleteWithConfirmation 
-									variantName={titleCase(this.props.affix.name)}
-									apiURL={`/api/affix/${this.props.affix._id}`}
-									callback={() => this.props.refresh()}
-								/>
-							</div>
-						)
-					}
+					<AffixActions 
+						deleteCallback={() => this.props.refresh()}
+						affix={this.props.affix}
+					/>
         </div>
       </div>
     );
   }
 }
-
-const mapStateToProps = state => ({
-	user: getUser(state)
-});
-
-export default connect(
-	mapStateToProps
-)(AffixInfo);
