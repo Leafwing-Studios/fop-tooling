@@ -137,6 +137,14 @@ export default class AffixPage extends Component {
 	          <Typography paragraph>
 	            {this.state.affix.descLong}
 	          </Typography>
+						{
+							this.state.affix.stacking && (
+								<Typography paragraph>
+									<b>With additional stacks: </b>
+									{this.state.affix.stacking}
+								</Typography>
+							)
+						}
 						<AffixActions 
 							deleteCallback={() => this.setState({redirect: '/affixes'})}
 							affix={this.state.affix}

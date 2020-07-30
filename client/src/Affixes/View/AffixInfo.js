@@ -92,6 +92,14 @@ export default class AffixInfo extends Component {
           <Typography paragraph>
             {this.props.affix.descLong}
           </Typography>
+					{
+						this.props.affix.stacking && (
+							<Typography paragraph>
+								<b> With additional stacks: </b>
+								{this.props.affix.stacking}
+							</Typography>
+						)
+					}
 					<AffixActions 
 						deleteCallback={() => this.props.refresh()}
 						affix={this.props.affix}

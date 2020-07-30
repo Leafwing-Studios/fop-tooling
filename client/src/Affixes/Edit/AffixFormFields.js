@@ -64,6 +64,16 @@ export default function AffixFormFields(props) { // just form fields, no state o
 					value={props.affix.descLong || ''}
 					onChange={(ev) => props.updateAffix({descLong: ev.target.value})}
 				/>
+				<Spacer height={spacerHeight} />
+				<TextField
+					id='stacking'
+					label='Stacking'
+					helperText='Provide additional clarification on how multiple stacks of this affix interact, if needed'
+					multiline
+					fullWidth
+					value={props.affix.stacking || ''}
+					onChange={(ev) => props.updateAffix({stacking: ev.target.value})}
+				/>
 			</Grid>
 			<Grid item sm={3}>
 				<FormControl style={{flexGrow: 1}} fullWidth>
