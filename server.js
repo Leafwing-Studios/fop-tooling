@@ -65,9 +65,21 @@ app.get('/affixes/:id', (req, res) => {
 		}
 		Affix.findById(req.params.id, (err, affix) => {
 	    if (err) return console.log(err);
-	    
-			data = data.replace(/\$OG_TITLE/g, titleCase(affix.name));
-			result = data.replace(/\$OG_DESCRIPTION/g, affix.descLong);
+			
+			data=data.replace(
+				/\<meta name="description" content="[ -;?-~]*"\/\>/g, 
+				`<meta name="description" content="${affix.descLong}" />`
+			);
+			
+			data=data.replace(
+				/\<meta property="og:description" content="[ -;?-~]*"\/\>/g, 
+				`<meta property="og:description" content="${affix.descLong}" />`
+			);
+			
+			result=data.replace(
+				/\<meta property="og:title" content="[ -;?-~]*"\/\>/g, 
+				`<meta property="og:title" content="${titleCase(affix.name)}" />`
+			);
 			res.send(result);
 	  });
 	})
