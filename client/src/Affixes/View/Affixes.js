@@ -5,10 +5,9 @@ import {
 	getAffixFilters 
 } from '../../redux/selectors';
 import { setAffixFilters } from '../../redux/actions';
-import DocumentTitle from 'react-document-title';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import {
-  TwoPanelsResizable,
   Lipsum,
   Spacer,
   InfoPanel,
@@ -135,7 +134,11 @@ class Affixes extends Component {
 
   render() {
     return (
-      <DocumentTitle title='Affixes'>
+      <>
+				<Helmet>
+					<title>Affixes - Fonts of Power Tooling</title>
+					<meta property="og:title" content="Affixes - Fonts of Power Tooling" />
+				</Helmet>
         <TwoColumns>
           <div>
             <AffixFilters
@@ -174,7 +177,7 @@ class Affixes extends Component {
 						/>
           </InfoPanel>
         </TwoColumns>
-      </DocumentTitle>
+      </>
     );
   }
 }
