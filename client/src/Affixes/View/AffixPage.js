@@ -4,6 +4,8 @@ import {
 	Link, 
 	Redirect
 } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+
 import {
   Typography,
   Divider,
@@ -19,6 +21,7 @@ import {
 	Edit as EditIcon,
 	FileCopy as CopyIcon,
 } from '@material-ui/icons';
+
 import SlotIcon from '../../Icons/SlotIcon';
 import {
 	Spacer,
@@ -49,10 +52,13 @@ export default class AffixPage extends Component {
 		// fetch the affix from the db
 		fetch(`/api/affix/${this.props.match.params.affixId}`)
 			.then(res => res.json())
-			.then(affix => this.setState({ 
-				affix,
-				isLoading: false,
-			}))
+			.then(affix => {
+				this.setState({ 
+					affix,
+					isLoading: false,
+				});
+				// document.title = `${titleCase(affix.name)} - ${document.title}`;
+			})
 			.catch(err => console.log(err.response));
 	}
 
@@ -80,6 +86,12 @@ export default class AffixPage extends Component {
 						<Redirect to={this.state.redirect} />
 					)
 				}
+				<Helmet>
+					<title>{`${titleCase(this.state.affix.name)} - Fonts of Power Tooling`}</title>
+					<meta name="description" content={this.state.affix.descLong} />
+					<meta property="og:title" content={`${titleCase(this.state.affix.name)} - Fonts of Power Tooling`} />
+					<meta property="og:description" content={this.state.affix.descLong} />
+				</Helmet>
 	      <Paper style={paperStyle}>
 	        <Grid container direction="row">
 	          <Grid item xs>
