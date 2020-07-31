@@ -13,6 +13,7 @@ import NameValuePair from './NameValuePair';
 import SubmissionMessage from './SubmissionMessage';
 import DeleteWithConfirmation from './DeleteWithConfirmation.js';
 import SearchSelect from './SearchSelect.js';
+import DisplayParagraph from './DisplayParagraph.js';
 
 export {
   Center,
@@ -30,4 +31,5 @@ export {
 	SubmissionMessage,
   TwoColumns,
   TwoPanelsResizable,
+	DisplayParagraph,
 }

@@ -29,6 +29,7 @@ class AffixEditor extends Component {
 			affix: {},
 			isSubmitting: false, // are we currently submitting the form? 
 			redirect: null, // URL to redirect to. once set, the page will redirect there.
+			isLoading: true,
 		}
 		
 		this.submitForm = this.submitForm.bind(this); // this incantation is required to access this in submitForm()
@@ -42,7 +43,8 @@ class AffixEditor extends Component {
 					slot: 'arms',
 					source: 'official:core', // set deafult source so it doesn't end up blank by accident. TODO: change this once other people can make affixes
 					tags: [],
-				}
+				},
+				isLoading: false,
 			})
 		} else { // if it's not new, it's a copy or an edit, so we should fetch the affix from the route params
 			// fetch the appropriate affix from the api. storing this in the redux store is not recommended for two reasons: 1. users can navigate to this page directly and 2. this component should be reusable for other editing or creation contexts
@@ -56,6 +58,7 @@ class AffixEditor extends Component {
 				}};
 				this.setState({
 					affix: prettyAffix,
+					isLoading: false,
 				});
 			})
 			.catch(err => console.log(err.response));
@@ -165,12 +168,24 @@ class AffixEditor extends Component {
 					)
 				}
 				
-				<AffixFormFields 
-					affix={this.state.affix} 
-					updateAffix={affix => this.updateAffix(affix)} 
-					costError={this.validateCost()} 
-					maxReplicatesError={this.validateMaxReplicates()}
-				/>
+				{
+					this.state.isLoading && (
+						<div style={{display: 'flex'}}>
+							<CircularProgress size={100} style={{margin: 'auto'}}/>
+						</div>
+					)
+				}
+				
+				{
+					!this.state.isLoading && (
+						<AffixFormFields 
+							affix={this.state.affix} 
+							updateAffix={affix => this.updateAffix(affix)} 
+							costError={this.validateCost()} 
+							maxReplicatesError={this.validateMaxReplicates()}
+						/>
+					)
+				}
 				
 				<Spacer height={20} />
 				<Divider />
